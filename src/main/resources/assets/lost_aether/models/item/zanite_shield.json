@@ -1,0 +1,14 @@
+{
+	"parent": "lost_aether:item/aether_shield",
+	"textures": {
+		"layer0": "aether_legacy:items/tools/zanite_shield"
+	},
+    "overrides": [
+        {
+            "predicate": {
+                "blocking": 1
+            },
+            "model": "lost_aether:item/zanite_shield_blocking"
+        }
+    ]
+}

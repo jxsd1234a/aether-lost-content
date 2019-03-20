@@ -1,0 +1,9 @@
+{
+	"parent": "aether_legacy:block/multi_texture_base",
+	"textures": {
+		"particle": "lost_aether:blocks/songstone_top",
+		"bottom": "lost_aether:blocks/gale_stone",
+		"top": "lost_aether:blocks/songstone_top",
+		"side": "lost_aether:blocks/songstone_side"
+	}
+}

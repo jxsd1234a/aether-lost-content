@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WoW",
+    "WWW",
+    " W "
+  ],
+  "key": {
+    "W": [
+      {
+        "item": "aether_legacy:zanite_gemstone"
+      }
+    ],
+    "o": {
+      "item": "aether_legacy:skyroot_stick"
+    }
+  },
+  "result": {
+    "item": "lost_aether:zanite_shield"
+  }
+}

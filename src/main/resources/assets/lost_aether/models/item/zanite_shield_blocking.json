@@ -1,0 +1,6 @@
+{
+    "parent": "lost_aether:item/aether_shield_blocking",
+	"textures": {
+		"layer0": "aether_legacy:items/tools/zanite_shield"
+	}
+}

@@ -1,0 +1,11 @@
+{
+    
+	"variants": 
+	{
+        
+		"half=bottom": { "model": "lost_aether:gale_stone" },
+        				"half=top": { "model": "lost_aether:gale_stone" }
+    
+	}
+
+}
