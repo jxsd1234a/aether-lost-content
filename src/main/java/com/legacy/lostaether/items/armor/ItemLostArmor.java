@@ -54,7 +54,7 @@ public class ItemLostArmor extends ItemArmor
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type)
     {
-    	boolean leggings = this.getUnlocalizedName().contains("leggings");
+    	boolean leggings = this.getTranslationKey().contains("leggings");
     	String type1 = leggings ? "layer_2" : "layer_1";
 
         return this.shouldDefualt ? (leggings ? defualt_location[1] : defualt_location[0]) : Aether.modAddress() + "textures/armor/" + this.armorName + "_" + type1 + ".png";

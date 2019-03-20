@@ -56,7 +56,7 @@ public class ItemsLostAether
 
 	public static Item register(String name, Item item)
 	{
-		item.setUnlocalizedName(name);
+		item.setTranslationKey(name);
 		itemRegistry.register(item.setRegistryName(LostAetherContent.locate(name)));
 
 		return item;

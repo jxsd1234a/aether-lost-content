@@ -70,7 +70,7 @@ public class BlocksLostAether
 
 	public static Block register(String name, Block block, ItemBlock item)
 	{
-		block.setUnlocalizedName(name);
+		block.setTranslationKey(name);
 
 		block.setRegistryName(LostAetherContent.locate(name));
 		item.setRegistryName(LostAetherContent.locate(name));
