@@ -1,0 +1,3 @@
+[submodule "Aether-Legacy"]
+	path = Aether-Legacy
+	url = https://github.com/Modding-Legacy/Aether-Legacy.git
