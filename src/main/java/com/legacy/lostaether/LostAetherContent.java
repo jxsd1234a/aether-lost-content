@@ -17,7 +17,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-@Mod(modid = LostAetherContent.MODID, name = LostAetherContent.NAME, version = LostAetherContent.VERSION, dependencies = "required-after:aether_legacy;")
+@Mod(modid = LostAetherContent.MODID, name = LostAetherContent.NAME, version = LostAetherContent.VERSION, dependencies = "required-after:aether_legacy@[1.4.3,);")
 public class LostAetherContent
 {
     public static final String MODID = "lost_aether";
