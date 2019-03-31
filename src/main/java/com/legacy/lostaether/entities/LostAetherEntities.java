@@ -12,7 +12,7 @@ public class LostAetherEntities
 
 	public static void initialization()
 	{
-		register("zephyroo", EntityZephyroo.class);
+		//register("zephyroo", EntityZephyroo.class);
 		register("king_aerwhale", EntityKingAerwhale.class);
 	}
 
