@@ -6,20 +6,13 @@ import com.legacy.aether.api.player.IPlayerAether;
 import com.legacy.aether.entities.passive.mountable.EntityMoa;
 import com.legacy.lostaether.LostMoaTypes;
 import com.legacy.lostaether.entities.EntityKingAerwhale;
-import com.legacy.lostaether.items.ItemsLostAether;
 import com.legacy.lostaether.items.tools.ItemAetherShield;
 
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
@@ -97,13 +90,13 @@ public class LostEntityEvents
 	        }
 		}
 		
-		if (event.getSource().getImmediateSource() instanceof EntityPlayer)
+		/*if (event.getSource().getImmediateSource() instanceof EntityPlayer)
 		{
 			EntityPlayer player = ((EntityPlayer)event.getSource().getImmediateSource());
 			
 			IPlayerAether playerAether = AetherAPI.getInstance().get(player);
 			 
 			
-		}
+		}*/
 	}
 }
