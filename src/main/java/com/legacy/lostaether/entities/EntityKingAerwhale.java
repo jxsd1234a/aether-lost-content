@@ -206,7 +206,7 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 			--this.stunTime;
 		}
 		
-		if (this.posY > this.dungeonY + 1)
+		if (this.posY > this.dungeonY + 2)
 		{
 			this.noClip = true;	
 		}
