@@ -26,6 +26,7 @@ tile.gale_stone.name=Gale Stone
 tile.light_gale_stone.name=Light Gale Stone
 tile.locked_gale_stone.name=Locked Gale Stone
 tile.locked_light_gale_stone.name=Locked Light Gale Stone
+tile.songstone.name=Songstone
 
 tile.gale_stairs.name=Gale Stairs
 tile.gale_wall.name=Gale Wall

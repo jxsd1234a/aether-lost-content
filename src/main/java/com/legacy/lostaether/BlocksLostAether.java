@@ -45,8 +45,8 @@ public class BlocksLostAether
 		
 		gale_stone = register("gale_stone", new BlockLostDungeonBase(false));
 		light_gale_stone = register("light_gale_stone", new BlockLostDungeonBase(false));
-		locked_gale_stone = register("locked_gale_stone", new BlockLostDungeonBase(true));
-		locked_light_gale_stone = register("locked_light_gale_stone", new BlockLostDungeonBase(true));
+		locked_gale_stone = register("locked_gale_stone", new BlockLostDungeonBase(true)).setCreativeTab(null);
+		locked_light_gale_stone = register("locked_light_gale_stone", new BlockLostDungeonBase(true)).setCreativeTab(null);
 		
 		gale_stairs = register("gale_stairs", new BlockAetherStairs(gale_stone.getDefaultState()));
 		
