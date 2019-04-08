@@ -46,9 +46,9 @@ public class ItemsLostAether
 		swetty_mask = register("swetty_mask", new ItemAetherArmor(EntityEquipmentSlot.HEAD, ArmorMaterial.IRON, "swetty", null));
 		agility_boots = register("agility_boots", new ItemLostArmor(EntityEquipmentSlot.FEET, ArmorMaterial.IRON, "agility", null));
 		
-		zanite_shield = register("zanite_shield", new ItemAetherShield());
-		gravitite_shield = register("gravitite_shield", new ItemAetherShield());
-		jeb_shield = register("jeb_shield", new ItemAetherShield());
+		zanite_shield = register("zanite_shield", new ItemAetherShield()).setMaxDamage(672);
+		gravitite_shield = register("gravitite_shield", new ItemAetherShield()).setMaxDamage(1008);
+		jeb_shield = register("jeb_shield", new ItemAetherShield()).setMaxDamage(1344);
 		
 		platinum_key = register("platinum_key", new Item().setCreativeTab(AetherCreativeTabs.misc).setMaxStackSize(1));
 		

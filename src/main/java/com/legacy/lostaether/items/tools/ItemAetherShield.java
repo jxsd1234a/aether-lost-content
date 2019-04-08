@@ -26,7 +26,7 @@ public class ItemAetherShield extends Item
     {
         this.maxStackSize = 1;
         this.setCreativeTab(AetherCreativeTabs.weapons);
-        this.setMaxDamage(336);
+        this.setMaxDamage(300);
         this.addPropertyOverride(new ResourceLocation("blocking"), new IItemPropertyGetter()
         {
             @SideOnly(Side.CLIENT)
