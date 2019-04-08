@@ -3,10 +3,10 @@ package com.legacy.lostaether.world.dungeon;
 import java.util.Random;
 
 import com.legacy.aether.blocks.BlocksAether;
-import com.legacy.aether.entities.util.AetherMoaTypes;
 import com.legacy.aether.items.ItemMoaEgg;
 import com.legacy.aether.items.ItemsAether;
 import com.legacy.lostaether.BlocksLostAether;
+import com.legacy.lostaether.LostMoaTypes;
 import com.legacy.lostaether.entities.EntityKingAerwhale;
 import com.legacy.lostaether.items.ItemsLostAether;
 import com.legacy.lostaether.world.dungeon.util.StructurePlacer;
@@ -106,69 +106,43 @@ public class PlatinumDungeonGenerator extends StructurePlacer
 	
 	private ItemStack getNormalLoot(Random random)
 	{
-		int item = random.nextInt(16);
+		int item = random.nextInt(10);
 		switch(item)
 		{
 			case 0 :
 				return new ItemStack(ItemsAether.zanite_pickaxe);
 			case 1 :
-				return new ItemStack(ItemsAether.skyroot_bucket);
+				return new ItemStack(ItemsAether.skyroot_bucket, 1, 4);
 			case 2 :
-				return new ItemStack(ItemsAether.dart_shooter);
+				return new ItemStack(ItemsAether.dart_shooter, 1, 2);
 			case 3 :
-				return ItemMoaEgg.getStackFromType(AetherMoaTypes.white);
+				return ItemMoaEgg.getStackFromType(LostMoaTypes.brown);
 			case 4 :
-				return new ItemStack(ItemsAether.ambrosium_shard, random.nextInt(10) + 1);
+				return new ItemStack(ItemsAether.white_cape);
 			case 5 :
-				return new ItemStack(ItemsAether.dart, random.nextInt(5) + 1, 0);
-			case 6 :
-				return new ItemStack(ItemsAether.dart, random.nextInt(3) + 1, 1);
-			case 7 :
-				return new ItemStack(ItemsAether.dart, random.nextInt(3) + 1, 2);
-			case 8 :
+			{
+				if(random.nextInt(2) == 0)
+					return new ItemStack(ItemsLostAether.zanite_shield);
+				break;
+			}
+			case 6 : 
 			{
 				if(random.nextInt(20) == 0)
-					return new ItemStack(ItemsAether.aether_tune);
-				break;
+					return new ItemStack(ItemsAether.ice_pendant);
 			}
-			case 9 :
-				return new ItemStack(ItemsAether.skyroot_bucket, 1, 2);
-			case 10 :
+			case 7 : 
 			{
-				if(random.nextInt(10) == 0)
-					return new ItemStack(ItemsAether.ascending_dawn);
-				break;
+				if(random.nextInt(20) == 0)
+					return new ItemStack(ItemsAether.ice_ring);
 			}
-			case 11 :
-			{
-				if(random.nextInt(2) == 0)
-					return new ItemStack(ItemsAether.zanite_boots);
-				if(random.nextInt(2) == 0)
-					return new ItemStack(ItemsAether.zanite_helmet);
-				if(random.nextInt(2) == 0)
-					return new ItemStack(ItemsAether.zanite_leggings);
-				if(random.nextInt(2) == 0)
-					return new ItemStack(ItemsAether.zanite_chestplate);
-				break;
-			}
-			case 12 : 
-			{
-				if(random.nextInt(4) == 0)
-					return new ItemStack(ItemsAether.iron_pendant);
-			}
-			case 13 : 
-			{
-				if(random.nextInt(10) == 0)
-					return new ItemStack(ItemsAether.golden_pendant);
-			}
-			case 14 : 
+			case 8 : 
 			{
 				if(random.nextInt(15) == 0)
 					return new ItemStack(ItemsAether.zanite_ring);
 			}
 		}
 
-		return new ItemStack(BlocksAether.ambrosium_torch, random.nextInt(4) + 1);
+		return new ItemStack(BlocksAether.aercloud, random.nextInt(4) + 1);
 	}
 	
 	public static ItemStack getPlatinumLoot(Random random)
@@ -179,20 +153,24 @@ public class PlatinumDungeonGenerator extends StructurePlacer
 			case 0 :
 				return new ItemStack(ItemsAether.welcoming_skies);
 			case 1 :
+				if(random.nextInt(2) == 0)
 				return new ItemStack(ItemsLostAether.agility_boots);
 			case 2 :
 				return new ItemStack(ItemsLostAether.power_gloves);
 			case 3 :
+				if(random.nextInt(4) == 0)
 				return new ItemStack(ItemsLostAether.jeb_shield);
 			case 4 :
-				return new ItemStack(BlocksAether.enchanted_gravitite, random.nextInt(3) + 1);
+				return new ItemStack(BlocksAether.enchanted_gravitite, random.nextInt(2) + 1);
 			case 5 :
 				return new ItemStack(ItemsLostAether.sentry_shield);
 			case 6 :
+				if(random.nextInt(2) == 0)
 				return new ItemStack(ItemsLostAether.invisibility_gem);
 			case 7 :
 				return new ItemStack(ItemsAether.life_shard);
 			case 8 :
+				if(random.nextInt(6) == 0)
 				return new ItemStack(ItemsAether.repulsion_shield);
 		}
 
