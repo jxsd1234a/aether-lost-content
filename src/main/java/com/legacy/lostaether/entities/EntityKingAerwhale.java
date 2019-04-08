@@ -7,7 +7,6 @@ import javax.annotation.Nullable;
 import com.legacy.aether.Aether;
 import com.legacy.aether.api.AetherAPI;
 import com.legacy.aether.api.player.util.IAetherBoss;
-import com.legacy.aether.blocks.BlocksAether;
 import com.legacy.aether.entities.hostile.EntityWhirlwind;
 import com.legacy.aether.items.ItemsAether;
 import com.legacy.aether.registry.sounds.SoundsAether;
@@ -644,13 +643,13 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 	                    BlockPos newPos = new BlockPos(x, y, z);
 	                    IBlockState unlock_block = this.world.getBlockState(newPos);
 	
-	                    if (unlock_block == BlocksLostAether.locked_gale_stone)
+	                    if (unlock_block == BlocksLostAether.locked_gale_stone.getDefaultState())
 	                    {
-	                        this.world.setBlockState(newPos, BlocksAether.enchanted_gravitite.getDefaultState());
+	                        this.world.setBlockState(newPos, BlocksLostAether.gale_stone.getDefaultState());
 	                    }
-	                    else if (unlock_block == BlocksLostAether.locked_light_gale_stone)
+	                    else if (unlock_block == BlocksLostAether.locked_light_gale_stone.getDefaultState())
 	                    {
-	                        this.world.setBlockState(newPos, BlocksAether.aerogel.getDefaultState());
+	                        this.world.setBlockState(newPos, BlocksLostAether.light_gale_stone.getDefaultState());
 	                    }
 	                }
 	            }
