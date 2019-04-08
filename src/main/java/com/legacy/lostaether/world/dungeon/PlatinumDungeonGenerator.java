@@ -147,7 +147,7 @@ public class PlatinumDungeonGenerator extends StructurePlacer
 	
 	public static ItemStack getPlatinumLoot(Random random)
 	{
-		int item = random.nextInt(10);
+		int item = random.nextInt(11);
 		switch(item)
 		{
 			case 0 :
@@ -172,6 +172,15 @@ public class PlatinumDungeonGenerator extends StructurePlacer
 			case 8 :
 				if(random.nextInt(6) == 0)
 				return new ItemStack(ItemsAether.repulsion_shield);
+			case 9 :
+				if(random.nextInt(4) == 0)
+					return new ItemStack(ItemsLostAether.phoenix_axe);
+				if(random.nextInt(6) == 0)
+					return new ItemStack(ItemsLostAether.phoenix_pickaxe);
+				if(random.nextInt(2) == 0)
+					return new ItemStack(ItemsLostAether.phoenix_shovel);
+				if(random.nextInt(5) == 0)
+					return new ItemStack(ItemsLostAether.phoenix_sword);
 		}
 
 		return new ItemStack(ItemsAether.cloud_staff);
