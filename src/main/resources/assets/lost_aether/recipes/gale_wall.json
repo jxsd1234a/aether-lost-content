@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "lost_aether:gale_stone"
+    }
+  },
+  "result": {
+    "item": "lost_aether:gale_wall",
+    "count": 6
+  }
+}
