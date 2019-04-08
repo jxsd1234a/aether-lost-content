@@ -30,7 +30,7 @@ public class AetherStructureGenerator extends WorldGenerator implements IWorldGe
 	
 	private void generateAether(World world, Random rand, int blockX, int blockZ)
 	{	
-		if (rand.nextInt(800) == 0)
+		if (rand.nextInt(1500) == 0)
 		{
 			BlockPos pos = new BlockPos(blockX, 120, blockZ);
 			WorldGenerator platinumDungeon = new PlatinumDungeonGenerator();
