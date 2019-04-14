@@ -25,6 +25,12 @@ public class PlatinumDungeonPieces
 	public Template tower_3;
 	public Template tower_4;
 	
+	// Stuff for Raptor's addon
+	public Template skyroot_tower_1;
+	public Template skyroot_tower_2;
+	public Template skyroot_tower_3;
+	public Template skyroot_tower_4;
+	
 	public PlatinumDungeonPieces(World world, Random rand)
 	{
 		this.init(world, rand);
@@ -40,10 +46,16 @@ public class PlatinumDungeonPieces
 		ground_2 = register("platinum_ground_2");
 		ground_3 = register("platinum_ground_3");
 		ground_4 = register("platinum_ground_4");
+
 		tower_1 = register("platinum_dungeon_1");
 		tower_2 = register("platinum_dungeon_2");
 		tower_3 = register("platinum_dungeon_3");
 		tower_4 = register("platinum_dungeon_4");
+		
+		skyroot_tower_1 = register("continuation/platinum_dungeon_1");
+		skyroot_tower_2 = register("continuation/platinum_dungeon_2");
+		skyroot_tower_3 = register("continuation/platinum_dungeon_3");
+		skyroot_tower_4 = register("continuation/platinum_dungeon_4");
 	}
 	
 	private Template register(String file)

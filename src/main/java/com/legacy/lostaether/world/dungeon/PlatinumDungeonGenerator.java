@@ -18,6 +18,7 @@ import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Loader;
 
 public class PlatinumDungeonGenerator extends StructurePlacer
 {
@@ -29,7 +30,7 @@ public class PlatinumDungeonGenerator extends StructurePlacer
 		
 		if (pos.getY() >= 110 && pos.getY() <= 120 && worldIn.getBlockState(pos).getBlock() == Blocks.AIR)
 		{
-			System.out.println("Platinum Dungeon at: (" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + ")");
+			//System.out.println("Platinum Dungeon at: (" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + ")");
 			//System.out.println("If you noticed cascading worldgen lag, IGNORE IT. We will fix this issue at a later date.");
 			
 			placeStructure(worldIn, dungeon.ground_1, pos, Rotation.NONE);
@@ -37,10 +38,21 @@ public class PlatinumDungeonGenerator extends StructurePlacer
 			placeStructure(worldIn, dungeon.ground_3, pos.add(-32, 0, 0), Rotation.NONE);
 			placeStructure(worldIn, dungeon.ground_4, pos.add(-32, 0, -32), Rotation.NONE);
 			
-			placeStructure(worldIn, dungeon.tower_1, pos.add(0, 19, 0), Rotation.NONE);
-			placeStructure(worldIn, dungeon.tower_2, pos.add(0, 19, -32), Rotation.NONE);
-			placeStructure(worldIn, dungeon.tower_3, pos.add(-32, 19, 0), Rotation.NONE);
-			placeStructure(worldIn, dungeon.tower_4, pos.add(-32, 19, -32), Rotation.NONE);
+			if (Loader.isModLoaded("aether_legacy_addon"))
+			{
+				placeStructure(worldIn, dungeon.skyroot_tower_1, pos.add(0, 19, 0), Rotation.NONE);
+				placeStructure(worldIn, dungeon.skyroot_tower_2, pos.add(0, 19, -32), Rotation.NONE);
+				placeStructure(worldIn, dungeon.skyroot_tower_3, pos.add(-32, 19, 0), Rotation.NONE);
+				placeStructure(worldIn, dungeon.skyroot_tower_4, pos.add(-32, 19, -32), Rotation.NONE);
+			}
+			else
+			{
+				placeStructure(worldIn, dungeon.tower_1, pos.add(0, 19, 0), Rotation.NONE);
+				placeStructure(worldIn, dungeon.tower_2, pos.add(0, 19, -32), Rotation.NONE);
+				placeStructure(worldIn, dungeon.tower_3, pos.add(-32, 19, 0), Rotation.NONE);
+				placeStructure(worldIn, dungeon.tower_4, pos.add(-32, 19, -32), Rotation.NONE);
+			}
+
 			return true;
 		}
 		
