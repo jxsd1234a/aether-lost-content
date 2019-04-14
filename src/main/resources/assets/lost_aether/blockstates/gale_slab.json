@@ -1,11 +1,6 @@
 {
-    
-	"variants": 
-	{
-        
-		"half=bottom": { "model": "lost_aether:gale_half_slab" },
-        				"half=top": { "model": "lost_aether:gale_upper_slab" }
-    
-	}
-
+    "variants": {
+        "half=bottom": { "model": "lost_aether:half_slab_gale" },
+        "half=top": { "model": "lost_aether:upper_slab_gale" }
+    }
 }
