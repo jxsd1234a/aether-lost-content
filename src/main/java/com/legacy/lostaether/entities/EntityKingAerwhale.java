@@ -62,7 +62,7 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 
 	public float velocity;
 
-	public boolean isTargetted;
+	public boolean isTargetted, flipped;
 
 	public EntityKingAerwhale(World world)
 	{
@@ -398,22 +398,50 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 
 		if (!this.getStunned() && !this.isCharging())
 		{
-			if (distanceToFirstTarget <= 10)
+			
+			if (!this.flipped)
 			{
-				this.getMoveHelper().setMoveTo(this.dungeonX, this.dungeonY + 12, this.dungeonZ - 16, flySpeed);
+				if (distanceToFirstTarget <= 10)
+				{
+					this.getMoveHelper().setMoveTo(this.dungeonX, this.dungeonY + 12, this.dungeonZ - 16, flySpeed);
+				}
+				else if (distanceToSecondTarget <= 10)
+				{
+					this.getMoveHelper().setMoveTo(this.dungeonX + 16, this.dungeonY + 12, this.dungeonZ, flySpeed);
+				}
+				else if (distanceToThirdTarget <= 10)
+				{
+					this.getMoveHelper().setMoveTo(this.dungeonX, this.dungeonY + 12, this.dungeonZ + 16, flySpeed);
+				}
+				else if (distanceToFourthTarget <= 10)
+				{
+					this.getMoveHelper().setMoveTo(this.dungeonX - 16, this.dungeonY + 12, this.dungeonZ, flySpeed);
+				}	
 			}
-			else if (distanceToSecondTarget <= 10)
+			else
 			{
-				this.getMoveHelper().setMoveTo(this.dungeonX + 16, this.dungeonY + 12, this.dungeonZ, flySpeed);
+				if (distanceToFirstTarget <= 10)
+				{
+					this.getMoveHelper().setMoveTo(this.dungeonX, this.dungeonY + 12, this.dungeonZ + 16, flySpeed);
+					//
+				}
+				else if (distanceToSecondTarget <= 10)
+				{
+					this.getMoveHelper().setMoveTo(this.dungeonX - 16, this.dungeonY + 12, this.dungeonZ, flySpeed);
+					//
+				}
+				else if (distanceToThirdTarget <= 10)
+				{
+					this.getMoveHelper().setMoveTo(this.dungeonX, this.dungeonY + 12, this.dungeonZ - 16, flySpeed);
+					//this.getMoveHelper().setMoveTo(this.dungeonX, this.dungeonY + 12, this.dungeonZ + 16, flySpeed);
+				}
+				else if (distanceToFourthTarget <= 10)
+				{
+					this.getMoveHelper().setMoveTo(this.dungeonX + 16, this.dungeonY + 12, this.dungeonZ, flySpeed);
+					//this.getMoveHelper().setMoveTo(this.dungeonX - 16, this.dungeonY + 12, this.dungeonZ, flySpeed);
+				}	
 			}
-			else if (distanceToThirdTarget <= 10)
-			{
-				this.getMoveHelper().setMoveTo(this.dungeonX, this.dungeonY + 12, this.dungeonZ + 16, flySpeed);
-			}
-			else if (distanceToFourthTarget <= 10)
-			{
-				this.getMoveHelper().setMoveTo(this.dungeonX - 16, this.dungeonY + 12, this.dungeonZ, flySpeed);
-			}
+			
 		}
 	}
 
@@ -517,6 +545,8 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 		else
 		{
 			this.stunTime = 60;
+			this.flipped = rand.nextBoolean();
+			System.out.println(this.flipped);
 		}
 	}
 
