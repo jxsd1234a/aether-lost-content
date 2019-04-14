@@ -124,7 +124,7 @@ public class PlatinumDungeonGenerator extends StructurePlacer
 			case 0 :
 				return new ItemStack(ItemsAether.zanite_pickaxe);
 			case 1 :
-				return new ItemStack(ItemsAether.skyroot_bucket, 1, 4);
+				return new ItemStack(ItemsAether.skyroot_bucket, 1, 3);
 			case 2 :
 				return new ItemStack(ItemsAether.dart_shooter, 1, 2);
 			case 3 :

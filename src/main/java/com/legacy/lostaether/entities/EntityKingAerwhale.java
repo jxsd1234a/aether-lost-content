@@ -310,6 +310,7 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 		EntityKingAerwhale.this.motionZ *= 0.5D;
 	}
 
+	@SuppressWarnings("unused")
 	private void sendMessage(EntityPlayer player, ITextComponent s)
 	{
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
@@ -546,7 +547,6 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 		{
 			this.stunTime = 60;
 			this.flipped = rand.nextBoolean();
-			System.out.println(this.flipped);
 		}
 	}
 
