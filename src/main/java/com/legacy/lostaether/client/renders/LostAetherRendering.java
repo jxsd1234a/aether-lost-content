@@ -20,20 +20,20 @@ public class LostAetherRendering
 		register(ItemsLostAether.sentry_shield, "sentry_shield");
 		register(ItemsLostAether.phoenix_cape, "phoenix_cape");
 		register(ItemsLostAether.invisibility_gem, "invisibility_gem");
-		
+
 		register(ItemsLostAether.agility_boots, "agility_boots");
 		register(ItemsLostAether.swetty_mask, "swetty_mask");
 		register(ItemsLostAether.power_gloves, "power_gloves");
-		
+
 		register(ItemsLostAether.phoenix_pickaxe, "phoenix_pickaxe");
 		register(ItemsLostAether.phoenix_axe, "phoenix_axe");
 		register(ItemsLostAether.phoenix_shovel, "phoenix_shovel");
 		register(ItemsLostAether.phoenix_sword, "phoenix_sword");
-		
+
 		register(ItemsLostAether.zanite_shield, "zanite_shield");
 		register(ItemsLostAether.gravitite_shield, "gravitite_shield");
 		register(ItemsLostAether.jeb_shield, "jeb_shield");
-		
+
 		register(ItemsLostAether.platinum_key, "platinum_key");
 	}
 	
