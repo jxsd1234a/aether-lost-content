@@ -92,7 +92,7 @@ public class ItemLostArmor extends ItemArmor
 
 		if (slot == EntityEquipmentSlot.FEET && this == ItemsLostAether.agility_boots)
 		{
-			multimap.put(SharedMonsterAttributes.MOVEMENT_SPEED.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Speed modifier", 0.05D, 0));
+			multimap.put(SharedMonsterAttributes.MOVEMENT_SPEED.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Speed modifier", 0.02D, 0));
 		}
 
 		return multimap;
