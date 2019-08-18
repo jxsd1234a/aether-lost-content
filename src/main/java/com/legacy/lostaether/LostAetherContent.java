@@ -22,7 +22,7 @@ public class LostAetherContent
 {
     public static final String MODID = "lost_aether";
     public static final String NAME = "Lost Aether Content";
-    public static final String VERSION = "0.0.3";
+    public static final String VERSION = "0.1.0";
 
     @SidedProxy(modId = LostAetherContent.MODID, clientSide = "com.legacy.lostaether.client.ClientProxy", serverSide = "com.legacy.lostaether.CommonProxy")
 	public static CommonProxy proxy;
