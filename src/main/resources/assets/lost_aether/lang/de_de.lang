@@ -1,0 +1,32 @@
+# Items
+item.phoenix_sword.name=Phönix Schwert
+item.phoenix_pickaxe.name=Phönix Spitzhacke
+item.phoenix_axe.name=Phönix Axt
+item.phoenix_shovel.name=Phönix Schaufel
+item.phoenix_cape.name=Phönix Umhang
+item.sentry_shield.name=Schild der Wache
+item.invisibility_gem.name=Juwel der Unsichtbarkeit
+item.swetty_mask.name=Maske der Swet
+item.agility_boots.name=Stiefel der Beweglichkeit
+item.power_gloves.name=Krafthandschuhe
+item.zanite_shield.name=Zanite Schild
+item.gravitite_shield.name=Gravitite Schild
+item.jeb_shield.name=Jeb's Schild
+item.jeb_hammer.name=Jeb's Hammer
+item.brown_moa_egg.name=Braunes Moa Ei
+item.platinum_key.name=Platinum Schlüssel
+# Blocks
+tile.crystal_sapling.name=Kristallsetzling
+tile.gale_stone.name=Sturmstein
+tile.light_gale_stone.name=Leuchtender Sturmstein
+tile.locked_gale_stone.name=Verschlossener Sturmstein
+tile.locked_light_gale_stone.name=Verschlossener Leuchtender Sturmstein
+tile.songstone.name=Liederstein
+tile.gale_wall.name=Sturmwand
+tile.gale_stairs.name=Sturmtreppe
+entity.king_aerwhale.name=König der Aerwale
+# GUI
+title.lost_aether.king_aerwhale.name=Der König der Aerwale
+# Advancements
+advancement.lost_aether.platinum_dungeon=Aufgestiegen
+advancement.lost_aether.platinum_dungeon.desc=Besiege den Boss des Platinum Dungeons
