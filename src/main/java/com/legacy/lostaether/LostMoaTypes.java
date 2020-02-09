@@ -16,7 +16,6 @@ public class LostMoaTypes
 	public static void initialization()
 	{
 		brown = register("brown", 0x5d5726, new MoaProperties(4, 0.3F));
-
 	}
 
 	public static AetherMoaType register(String name, int hexColor, MoaProperties properties)

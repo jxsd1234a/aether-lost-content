@@ -26,7 +26,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ItemLostArmor extends ItemArmor
 {
 
-	private String[] defualt_location = new String[] {"textures/models/armor/iron_layer_1.png", "textures/models/armor/iron_layer_2.png"};
+	private String[] defualt_location = new String[] { "textures/models/armor/iron_layer_1.png", "textures/models/armor/iron_layer_2.png" };
 
 	private boolean shouldDefualt = false;
 
@@ -43,48 +43,48 @@ public class ItemLostArmor extends ItemArmor
 	}
 
 	@Override
-    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
-    {
-    	if (tab == AetherCreativeTabs.armor || tab == CreativeTabs.SEARCH)
-    	{
-            items.add(new ItemStack(this));
-    	}
-    }
-
-    @Override
-    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type)
-    {
-    	boolean leggings = this.getTranslationKey().contains("leggings");
-    	String type1 = leggings ? "layer_2" : "layer_1";
-
-        return this.shouldDefualt ? (leggings ? defualt_location[1] : defualt_location[0]) : Aether.modAddress() + "textures/armor/" + this.armorName + "_" + type1 + ".png";
-    }
-
-    @SideOnly(Side.CLIENT)
-    public net.minecraft.client.model.ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default)
-    {
-    	if (this == ItemsLostAether.agility_boots)
-    	{
-    		return new ModelAgilityBoots();
-    	}
-    	else
-    	{
-    		return super.getArmorModel(entityLiving, itemStack, armorSlot, _default);
-    	}
-    }
-
-    @Override
-	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair)
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
 	{
-	    return source == null ? false : repair.getItem() == source;
+		if (tab == AetherCreativeTabs.armor || tab == CreativeTabs.SEARCH)
+		{
+			items.add(new ItemStack(this));
+		}
 	}
 
 	@Override
-    public EnumRarity getRarity(ItemStack stack)
-    {
-    	return !this.armorName.contains("zanite") && !this.armorName.contains("gravitite")? ItemsAether.aether_loot : super.getRarity(stack);
-    }
-	
+	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type)
+	{
+		boolean leggings = this.getTranslationKey().contains("leggings");
+		String type1 = leggings ? "layer_2" : "layer_1";
+
+		return this.shouldDefualt ? (leggings ? defualt_location[1] : defualt_location[0]) : Aether.modAddress() + "textures/armor/" + this.armorName + "_" + type1 + ".png";
+	}
+
+	@SideOnly(Side.CLIENT)
+	public net.minecraft.client.model.ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default)
+	{
+		if (this == ItemsLostAether.agility_boots)
+		{
+			return new ModelAgilityBoots();
+		}
+		else
+		{
+			return super.getArmorModel(entityLiving, itemStack, armorSlot, _default);
+		}
+	}
+
+	@Override
+	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair)
+	{
+		return source == null ? false : repair.getItem() == source;
+	}
+
+	@Override
+	public EnumRarity getRarity(ItemStack stack)
+	{
+		return !this.armorName.contains("zanite") && !this.armorName.contains("gravitite") ? ItemsAether.aether_loot : super.getRarity(stack);
+	}
+
 	@Override
 	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack)
 	{

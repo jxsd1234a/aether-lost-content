@@ -50,9 +50,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 {
 
-	public static final DataParameter<String> WHALE_NAME = EntityDataManager.<String> createKey(EntityKingAerwhale.class, DataSerializers.STRING);
+	public static final DataParameter<String> WHALE_NAME = EntityDataManager.<String>createKey(EntityKingAerwhale.class, DataSerializers.STRING);
 
-	public static final DataParameter<Boolean> WHALE_CHARGING = EntityDataManager.<Boolean> createKey(EntityKingAerwhale.class, DataSerializers.BOOLEAN);
+	public static final DataParameter<Boolean> WHALE_CHARGING = EntityDataManager.<Boolean>createKey(EntityKingAerwhale.class, DataSerializers.BOOLEAN);
 
 	private int dungeonX, dungeonY, dungeonZ;
 
@@ -122,12 +122,12 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 		this.dungeonZ = nbttagcompound.getInteger("dungeonZ");
 		this.setBossName(nbttagcompound.getString("bossName"));
 	}
-	
+
 	@Nullable
-    public AxisAlignedBB getCollisionBox(Entity entityIn)
-    {
-        return entityIn.getEntityBoundingBox();
-    }
+	public AxisAlignedBB getCollisionBox(Entity entityIn)
+	{
+		return entityIn.getEntityBoundingBox();
+	}
 
 	@Override
 	public void onUpdate()
@@ -136,35 +136,35 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 
 		AxisAlignedBB radiusCheck = this.world.isRemote ? this.getEntityBoundingBox().grow(20.0D, 12.0D, 20.0D) : new AxisAlignedBB(new BlockPos(this.dungeonX, this.posY, this.dungeonZ)).grow(15, 12, 15);
 		List<EntityPlayer> list = this.world.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class, radiusCheck);
-        for (EntityPlayer nearbyPlayers : list)
-        {
-            AetherAPI.getInstance().get(nearbyPlayers).setFocusedBoss(this);
+		for (EntityPlayer nearbyPlayers : list)
+		{
+			AetherAPI.getInstance().get(nearbyPlayers).setFocusedBoss(this);
 
-            Block blockUnder = this.world.getBlockState(nearbyPlayers.getPosition().down()).getBlock();
-            if (blockUnder == BlocksLostAether.songstone)
-            {
-            	this.setAttackTarget(nearbyPlayers);
-            	
-            	this.setDoor();
-            	if (!world.isRemote)
-            	{
-            		this.world.destroyBlock(nearbyPlayers.getPosition().down(), false);
-            	}
-            	
-            }
-        }
-        
+			Block blockUnder = this.world.getBlockState(nearbyPlayers.getPosition().down()).getBlock();
+			if (blockUnder == BlocksLostAether.songstone)
+			{
+				this.setAttackTarget(nearbyPlayers);
+
+				this.setDoor();
+				if (!world.isRemote)
+				{
+					this.world.destroyBlock(nearbyPlayers.getPosition().down(), false);
+				}
+
+			}
+		}
+
 		if (this.getAttackTarget() != null)
 		{
 			this.chargeTarget();
-			
+
 			if (!this.world.isRemote && list.isEmpty() && (this.getAttackTarget() != null && this.getAttackTarget().getDistance(this.dungeonX, this.dungeonY, this.dungeonZ) >= 20.0F || (this.getAttackTarget().getHealth() <= 0 || this.getAttackTarget().isDead))) //
 			{
 				this.reset();
 				this.unlockDoor();
 				this.world.setBlockState(new BlockPos(this.dungeonX, this.dungeonY, this.dungeonZ - 8), BlocksLostAether.songstone.getDefaultState());
 			}
-			
+
 			if (!this.getStunned())
 			{
 				++EntityKingAerwhale.this.attackDelay;
@@ -176,122 +176,124 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 		}
 
 		if (this.getStunned())
-		{	
+		{
 			if (this.stunTime == 60)
 			{
 				this.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 2.0F, 1.0F);
 				this.spawnExplosionParticle();
-				
+
 				if (!this.world.isRemote && rand.nextInt(2) == 0)
 				{
 					BlockPos blockpos = (new BlockPos(this.dungeonX + -6 + this.rand.nextInt(12), this.dungeonY, this.dungeonZ + -6 + this.rand.nextInt(12)));
 					EntityWhirlwind whirly = new EntityWhirlwind(this.world);
 					whirly.moveToBlockPosAndAngles(blockpos, 0.0F, 0.0F);
 					whirly.actionTimer = -999999;
-					whirly.onInitialSpawn(this.world.getDifficultyForLocation(blockpos), (IEntityLivingData)null);
-		            this.world.spawnEntity(whirly);
+					whirly.onInitialSpawn(this.world.getDifficultyForLocation(blockpos), (IEntityLivingData) null);
+					this.world.spawnEntity(whirly);
 				}
 			}
-			
+
 			for (int i = 0; i < 2; ++i)
-	        {
-	            double d0 = this.rand.nextGaussian() * 0.02D;
-	            double d1 = this.rand.nextGaussian() * 0.02D;
-	            double d2 = this.rand.nextGaussian() * 0.02D;
-	            this.world.spawnParticle(EnumParticleTypes.SPELL, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, this.posY + (double)(this.rand.nextFloat() * this.height), this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, d0, d1, d2);
-	        }
-			
+			{
+				double d0 = this.rand.nextGaussian() * 0.02D;
+				double d1 = this.rand.nextGaussian() * 0.02D;
+				double d2 = this.rand.nextGaussian() * 0.02D;
+				this.world.spawnParticle(EnumParticleTypes.SPELL, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + (double) (this.rand.nextFloat() * this.height), this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, d0, d1, d2);
+			}
+
 			this.attackDelay = 0;
 			--this.stunTime;
 		}
-		
+
 		if (this.posY > this.dungeonY + 2)
 		{
-			this.noClip = true;	
+			this.noClip = true;
 		}
 		else
 		{
 			this.noClip = false;
 		}
-        
-        List<EntityWhirlwind> whirlysWithinBox = this.world.<EntityWhirlwind>getEntitiesWithinAABB(EntityWhirlwind.class, this.getEntityBoundingBox().grow(2.5D, 2.5D, 2.5D));
 
-        for(int l = 0; l < whirlysWithinBox.size(); l++)
-        {
-        	EntityWhirlwind whirlys = (EntityWhirlwind)whirlysWithinBox.get(l);
-        	whirlys.setDead();
-        }
-		
+		List<EntityWhirlwind> whirlysWithinBox = this.world.<EntityWhirlwind>getEntitiesWithinAABB(EntityWhirlwind.class, this.getEntityBoundingBox().grow(2.5D, 2.5D, 2.5D));
+
+		for (int l = 0; l < whirlysWithinBox.size(); l++)
+		{
+			EntityWhirlwind whirlys = (EntityWhirlwind) whirlysWithinBox.get(l);
+			whirlys.setDead();
+		}
+
 		if (this.isDead)
 		{
 			this.unlockDoor();
 		}
-		
+
 		if (!world.isRemote)
 		{
 			this.doCourse();
 		}
-		
+
 	}
-	
+
 	public void chargeTarget()
 	{
 		EntityLivingBase entitylivingbase = this.getAttackTarget();
 		BlockPos destPos = new BlockPos(this.targetX, this.targetY, this.targetZ);
-        boolean hitTarget = this.getEntityBoundingBox().intersects(entitylivingbase.getEntityBoundingBox());
-        
-        if (!this.world.isRemote && this.attackDelay <= 3)
-        {
-        	randomAttackChance = rand.nextInt(150);
-        }
-        else if (this.attackDelay == 45 + randomAttackChance)
-        {
-        	this.isTargetted = true;
-        	this.setTargetLockPos(EntityKingAerwhale.this.getAttackTarget().posX, EntityKingAerwhale.this.getAttackTarget().posY, EntityKingAerwhale.this.getAttackTarget().posZ);
-        }
-        else if (this.attackDelay >= 50 + randomAttackChance && !this.isCharging() && !this.getStunned())
-        {
-        	if (!world.isRemote)
-    		{
-        		EntityKingAerwhale.this.moveHelper.setMoveTo(destPos.getX(), destPos.getY(), destPos.getZ(), 10.0D);
-    		}
+		boolean hitTarget = this.getEntityBoundingBox().intersects(entitylivingbase.getEntityBoundingBox());
 
-        	this.setCharging(true);
-        }
+		if (!this.world.isRemote && this.attackDelay <= 3)
+		{
+			randomAttackChance = rand.nextInt(150);
+		}
+		else if (this.attackDelay == 45 + randomAttackChance)
+		{
+			this.isTargetted = true;
+			this.setTargetLockPos(EntityKingAerwhale.this.getAttackTarget().posX, EntityKingAerwhale.this.getAttackTarget().posY, EntityKingAerwhale.this.getAttackTarget().posZ);
+		}
+		else if (this.attackDelay >= 50 + randomAttackChance && !this.isCharging() && !this.getStunned())
+		{
+			if (!world.isRemote)
+			{
+				EntityKingAerwhale.this.moveHelper.setMoveTo(destPos.getX(), destPos.getY(), destPos.getZ(), 10.0D);
+			}
 
-        if (hitTarget && !this.getStunned())
-        {
-        	this.attackEntityAsMob(entitylivingbase);
-        	this.setCharging(false);
-        	this.isTargetted = false;
-        	this.setStunned(false);
-        	this.setTargetLockPos(0, 0, 0);
-        	return;
-        }
-        if (!this.getStunned() && this.getDistanceSq(destPos) <= 5.0F)
-        {
-        	this.stop();
-        	this.setStunned(true);
-        	this.setCharging(false);
-        	this.isTargetted = false;
-        	this.setTargetLockPos(0, 0, 0);
-        	return;
-        }
-        else if (this.stunTime == 1)
-        {
-        	this.getMoveHelper().setMoveTo(this.dungeonX - 16, this.dungeonY + 12, this.dungeonZ, 2.0F);
-        }
-        else if (this.attackDelay > 250)
-        {
-        	EntityKingAerwhale.this.attackDelay = 0;
-        	EntityKingAerwhale.this.isTargetted = false;
-            EntityKingAerwhale.this.setCharging(false);
-            this.getMoveHelper().setMoveTo(this.dungeonX - 16, this.dungeonY + 12, this.dungeonZ, 2.0F);
-        }
-        else
-        {
-        	return;
-        }
+			this.setCharging(true);
+		}
+
+		if (hitTarget && !this.getStunned())
+		{
+			this.attackEntityAsMob(entitylivingbase);
+			this.setCharging(false);
+			this.isTargetted = false;
+			this.setStunned(false);
+			this.setTargetLockPos(0, 0, 0);
+			return;
+		}
+		if (!this.getStunned() && this.getDistanceSq(destPos) <= 5.0F)
+		{
+			this.stop();
+			this.setStunned(true);
+			this.setCharging(false);
+			this.isTargetted = false;
+			this.setTargetLockPos(0, 0, 0);
+			this.world.setEntityState(this, (byte) 4);
+
+			return;
+		}
+		else if (this.stunTime == 1)
+		{
+			this.getMoveHelper().setMoveTo(this.dungeonX - 16, this.dungeonY + 12, this.dungeonZ, 2.0F);
+		}
+		else if (this.attackDelay > 250)
+		{
+			EntityKingAerwhale.this.attackDelay = 0;
+			EntityKingAerwhale.this.isTargetted = false;
+			EntityKingAerwhale.this.setCharging(false);
+			this.getMoveHelper().setMoveTo(this.dungeonX - 16, this.dungeonY + 12, this.dungeonZ, 2.0F);
+		}
+		else
+		{
+			return;
+		}
 	}
 
 	@Override
@@ -299,7 +301,7 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 	{
 		if (this.getAttackTarget() != null && this.isCharging() && entity != this.getAttackTarget())
 		{
-			this.attackEntityAsMob(entity); // TODO
+			this.attackEntityAsMob(entity);
 		}
 	}
 
@@ -331,16 +333,16 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 		{
 			return false;
 		}
-		
+
 		EntityPlayer player = (EntityPlayer) ds.getImmediateSource();
 		ItemStack stack = player.inventory.getCurrentItem();
-		
-		if (stack.getItem() == ItemsAether.developer_stick)
+
+		if (stack.getItem() == ItemsAether.developer_stick && player.isCreative())
 		{
 			this.reset();
 			return false;
 		}
-		
+
 		else if (this.getAttackTarget() == null)
 		{
 			this.setDoor();
@@ -348,13 +350,11 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 			return super.attackEntityFrom(ds, 0.0F);
 		}
 
-		
-		
 		else if (!this.getStunned())
 		{
 			return false;
 		}
-		
+
 		AetherAPI.getInstance().get(player).setFocusedBoss(this);
 		this.setAttackTarget(player);
 
@@ -363,7 +363,7 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 
 	public boolean attackEntityAsMob(Entity entityIn)
 	{
-		if (this.attackDelay > 10  && entityIn instanceof EntityLivingBase && !entityIn.getIsInvulnerable())
+		if (this.attackDelay > 10 && entityIn instanceof EntityLivingBase && !entityIn.getIsInvulnerable())
 		{
 			entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 10.0F);
 			EntityLivingBase collidedEntity = (EntityLivingBase) entityIn;
@@ -399,7 +399,7 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 
 		if (!this.getStunned() && !this.isCharging())
 		{
-			
+
 			if (!this.flipped)
 			{
 				if (distanceToFirstTarget <= 10)
@@ -417,7 +417,7 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 				else if (distanceToFourthTarget <= 10)
 				{
 					this.getMoveHelper().setMoveTo(this.dungeonX - 16, this.dungeonY + 12, this.dungeonZ, flySpeed);
-				}	
+				}
 			}
 			else
 			{
@@ -434,15 +434,13 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 				else if (distanceToThirdTarget <= 10)
 				{
 					this.getMoveHelper().setMoveTo(this.dungeonX, this.dungeonY + 12, this.dungeonZ - 16, flySpeed);
-					//this.getMoveHelper().setMoveTo(this.dungeonX, this.dungeonY + 12, this.dungeonZ + 16, flySpeed);
 				}
 				else if (distanceToFourthTarget <= 10)
 				{
 					this.getMoveHelper().setMoveTo(this.dungeonX + 16, this.dungeonY + 12, this.dungeonZ, flySpeed);
-					//this.getMoveHelper().setMoveTo(this.dungeonX - 16, this.dungeonY + 12, this.dungeonZ, flySpeed);
-				}	
+				}
 			}
-			
+
 		}
 	}
 
@@ -475,15 +473,15 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 	}
 
 	@Override
-    public void addVelocity(double d, double d1, double d2)
-    {
-    }
+	public void addVelocity(double d, double d1, double d2)
+	{
+	}
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void setVelocity(double x, double y, double z)
-    {
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void setVelocity(double x, double y, double z)
+	{
+	}
 
 	public void reset()
 	{
@@ -547,6 +545,19 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 		{
 			this.stunTime = 60;
 			this.flipped = rand.nextBoolean();
+		}
+	}
+
+	@SideOnly(Side.CLIENT)
+	public void handleStatusUpdate(byte id)
+	{
+		if (id == 4)
+		{
+			this.setStunned(true);
+		}
+		else
+		{
+			super.handleStatusUpdate(id);
 		}
 	}
 
@@ -617,75 +628,76 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 	}
 
 	private void setDoor()
-    {
+	{
 		int x, y, z;
-		
+
 		for (x = this.dungeonX - 1; x < this.dungeonX + 2; ++x)
-        {
-            for (y = this.dungeonY - 1; y < this.dungeonY; ++y)
-            {
-                for (z = this.dungeonZ + 1; z < this.dungeonZ + 6; ++z)
-                {
-                    BlockPos newPos = new BlockPos(x, y, z);
-                    this.world.setBlockState(newPos, BlocksLostAether.locked_gale_stone.getDefaultState());
-                }
-            }
-        }
-    }
-	
+		{
+			for (y = this.dungeonY - 1; y < this.dungeonY; ++y)
+			{
+				for (z = this.dungeonZ + 1; z < this.dungeonZ + 6; ++z)
+				{
+					BlockPos newPos = new BlockPos(x, y, z);
+					this.world.setBlockState(newPos, BlocksLostAether.locked_gale_stone.getDefaultState());
+				}
+			}
+		}
+	}
+
 	private void unlockDoor()
-    {
+	{
 		int x, y, z;
-		
+
 		for (x = this.dungeonX - 1; x < this.dungeonX + 2; ++x)
-        {
-            for (y = this.dungeonY - 1; y < this.dungeonY; ++y)
-            {
-                for (z = this.dungeonZ + 1; z < this.dungeonZ + 5; ++z) //6
-                {
-                    BlockPos newPos = new BlockPos(x, y, z);
-                    this.world.setBlockToAir(newPos);
-                }
-            }
-        }
-		
+		{
+			for (y = this.dungeonY - 1; y < this.dungeonY; ++y)
+			{
+				for (z = this.dungeonZ + 1; z < this.dungeonZ + 5; ++z) // 6
+				{
+					BlockPos newPos = new BlockPos(x, y, z);
+					this.world.setBlockToAir(newPos);
+				}
+			}
+		}
+
 		for (x = this.dungeonX - 1; x < this.dungeonX + 2; ++x)
-        {
-            for (y = this.dungeonY - 1; y < this.dungeonY; ++y)
-            {
-                for (z = this.dungeonZ + 5; z < this.dungeonZ + 6; ++z)
-                {
-                    BlockPos newPos = new BlockPos(x, y, z);
-                    this.world.setBlockState(newPos, BlocksLostAether.gale_stairs.getDefaultState().withRotation(Rotation.CLOCKWISE_180));
-                }
-            }
-        }
-		
+		{
+			for (y = this.dungeonY - 1; y < this.dungeonY; ++y)
+			{
+				for (z = this.dungeonZ + 5; z < this.dungeonZ + 6; ++z)
+				{
+					BlockPos newPos = new BlockPos(x, y, z);
+					this.world.setBlockState(newPos, BlocksLostAether.gale_stairs.getDefaultState().withRotation(Rotation.CLOCKWISE_180));
+				}
+			}
+		}
+
 		// Unlocks the dungeon blocks
 		if (this.isDead || this.getHealth() <= 0)
 		{
 			for (x = this.dungeonX - 15; x < this.dungeonX + 30; ++x)
-	        {
-	            for (y = this.dungeonY  - 32; y < this.dungeonY + 32; ++y)
-	            {
-	                for (z = this.dungeonZ - 15; z < this.dungeonZ + 30; ++z)
-	                {
-	                    BlockPos newPos = new BlockPos(x, y, z);
-	                    IBlockState unlock_block = this.world.getBlockState(newPos);
-	
-	                    if (unlock_block == BlocksLostAether.locked_gale_stone.getDefaultState())
-	                    {
-	                        this.world.setBlockState(newPos, BlocksLostAether.gale_stone.getDefaultState());
-	                    }
-	                    else if (unlock_block == BlocksLostAether.locked_light_gale_stone.getDefaultState())
-	                    {
-	                        this.world.setBlockState(newPos, BlocksLostAether.light_gale_stone.getDefaultState());
-	                    }
-	                }
-	            }
-	        }
+			{
+				for (y = this.dungeonY - 32; y < this.dungeonY + 32; ++y)
+				{
+					for (z = this.dungeonZ - 15; z < this.dungeonZ + 30; ++z)
+					{
+						BlockPos newPos = new BlockPos(x, y, z);
+						IBlockState unlock_block = this.world.getBlockState(newPos);
+
+						if (unlock_block == BlocksLostAether.locked_gale_stone.getDefaultState())
+						{
+							this.world.setBlockState(newPos, BlocksLostAether.gale_stone.getDefaultState());
+						}
+						else if (unlock_block == BlocksLostAether.locked_light_gale_stone.getDefaultState())
+						{
+							this.world.setBlockState(newPos, BlocksLostAether.light_gale_stone.getDefaultState());
+						}
+					}
+				}
+			}
 		}
-    }
+	}
+
 	class AIMoveControl extends EntityMoveHelper
 	{
 

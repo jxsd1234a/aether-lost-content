@@ -16,19 +16,18 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraftforge.registries.IForgeRegistry;
 
-public class ItemsLostAether 
+public class ItemsLostAether
 {
-
 	public static Item phoenix_pickaxe, phoenix_axe, phoenix_shovel, phoenix_sword;
-	
+
 	public static Item phoenix_cape, sentry_shield, invisibility_gem, power_gloves;
-	
+
 	public static Item agility_boots, swetty_mask;
-	
+
 	public static Item iron_shield, zanite_shield, gravitite_shield, jeb_shield;
 
 	public static Item platinum_key;
-	
+
 	public static IForgeRegistry<Item> itemRegistry;
 
 	public static void initialization()
@@ -42,16 +41,16 @@ public class ItemsLostAether
 		sentry_shield = register("sentry_shield", new ItemAccessory(AccessoryType.SHIELD).setTexture("sentry").setDungeonLoot());
 		invisibility_gem = register("invisibility_gem", new ItemAccessory(AccessoryType.MISC).setDungeonLoot());
 		power_gloves = register("power_gloves", new ItemAccessory(AccessoryType.GLOVE).setTexture("power_gloves").setDungeonLoot());
-		
+
 		swetty_mask = register("swetty_mask", new ItemAetherArmor(EntityEquipmentSlot.HEAD, ArmorMaterial.IRON, "swetty", null));
 		agility_boots = register("agility_boots", new ItemLostArmor(EntityEquipmentSlot.FEET, ArmorMaterial.IRON, "agility", null));
-		
+
 		zanite_shield = register("zanite_shield", new ItemAetherShield()).setMaxDamage(672);
 		gravitite_shield = register("gravitite_shield", new ItemAetherShield()).setMaxDamage(1008);
 		jeb_shield = register("jeb_shield", new ItemAetherShield()).setMaxDamage(1344);
-		
+
 		platinum_key = register("platinum_key", new Item().setCreativeTab(AetherCreativeTabs.misc).setMaxStackSize(1));
-		
+
 	}
 
 	public static Item register(String name, Item item)

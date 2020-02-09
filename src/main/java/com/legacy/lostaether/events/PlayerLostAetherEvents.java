@@ -3,17 +3,11 @@ package com.legacy.lostaether.events;
 import com.legacy.aether.api.AetherAPI;
 import com.legacy.aether.api.player.IPlayerAether;
 import com.legacy.aether.blocks.dungeon.BlockTreasureChest;
-import com.legacy.aether.items.ItemsAether;
-import com.legacy.aether.player.PlayerAether;
 import com.legacy.aether.tile_entities.TileEntityTreasureChest;
-import com.legacy.aether.world.dungeon.BronzeDungeon;
 import com.legacy.lostaether.items.ItemsLostAether;
 import com.legacy.lostaether.world.dungeon.PlatinumDungeonGenerator;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -23,14 +17,13 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.Visibility;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class PlayerLostAetherEvents
 {
 
 	private boolean invisibilityUpdate, stepUpdate;
-	
+
 	@SubscribeEvent
 	public void checkPlayerVisibility(Visibility event)
 	{
@@ -41,7 +34,7 @@ public class PlayerLostAetherEvents
 			event.modifyVisibility(0.0D);
 		}
 	}
-	
+
 	@SubscribeEvent
 	public void onPlayerUpdate(LivingUpdateEvent event)
 	{
@@ -49,14 +42,14 @@ public class PlayerLostAetherEvents
 		{
 			IPlayerAether playerAether = AetherAPI.getInstance().get((EntityPlayer) event.getEntityLiving());
 
-			EntityPlayer player = ((EntityPlayer)event.getEntityLiving());
-			
+			EntityPlayer player = ((EntityPlayer) event.getEntityLiving());
+
 			if (playerAether != null)
 			{
 				if (playerAether.getAccessoryInventory().wearingAccessory(new ItemStack(ItemsLostAether.sentry_shield)))
 				{
 				}
-				
+
 				if (playerAether.getAccessoryInventory().wearingAccessory(new ItemStack(ItemsLostAether.invisibility_gem)))
 				{
 					this.invisibilityUpdate = true;
@@ -70,7 +63,7 @@ public class PlayerLostAetherEvents
 						this.invisibilityUpdate = false;
 					}
 				}
-				
+
 				if (player.inventory.armorInventory.get(0).getItem() == ItemsLostAether.agility_boots)
 				{
 					this.stepUpdate = true;
@@ -84,10 +77,6 @@ public class PlayerLostAetherEvents
 						this.stepUpdate = false;
 					}
 				}
-				
-				AttributeModifier powerBoost = new AttributeModifier("Power Glove Boost", 8.0D, 0);
-				
-				IAttributeInstance iattributeinstance = player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
 			}
 		}
 	}
@@ -103,19 +92,12 @@ public class PlayerLostAetherEvents
 			{
 				if (playerAether.getAccessoryInventory().wearingAccessory(new ItemStack(ItemsLostAether.sentry_shield)))
 				{
-					//event.setCanceled(((PlayerAether) playerAether).onPlayerAttacked(event.getSource()));
+					// TODO: Add ability similar to the Sentry Boots, but on the shield slot!
 				}
-				//event.setCanceled(((PlayerAether) playerAether).onPlayerAttacked(event.getSource()));
 			}
 		}
 	}
-	
-	@SubscribeEvent
-	public static void onBlockHarvested(final BlockEvent.HarvestDropsEvent event)
-	{
-		//event.setCanceled(false);
-	}
-	
+
 	@SubscribeEvent
 	public void onPlayerRightClickBlock(PlayerInteractEvent.RightClickBlock event)
 	{
@@ -123,28 +105,27 @@ public class PlayerLostAetherEvents
 		BlockPos pos = event.getPos();
 		IBlockState state = world.getBlockState(pos);
 		EntityPlayer player = event.getEntityPlayer();
-		ItemStack stack = event.getItemStack();
 
 		if (state.getBlock() instanceof BlockTreasureChest && player.getHeldItemMainhand().getItem() == ItemsLostAether.platinum_key)
 		{
-			TileEntityTreasureChest treasurechest = (TileEntityTreasureChest)world.getTileEntity(pos);
+			TileEntityTreasureChest treasurechest = (TileEntityTreasureChest) world.getTileEntity(pos);
 
-	        ItemStack guiID = player.getHeldItemMainhand();
+			ItemStack guiID = player.getHeldItemMainhand();
 
-	        if (treasurechest.isLocked())
-	        {
+			if (treasurechest.isLocked())
+			{
 
-	            treasurechest.unlock(3);
+				treasurechest.unlock(3);
 
-	            int p;
-	            
-	            for (p = 0; p < 5 + world.rand.nextInt(1); ++p)
-	            {
-	            	treasurechest.setInventorySlotContents(world.rand.nextInt(treasurechest.getSizeInventory()), PlatinumDungeonGenerator.getPlatinumLoot(world.rand));
-	            }
-	            
-	            guiID.shrink(1);
-	        }
+				int p;
+
+				for (p = 0; p < 5 + world.rand.nextInt(1); ++p)
+				{
+					treasurechest.setInventorySlotContents(world.rand.nextInt(treasurechest.getSizeInventory()), PlatinumDungeonGenerator.getPlatinumLoot(world.rand));
+				}
+
+				guiID.shrink(1);
+			}
 		}
 	}
 }
