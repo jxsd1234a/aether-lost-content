@@ -59,7 +59,7 @@ public class LostAetherRendering
 
 	public static void register(Item item, String model)
 	{
-		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(LostAetherContent.modAddress() + model, "inventory"));
+		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(LostAetherContent.find() + model, "inventory"));
 	}
 	
 	public static void register(Block block, String model)

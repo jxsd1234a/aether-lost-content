@@ -22,15 +22,15 @@ public class BlocksLostAether
 	public static Block crystal_sapling;
 
 	public static Block songstone;
-	
+
 	public static Block gale_stone, light_gale_stone, locked_gale_stone, locked_light_gale_stone;
 
 	public static Block gale_stairs, light_gale_stairs, gale_wall;
-	
+
 	public static Block gale_slab;
-	
+
 	public static Block gale_double_slab;
-	
+
 	private static IForgeRegistry<Block> iBlockRegistry;
 
 	private static IForgeRegistry<Item> iItemRegistry;
@@ -43,22 +43,22 @@ public class BlocksLostAether
 		}
 
 		crystal_sapling = register("crystal_sapling", new BlockAetherSapling(new AetherGenCrystalTree()));
-		
+
 		songstone = register("songstone", new Block(Material.IRON).setBlockUnbreakable());
-		
+
 		gale_stone = register("gale_stone", new BlockLostDungeonBase(false));
 		light_gale_stone = register("light_gale_stone", new BlockLostDungeonBase(false));
 		locked_gale_stone = register("locked_gale_stone", new BlockLostDungeonBase(true)).setCreativeTab(null);
 		locked_light_gale_stone = register("locked_light_gale_stone", new BlockLostDungeonBase(true)).setCreativeTab(null);
-		
+
 		gale_double_slab = register("gale_double_slab", new BlockLostSlab("gale_double_slab", true, Material.ROCK).setHardness(2.0F).setResistance(10.0F)).setCreativeTab(null);
 		gale_slab = registerSlab("gale_slab", new BlockLostSlab("gale_slab", false, Material.ROCK).setHardness(0.5F).setResistance(10.0F), gale_double_slab);
-		
+
 		gale_stairs = register("gale_stairs", new BlockAetherStairs(gale_stone.getDefaultState()));
-		
+
 		gale_wall = register("gale_wall", new BlockAetherWall(gale_stone.getDefaultState()));
 	}
-	
+
 	public static void setItemRegistry(IForgeRegistry<Item> iItemRegistry)
 	{
 		BlocksLostAether.iItemRegistry = iItemRegistry;
@@ -68,7 +68,7 @@ public class BlocksLostAether
 	{
 		BlocksLostAether.iBlockRegistry = iBlockRegistry;
 	}
-	
+
 	public static Block register(String name, Block block)
 	{
 		return register(name, block, new ItemBlock(block));
@@ -88,7 +88,7 @@ public class BlocksLostAether
 
 		return block;
 	}
-	
+
 	public static Block registerSlab(String name, Block singleSlab, Block doubleSlab)
 	{
 		singleSlab.setCreativeTab(AetherCreativeTabs.blocks);

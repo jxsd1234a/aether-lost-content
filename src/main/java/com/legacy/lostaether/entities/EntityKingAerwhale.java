@@ -276,7 +276,6 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 			this.isTargetted = false;
 			this.setTargetLockPos(0, 0, 0);
 			this.world.setEntityState(this, (byte) 4);
-				
 
 			return;
 		}
@@ -302,7 +301,7 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 	{
 		if (this.getAttackTarget() != null && this.isCharging() && entity != this.getAttackTarget())
 		{
-			this.attackEntityAsMob(entity); // TODO
+			this.attackEntityAsMob(entity);
 		}
 	}
 
@@ -338,7 +337,7 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 		EntityPlayer player = (EntityPlayer) ds.getImmediateSource();
 		ItemStack stack = player.inventory.getCurrentItem();
 
-		if (stack.getItem() == ItemsAether.developer_stick)
+		if (stack.getItem() == ItemsAether.developer_stick && player.isCreative())
 		{
 			this.reset();
 			return false;
@@ -435,14 +434,10 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 				else if (distanceToThirdTarget <= 10)
 				{
 					this.getMoveHelper().setMoveTo(this.dungeonX, this.dungeonY + 12, this.dungeonZ - 16, flySpeed);
-					// this.getMoveHelper().setMoveTo(this.dungeonX, this.dungeonY + 12,
-					// this.dungeonZ + 16, flySpeed);
 				}
 				else if (distanceToFourthTarget <= 10)
 				{
 					this.getMoveHelper().setMoveTo(this.dungeonX + 16, this.dungeonY + 12, this.dungeonZ, flySpeed);
-					// this.getMoveHelper().setMoveTo(this.dungeonX - 16, this.dungeonY + 12,
-					// this.dungeonZ, flySpeed);
 				}
 			}
 

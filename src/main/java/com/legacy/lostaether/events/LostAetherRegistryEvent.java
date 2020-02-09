@@ -12,7 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-public class LostAetherRegistryEvent 
+public class LostAetherRegistryEvent
 {
 
 	@SubscribeEvent
@@ -31,13 +31,13 @@ public class LostAetherRegistryEvent
 		BlocksLostAether.initialization();
 		ItemsLostAether.initialization();
 	}
-	
+
 	@SubscribeEvent
 	public void onRegisterAccessoryEvent(RegistryEvent.Register<AetherAccessory> event)
 	{
 		LostAetherRegistries.initializeAccessories(event.getRegistry());
 	}
-	
+
 	@SubscribeEvent
 	public void onRegisterMoaTypeEvent(RegistryEvent.Register<AetherMoaType> event)
 	{
