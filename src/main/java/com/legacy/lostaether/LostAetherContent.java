@@ -4,6 +4,8 @@ import com.legacy.lostaether.client.ClientProxy;
 import com.legacy.lostaether.client.renders.LostAetherRendering;
 import com.legacy.lostaether.entities.LostAetherEntities;
 import com.legacy.lostaether.events.LostAetherRegistryEvent;
+import com.legacy.lostaether.events.LostBlockEvents;
+import com.legacy.lostaether.events.LostBlockEvents;
 import com.legacy.lostaether.events.LostEntityEvents;
 import com.legacy.lostaether.events.PlayerLostAetherEvents;
 import com.legacy.lostaether.world.AetherStructureGenerator;
@@ -36,6 +38,7 @@ public class LostAetherContent
     {
     	CommonProxy.registerEvent(new LostEntityEvents());
     	CommonProxy.registerEvent(new LostAetherRegistryEvent());
+    	CommonProxy.registerEvent(new LostBlockEvents());
     	ClientProxy.registerEvent(new LostAetherRendering());
     	proxy.preInitialization();
     }
