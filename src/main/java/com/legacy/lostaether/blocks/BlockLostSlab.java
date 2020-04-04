@@ -2,8 +2,6 @@ package com.legacy.lostaether.blocks;
 
 import java.util.Random;
 
-import com.legacy.lostaether.BlocksLostAether;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.SoundType;

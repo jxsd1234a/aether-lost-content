@@ -2,18 +2,27 @@ package com.legacy.lostaether.events;
 
 import com.legacy.aether.api.accessories.AetherAccessory;
 import com.legacy.aether.api.moa.AetherMoaType;
-import com.legacy.lostaether.BlocksLostAether;
 import com.legacy.lostaether.LostAetherRegistries;
 import com.legacy.lostaether.LostMoaTypes;
+import com.legacy.lostaether.blocks.BlocksLostAether;
+import com.legacy.lostaether.client.sounds.LostSounds;
 import com.legacy.lostaether.items.ItemsLostAether;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class LostAetherRegistryEvent
 {
+
+	@SubscribeEvent
+	public void onRegisterSounds(RegistryEvent.Register<SoundEvent> event)
+	{
+		LostSounds.soundRegistry = event.getRegistry();
+		LostSounds.initialization();
+	}
 
 	@SubscribeEvent
 	public void onRegisterBlockEvent(RegistryEvent.Register<Block> event)

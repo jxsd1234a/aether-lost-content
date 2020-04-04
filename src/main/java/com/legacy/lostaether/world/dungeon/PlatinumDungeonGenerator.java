@@ -5,9 +5,9 @@ import java.util.Random;
 import com.legacy.aether.blocks.BlocksAether;
 import com.legacy.aether.items.ItemMoaEgg;
 import com.legacy.aether.items.ItemsAether;
-import com.legacy.lostaether.BlocksLostAether;
 import com.legacy.lostaether.LostMoaTypes;
-import com.legacy.lostaether.entities.EntityKingAerwhale;
+import com.legacy.lostaether.blocks.BlocksLostAether;
+import com.legacy.lostaether.entities.EntityAerwhaleKing;
 import com.legacy.lostaether.items.ItemsLostAether;
 import com.legacy.lostaether.world.dungeon.util.StructurePlacer;
 
@@ -66,7 +66,7 @@ public class PlatinumDungeonGenerator extends StructurePlacer
 	{
 		if (function.contains("boss"))
 		{
-			EntityKingAerwhale entity = new EntityKingAerwhale(worldIn);
+			EntityAerwhaleKing entity = new EntityAerwhaleKing(worldIn);
 			entity.setPosition((double) pos.getX() - 16.0D, (double) pos.getY() + 12.0D, (double) pos.getZ()); // this.dungeonX
 																												// - 16,
 																												// this.dungeonY

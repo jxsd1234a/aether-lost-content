@@ -1,7 +1,6 @@
 package com.legacy.lostaether.blocks;
 
 import com.legacy.aether.registry.creative_tabs.AetherCreativeTabs;
-import com.legacy.lostaether.BlocksLostAether;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;

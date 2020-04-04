@@ -10,11 +10,12 @@ import com.legacy.aether.api.player.util.IAetherBoss;
 import com.legacy.aether.entities.hostile.EntityWhirlwind;
 import com.legacy.aether.items.ItemsAether;
 import com.legacy.aether.registry.sounds.SoundsAether;
-import com.legacy.lostaether.BlocksLostAether;
 import com.legacy.lostaether.LostLootTables;
+import com.legacy.lostaether.blocks.BlocksLostAether;
+import com.legacy.lostaether.client.sounds.LostSounds;
 import com.legacy.lostaether.entities.util.LostNameGen;
+import com.legacy.lostaether.items.tools.ItemAetherShield;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityFlying;
@@ -26,12 +27,14 @@ import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemShield;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
@@ -47,12 +50,12 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
+public class EntityAerwhaleKing extends EntityFlying implements IAetherBoss
 {
 
-	public static final DataParameter<String> WHALE_NAME = EntityDataManager.<String>createKey(EntityKingAerwhale.class, DataSerializers.STRING);
+	public static final DataParameter<String> WHALE_NAME = EntityDataManager.<String>createKey(EntityAerwhaleKing.class, DataSerializers.STRING);
 
-	public static final DataParameter<Boolean> WHALE_CHARGING = EntityDataManager.<Boolean>createKey(EntityKingAerwhale.class, DataSerializers.BOOLEAN);
+	public static final DataParameter<Boolean> WHALE_CHARGING = EntityDataManager.<Boolean>createKey(EntityAerwhaleKing.class, DataSerializers.BOOLEAN);
 
 	private int dungeonX, dungeonY, dungeonZ;
 
@@ -62,12 +65,12 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 
 	public float velocity;
 
-	public boolean isTargetted, flipped;
+	public boolean isTargetted, courseFlipped;
 
-	public EntityKingAerwhale(World world)
+	public EntityAerwhaleKing(World world)
 	{
 		super(world);
-		this.moveHelper = new EntityKingAerwhale.AIMoveControl(this);
+		this.moveHelper = new EntityAerwhaleKing.AIMoveControl(this);
 		this.setSize(4F, 4F);
 		this.isImmuneToFire = true;
 		this.experienceValue = 30;
@@ -84,7 +87,7 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 	protected void initEntityAI()
 	{
 		super.initEntityAI();
-		this.tasks.addTask(0, new EntityKingAerwhale.AIDoNothing());
+		this.tasks.addTask(0, new EntityAerwhaleKing.AIDoNothing());
 	}
 
 	@Override
@@ -134,31 +137,24 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 	{
 		super.onUpdate();
 
+		if (this.isAIDisabled())
+			return;
+
 		AxisAlignedBB radiusCheck = this.world.isRemote ? this.getEntityBoundingBox().grow(20.0D, 12.0D, 20.0D) : new AxisAlignedBB(new BlockPos(this.dungeonX, this.posY, this.dungeonZ)).grow(15, 12, 15);
-		List<EntityPlayer> list = this.world.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class, radiusCheck);
-		for (EntityPlayer nearbyPlayers : list)
+		List<EntityPlayer> playerList = this.world.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class, radiusCheck);
+
+		// Give all players in the area the boss bar. Mainly for multiplayer.
+		for (EntityPlayer nearbyPlayers : playerList)
 		{
 			AetherAPI.getInstance().get(nearbyPlayers).setFocusedBoss(this);
-
-			Block blockUnder = this.world.getBlockState(nearbyPlayers.getPosition().down()).getBlock();
-			if (blockUnder == BlocksLostAether.songstone)
-			{
-				this.setAttackTarget(nearbyPlayers);
-
-				this.setDoor();
-				if (!world.isRemote)
-				{
-					this.world.destroyBlock(nearbyPlayers.getPosition().down(), false);
-				}
-
-			}
 		}
 
 		if (this.getAttackTarget() != null)
 		{
-			this.chargeTarget();
+			if (!world.isRemote)
+				this.chargeTarget();
 
-			if (!this.world.isRemote && list.isEmpty() && (this.getAttackTarget() != null && this.getAttackTarget().getDistance(this.dungeonX, this.dungeonY, this.dungeonZ) >= 20.0F || (this.getAttackTarget().getHealth() <= 0 || this.getAttackTarget().isDead))) //
+			if (!this.world.isRemote && playerList.isEmpty() && (this.getAttackTarget() != null && this.getAttackTarget().getDistance(this.dungeonX, this.dungeonY, this.dungeonZ) >= 20.0F || (this.getAttackTarget().getHealth() <= 0 || this.getAttackTarget().isDead))) //
 			{
 				this.reset();
 				this.unlockDoor();
@@ -167,7 +163,14 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 
 			if (!this.getStunned())
 			{
-				++EntityKingAerwhale.this.attackDelay;
+				++EntityAerwhaleKing.this.attackDelay;
+			}
+
+			if (!playerList.isEmpty() && (this.getAttackTarget().isDead || this.getAttackTarget().getHealth() <= 0))
+			{
+				EntityPlayer randomPlayer = playerList.get(rand.nextInt(playerList.size()));
+				if (randomPlayer != null)
+					this.setAttackTarget(randomPlayer);
 			}
 		}
 		else if (!this.getMoveHelper().isUpdating())
@@ -247,27 +250,28 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 		else if (this.attackDelay == 45 + randomAttackChance)
 		{
 			this.isTargetted = true;
-			this.setTargetLockPos(EntityKingAerwhale.this.getAttackTarget().posX, EntityKingAerwhale.this.getAttackTarget().posY, EntityKingAerwhale.this.getAttackTarget().posZ);
+			this.setTargetLockPos(EntityAerwhaleKing.this.getAttackTarget().posX, EntityAerwhaleKing.this.getAttackTarget().posY, EntityAerwhaleKing.this.getAttackTarget().posZ);
 		}
 		else if (this.attackDelay >= 50 + randomAttackChance && !this.isCharging() && !this.getStunned())
 		{
 			if (!world.isRemote)
 			{
-				EntityKingAerwhale.this.moveHelper.setMoveTo(destPos.getX(), destPos.getY(), destPos.getZ(), 10.0D);
+				EntityAerwhaleKing.this.moveHelper.setMoveTo(destPos.getX(), destPos.getY(), destPos.getZ(), 10.0D);
 			}
 
 			this.setCharging(true);
 		}
 
-		if (hitTarget && !this.getStunned())
+		if (hitTarget && !this.getStunned() && this.attackEntityAsMob(entitylivingbase))
 		{
-			this.attackEntityAsMob(entitylivingbase);
+			
 			this.setCharging(false);
 			this.isTargetted = false;
 			this.setStunned(false);
 			this.setTargetLockPos(0, 0, 0);
 			return;
 		}
+
 		if (!this.getStunned() && this.getDistanceSq(destPos) <= 5.0F)
 		{
 			this.stop();
@@ -276,6 +280,7 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 			this.isTargetted = false;
 			this.setTargetLockPos(0, 0, 0);
 			this.world.setEntityState(this, (byte) 4);
+			System.out.println("stunning from crash");
 
 			return;
 		}
@@ -285,9 +290,9 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 		}
 		else if (this.attackDelay > 250)
 		{
-			EntityKingAerwhale.this.attackDelay = 0;
-			EntityKingAerwhale.this.isTargetted = false;
-			EntityKingAerwhale.this.setCharging(false);
+			EntityAerwhaleKing.this.attackDelay = 0;
+			EntityAerwhaleKing.this.isTargetted = false;
+			EntityAerwhaleKing.this.setCharging(false);
 			this.getMoveHelper().setMoveTo(this.dungeonX - 16, this.dungeonY + 12, this.dungeonZ, 2.0F);
 		}
 		else
@@ -307,28 +312,30 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 
 	public void stop()
 	{
-		EntityKingAerwhale.this.motionX *= 0.5D;
-		EntityKingAerwhale.this.motionY *= 0.5D;
-		EntityKingAerwhale.this.motionZ *= 0.5D;
+		EntityAerwhaleKing.this.motionX *= 0.5D;
+		EntityAerwhaleKing.this.motionY *= 0.5D;
+		EntityAerwhaleKing.this.motionZ *= 0.5D;
 	}
 
-	@SuppressWarnings("unused")
 	private void sendMessage(EntityPlayer player, ITextComponent s)
 	{
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
-		if (this.chatTime <= 0)
+		if (side.isClient())
 		{
-			if (side.isClient())
-			{
-				Aether.proxy.sendMessage(player, s);
-			}
-			this.chatTime = 60;
+			Aether.proxy.sendMessage(player, s);
 		}
 	}
 
 	@Override
 	public boolean attackEntityFrom(DamageSource ds, float var2)
 	{
+		if ((ds instanceof EntityDamageSourceIndirect || ds.isProjectile()) && ds.getTrueSource() instanceof EntityPlayer)
+		{
+			this.sendMessage((EntityPlayer) ds.getTrueSource(), new TextComponentTranslation("gui.lost_aether.projectile_miss"));
+			this.spawnExplosionParticle();
+			return false;
+		}
+
 		if (ds.getImmediateSource() == null || !(ds.getImmediateSource() instanceof EntityPlayer))
 		{
 			return false;
@@ -342,14 +349,6 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 			this.reset();
 			return false;
 		}
-
-		else if (this.getAttackTarget() == null)
-		{
-			this.setDoor();
-			this.setAttackTarget(player);
-			return super.attackEntityFrom(ds, 0.0F);
-		}
-
 		else if (!this.getStunned())
 		{
 			return false;
@@ -361,17 +360,55 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 		return super.attackEntityFrom(ds, Math.max(0, Math.min(var2, 20)));
 	}
 
+	@Override
 	public boolean attackEntityAsMob(Entity entityIn)
 	{
+		boolean flag = super.attackEntityAsMob(entityIn);
+
 		if (this.attackDelay > 10 && entityIn instanceof EntityLivingBase && !entityIn.getIsInvulnerable())
 		{
-			entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 10.0F);
-			EntityLivingBase collidedEntity = (EntityLivingBase) entityIn;
-			collidedEntity.addVelocity(collidedEntity.motionY * 2, 0.35D, collidedEntity.motionZ * 2);
-			this.world.playSound(null, posX, posY, posZ, SoundsAether.zephyr_shoot, SoundCategory.HOSTILE, 2.5F, 1.0F / (this.rand.nextFloat() * 0.2F + 0.9F));
-			return true;
+			if (entityIn instanceof EntityPlayer)
+			{
+				EntityPlayer playerentity = (EntityPlayer) entityIn;
+				ItemStack playerItem = playerentity.isHandActive() ? playerentity.getActiveItemStack() : ItemStack.EMPTY;
+
+				if (!playerItem.isEmpty() && (playerItem.getItem() instanceof ItemShield || playerItem.getItem() instanceof ItemAetherShield))
+				{
+					System.out.println("stunning from shield");
+					playerentity.disableShield(true);
+					playerentity.getCooldownTracker().setCooldown(playerItem.getItem(), 300);
+					this.world.setEntityState(playerentity, (byte) 30);
+
+					this.stop();
+					this.setStunned(true);
+					this.setCharging(false);
+					this.isTargetted = false;
+					this.setTargetLockPos(0, 0, 0);
+					this.world.setEntityState(this, (byte) 4);
+
+					return false;
+
+				}
+				else
+				{
+					entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 10.0F);
+					EntityLivingBase collidedEntity = (EntityLivingBase) entityIn;
+					collidedEntity.addVelocity(collidedEntity.motionY * 2, 0.35D, collidedEntity.motionZ * 2);
+					this.world.playSound(null, posX, posY, posZ, SoundsAether.zephyr_shoot, SoundCategory.HOSTILE, 2.5F, 1.0F / (this.rand.nextFloat() * 0.2F + 0.9F));
+					return true;
+				}
+			}
+			else
+			{
+				entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 10.0F);
+				EntityLivingBase collidedEntity = (EntityLivingBase) entityIn;
+				collidedEntity.addVelocity(collidedEntity.motionY * 2, 0.35D, collidedEntity.motionZ * 2);
+				this.world.playSound(null, posX, posY, posZ, SoundsAether.zephyr_shoot, SoundCategory.HOSTILE, 2.5F, 1.0F / (this.rand.nextFloat() * 0.2F + 0.9F));
+				return true;
+			}
 		}
-		return super.attackEntityAsMob(entityIn);
+
+		return flag;
 	}
 
 	@Override
@@ -392,15 +429,14 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 	private void doCourse()
 	{
 		double flySpeed = this.getAttackTarget() != null ? 1.0F : 0.7F;
-		double distanceToFirstTarget = EntityKingAerwhale.this.getDistanceSq(new BlockPos(this.dungeonX - 14, this.dungeonY + 12, this.dungeonZ));
-		double distanceToSecondTarget = EntityKingAerwhale.this.getDistanceSq(new BlockPos(this.dungeonX, this.dungeonY + 12, this.dungeonZ - 14));
-		double distanceToThirdTarget = EntityKingAerwhale.this.getDistanceSq(new BlockPos(this.dungeonX + 14, this.dungeonY + 12, this.dungeonZ));
-		double distanceToFourthTarget = EntityKingAerwhale.this.getDistanceSq(new BlockPos(this.dungeonX, this.dungeonY + 12, this.dungeonZ + 14));
+		double distanceToFirstTarget = EntityAerwhaleKing.this.getDistanceSq(new BlockPos(this.dungeonX - 14, this.dungeonY + 12, this.dungeonZ));
+		double distanceToSecondTarget = EntityAerwhaleKing.this.getDistanceSq(new BlockPos(this.dungeonX, this.dungeonY + 12, this.dungeonZ - 14));
+		double distanceToThirdTarget = EntityAerwhaleKing.this.getDistanceSq(new BlockPos(this.dungeonX + 14, this.dungeonY + 12, this.dungeonZ));
+		double distanceToFourthTarget = EntityAerwhaleKing.this.getDistanceSq(new BlockPos(this.dungeonX, this.dungeonY + 12, this.dungeonZ + 14));
 
 		if (!this.getStunned() && !this.isCharging())
 		{
-
-			if (!this.flipped)
+			if (!this.courseFlipped)
 			{
 				if (distanceToFirstTarget <= 10)
 				{
@@ -424,12 +460,10 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 				if (distanceToFirstTarget <= 10)
 				{
 					this.getMoveHelper().setMoveTo(this.dungeonX, this.dungeonY + 12, this.dungeonZ + 16, flySpeed);
-					//
 				}
 				else if (distanceToSecondTarget <= 10)
 				{
 					this.getMoveHelper().setMoveTo(this.dungeonX - 16, this.dungeonY + 12, this.dungeonZ, flySpeed);
-					//
 				}
 				else if (distanceToThirdTarget <= 10)
 				{
@@ -440,7 +474,6 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 					this.getMoveHelper().setMoveTo(this.dungeonX + 16, this.dungeonY + 12, this.dungeonZ, flySpeed);
 				}
 			}
-
 		}
 	}
 
@@ -450,6 +483,7 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 		return false;
 	}
 
+	@Override
 	public boolean isNonBoss()
 	{
 		return false;
@@ -544,7 +578,7 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 		else
 		{
 			this.stunTime = 60;
-			this.flipped = rand.nextBoolean();
+			this.courseFlipped = rand.nextBoolean();
 		}
 	}
 
@@ -588,7 +622,7 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 	@Override
 	public SoundEvent getAmbientSound()
 	{
-		return SoundsAether.aerwhale_call;
+		return LostSounds.ENTITY_AERWHALE_KING_IDLE;
 	}
 
 	@Override
@@ -627,18 +661,18 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 		return LostLootTables.king_aerwhale;
 	}
 
-	private void setDoor()
+	public static void setDoor(EntityAerwhaleKing aerwhale)
 	{
 		int x, y, z;
 
-		for (x = this.dungeonX - 1; x < this.dungeonX + 2; ++x)
+		for (x = aerwhale.dungeonX - 1; x < aerwhale.dungeonX + 2; ++x)
 		{
-			for (y = this.dungeonY - 1; y < this.dungeonY; ++y)
+			for (y = aerwhale.dungeonY - 1; y < aerwhale.dungeonY; ++y)
 			{
-				for (z = this.dungeonZ + 1; z < this.dungeonZ + 6; ++z)
+				for (z = aerwhale.dungeonZ + 1; z < aerwhale.dungeonZ + 6; ++z)
 				{
 					BlockPos newPos = new BlockPos(x, y, z);
-					this.world.setBlockState(newPos, BlocksLostAether.locked_gale_stone.getDefaultState());
+					aerwhale.world.setBlockState(newPos, BlocksLostAether.locked_gale_stone.getDefaultState());
 				}
 			}
 		}
@@ -701,7 +735,7 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 	class AIMoveControl extends EntityMoveHelper
 	{
 
-		public AIMoveControl(EntityKingAerwhale whaleBoss)
+		public AIMoveControl(EntityAerwhaleKing whaleBoss)
 		{
 			super(whaleBoss);
 		}
@@ -710,33 +744,33 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 		{
 			if (this.action == EntityMoveHelper.Action.MOVE_TO)
 			{
-				double d0 = this.posX - EntityKingAerwhale.this.posX;
-				double d1 = this.posY - EntityKingAerwhale.this.posY;
-				double d2 = this.posZ - EntityKingAerwhale.this.posZ;
+				double d0 = this.posX - EntityAerwhaleKing.this.posX;
+				double d1 = this.posY - EntityAerwhaleKing.this.posY;
+				double d2 = this.posZ - EntityAerwhaleKing.this.posZ;
 				double d3 = d0 * d0 + d1 * d1 + d2 * d2;
 				d3 = (double) MathHelper.sqrt(d3);
-				if (d3 < EntityKingAerwhale.this.getEntityBoundingBox().getAverageEdgeLength())
+				if (d3 < EntityAerwhaleKing.this.getEntityBoundingBox().getAverageEdgeLength())
 				{
 					this.action = EntityMoveHelper.Action.WAIT;
-					EntityKingAerwhale.this.motionX *= 0.5D;
-					EntityKingAerwhale.this.motionY *= 0.5D;
-					EntityKingAerwhale.this.motionZ *= 0.5D;
+					EntityAerwhaleKing.this.motionX *= 0.5D;
+					EntityAerwhaleKing.this.motionY *= 0.5D;
+					EntityAerwhaleKing.this.motionZ *= 0.5D;
 				}
 				else
 				{
-					EntityKingAerwhale.this.motionX += d0 / d3 * 0.05D * this.speed;
-					EntityKingAerwhale.this.motionY += d1 / d3 * 0.05D * this.speed;
-					EntityKingAerwhale.this.motionZ += d2 / d3 * 0.05D * this.speed;
-					if (!EntityKingAerwhale.this.isCharging())
+					EntityAerwhaleKing.this.motionX += d0 / d3 * 0.05D * this.speed;
+					EntityAerwhaleKing.this.motionY += d1 / d3 * 0.05D * this.speed;
+					EntityAerwhaleKing.this.motionZ += d2 / d3 * 0.05D * this.speed;
+					if (!EntityAerwhaleKing.this.isCharging())
 					{
-						EntityKingAerwhale.this.rotationYaw = -((float) MathHelper.atan2(EntityKingAerwhale.this.motionX, EntityKingAerwhale.this.motionZ)) * (180F / (float) Math.PI);
-						EntityKingAerwhale.this.renderYawOffset = EntityKingAerwhale.this.rotationYaw;
+						EntityAerwhaleKing.this.rotationYaw = -((float) MathHelper.atan2(EntityAerwhaleKing.this.motionX, EntityAerwhaleKing.this.motionZ)) * (180F / (float) Math.PI);
+						EntityAerwhaleKing.this.renderYawOffset = EntityAerwhaleKing.this.rotationYaw;
 					}
 				}
 			}
-			if (!EntityKingAerwhale.this.getStunned() && EntityKingAerwhale.this.isCharging())
+			if (!EntityAerwhaleKing.this.getStunned() && EntityAerwhaleKing.this.isCharging())
 			{
-				EntityKingAerwhale.this.getLookHelper().setLookPosition(EntityKingAerwhale.this.targetX, EntityKingAerwhale.this.targetY, EntityKingAerwhale.this.targetZ, EntityKingAerwhale.this.getHorizontalFaceSpeed() * 4, EntityKingAerwhale.this.getVerticalFaceSpeed() * 4);
+				EntityAerwhaleKing.this.getLookHelper().setLookPosition(EntityAerwhaleKing.this.targetX, EntityAerwhaleKing.this.targetY, EntityAerwhaleKing.this.targetZ, EntityAerwhaleKing.this.getHorizontalFaceSpeed() * 4, EntityAerwhaleKing.this.getVerticalFaceSpeed() * 4);
 			}
 		}
 	}
@@ -751,7 +785,7 @@ public class EntityKingAerwhale extends EntityFlying implements IAetherBoss
 
 		public boolean shouldExecute()
 		{
-			return EntityKingAerwhale.this.getStunned();
+			return EntityAerwhaleKing.this.getStunned();
 		}
 	}
 }

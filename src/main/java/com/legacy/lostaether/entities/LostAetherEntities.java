@@ -7,13 +7,11 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 public class LostAetherEntities
 {
-
 	private static int modEntityId;
 
 	public static void initialization()
 	{
-		//register("zephyroo", EntityZephyroo.class);
-		register("king_aerwhale", EntityKingAerwhale.class);
+		register("king_aerwhale", EntityAerwhaleKing.class);
 	}
 
 	@SuppressWarnings("unused")

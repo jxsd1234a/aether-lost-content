@@ -1,7 +1,7 @@
 package com.legacy.lostaether.client.renders;
 
-import com.legacy.lostaether.BlocksLostAether;
 import com.legacy.lostaether.LostAetherContent;
+import com.legacy.lostaether.blocks.BlocksLostAether;
 import com.legacy.lostaether.items.ItemsLostAether;
 
 import net.minecraft.block.Block;

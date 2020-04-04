@@ -1,23 +1,21 @@
 package com.legacy.lostaether.events;
 
+import java.util.Random;
+
+import com.legacy.aether.blocks.BlocksAether;
 import com.legacy.aether.entities.passive.mountable.EntityMoa;
 import com.legacy.lostaether.LostMoaTypes;
-import com.legacy.lostaether.entities.EntityKingAerwhale;
-import com.legacy.lostaether.items.tools.ItemAetherShield;
+import com.legacy.lostaether.blocks.BlocksLostAether;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-public class LostEntityEvents
+public class LostEvents
 {
 	@SubscribeEvent
-	public void onEntityJump(net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent event)
+	public void onEntityJump(LivingEvent.LivingJumpEvent event)
 	{
 		if (event.getEntity() instanceof EntityMoa)
 		{
@@ -31,49 +29,30 @@ public class LostEntityEvents
 	}
 
 	@SubscribeEvent
-	public void onLivingAttack(LivingAttackEvent event)
+	public void onBlockHarvested(HarvestDropsEvent event)
 	{
-		if (event.getEntityLiving() instanceof EntityPlayer)
+		if (event.getWorld().isRemote)
+			return;
+
+		if (!(event.getState().getBlock() == BlocksAether.crystal_leaves))
+			return;
+
+		Random rand = event.getWorld().rand;
+		int chance = 20;
+
+		if (event.getFortuneLevel() > 0)
 		{
-			EntityPlayer entity = (EntityPlayer) event.getEntityLiving();
-			float damage = event.getAmount();
+			chance -= 2 << event.getFortuneLevel();
+			if (chance < 10)
+				chance = 10;
+		}
 
-			if (entity.getActiveItemStack().getItem() instanceof ItemAetherShield && entity.getCooldownTracker().hasCooldown(entity.getActiveItemStack().getItem()))
-			{
-				entity.resetActiveHand();
-			}
-
-			if (damage >= 3.0F && entity.getActiveItemStack().getItem() instanceof ItemAetherShield)
-			{
-				ItemStack copyBeforeUse = entity.getActiveItemStack().copy();
-				int i = 1 + MathHelper.floor(damage);
-				entity.getActiveItemStack().damageItem(i, entity);
-
-				if (entity.getActiveItemStack().isEmpty())
-				{
-					EnumHand enumhand = entity.getActiveHand();
-
-					net.minecraftforge.event.ForgeEventFactory.onPlayerDestroyItem(entity, copyBeforeUse, enumhand);
-
-					if (enumhand == EnumHand.MAIN_HAND)
-					{
-						entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, ItemStack.EMPTY);
-					}
-					else
-					{
-						entity.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, ItemStack.EMPTY);
-					}
-
-					entity.playSound(SoundEvents.ITEM_SHIELD_BREAK, 0.8F, 0.8F + entity.world.rand.nextFloat() * 0.4F);
-				}
-
-				if (event.getSource().getImmediateSource() instanceof EntityKingAerwhale)
-				{
-					entity.getCooldownTracker().setCooldown(entity.getActiveItemStack().getItem(), 200);
-					entity.world.setEntityState(entity, (byte) 30);
-					//
-				}
-			}
+		if (rand.nextInt(chance) == 0)
+		{
+			int amountDropped = 1;
+			ItemStack drop = new ItemStack(BlocksLostAether.crystal_sapling, amountDropped);
+			if (!drop.isEmpty())
+				event.getDrops().add(drop);
 		}
 	}
 }

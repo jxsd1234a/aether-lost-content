@@ -1,6 +1,6 @@
 package com.legacy.lostaether.client.renders;
 
-import com.legacy.lostaether.entities.EntityKingAerwhale;
+import com.legacy.lostaether.entities.EntityAerwhaleKing;
 
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -14,7 +14,7 @@ public class LostEntityRenders
 	public static void initialize()
 	{
 		//register(EntityZephyroo.class, ZephyrooRenderer.class);
-		register(EntityKingAerwhale.class, KingAerwhaleRenderer.class);
+		register(EntityAerwhaleKing.class, RenderAerwhaleKing.class);
 	}
 
 	public static <ENTITY extends Entity> void register(Class<ENTITY> classes, final Class<? extends Render<ENTITY>> render)
