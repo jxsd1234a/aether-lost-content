@@ -1,12 +1,11 @@
-package com.legacy.lostaether;
+package com.legacy.lostaether.blocks;
 
 import com.legacy.aether.blocks.BlockAetherSapling;
 import com.legacy.aether.blocks.decorative.BlockAetherStairs;
 import com.legacy.aether.blocks.decorative.BlockAetherWall;
 import com.legacy.aether.items.block.ItemAetherSlab;
 import com.legacy.aether.registry.creative_tabs.AetherCreativeTabs;
-import com.legacy.lostaether.blocks.BlockLostDungeonBase;
-import com.legacy.lostaether.blocks.BlockLostSlab;
+import com.legacy.lostaether.LostAetherContent;
 import com.legacy.lostaether.world.AetherGenCrystalTree;
 
 import net.minecraft.block.Block;
@@ -44,7 +43,7 @@ public class BlocksLostAether
 
 		crystal_sapling = register("crystal_sapling", new BlockAetherSapling(new AetherGenCrystalTree()));
 
-		songstone = register("songstone", new Block(Material.IRON).setBlockUnbreakable());
+		songstone = register("songstone", new BlockSongstone(Material.IRON).setBlockUnbreakable());
 
 		gale_stone = register("gale_stone", new BlockLostDungeonBase(false));
 		light_gale_stone = register("light_gale_stone", new BlockLostDungeonBase(false));
