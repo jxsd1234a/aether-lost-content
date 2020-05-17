@@ -104,7 +104,10 @@ public class EntityAerwhaleKing extends EntityFlying implements IAetherBoss
 	@Override
 	public void move(MoverType type, double x, double y, double z)
 	{
-		super.move(type, x, y, z);
+		if (this.getStunned())
+			super.move(type, 0, 0, 0);
+		else
+			super.move(type, x, y, z);
 	}
 
 	@Override
@@ -182,17 +185,22 @@ public class EntityAerwhaleKing extends EntityFlying implements IAetherBoss
 		{
 			if (this.stunTime == 60)
 			{
-				this.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 2.0F, 1.0F);
 				this.spawnExplosionParticle();
+				this.world.createExplosion(this, this.posX, this.posY, this.posZ, 2, false);
 
-				if (!this.world.isRemote && rand.nextInt(2) == 0)
+				if (!this.world.isRemote)
 				{
-					BlockPos blockpos = (new BlockPos(this.dungeonX + -6 + this.rand.nextInt(12), this.dungeonY, this.dungeonZ + -6 + this.rand.nextInt(12)));
-					EntityWhirlwind whirly = new EntityWhirlwind(this.world);
-					whirly.moveToBlockPosAndAngles(blockpos, 0.0F, 0.0F);
-					whirly.actionTimer = -999999;
-					whirly.onInitialSpawn(this.world.getDifficultyForLocation(blockpos), (IEntityLivingData) null);
-					this.world.spawnEntity(whirly);
+					for (int w = 0; w < 7; ++w)
+					{
+						BlockPos blockpos = (new BlockPos(this.dungeonX + -6 + this.rand.nextInt(12), this.dungeonY, this.dungeonZ + -6 + this.rand.nextInt(12)));
+						EntityWhirlwind whirly = new EntityWhirlwind(this.world);
+						whirly.moveToBlockPosAndAngles(blockpos, 0.0F, 0.0F);
+						whirly.actionTimer = -Integer.MAX_VALUE;
+						whirly.capturedDrops.clear();
+						whirly.onInitialSpawn(this.world.getDifficultyForLocation(blockpos), (IEntityLivingData) null);
+						this.world.spawnEntity(whirly);
+					}
+
 				}
 			}
 
@@ -264,7 +272,7 @@ public class EntityAerwhaleKing extends EntityFlying implements IAetherBoss
 
 		if (hitTarget && !this.getStunned() && this.attackEntityAsMob(entitylivingbase))
 		{
-			
+
 			this.setCharging(false);
 			this.isTargetted = false;
 			this.setStunned(false);
@@ -280,7 +288,7 @@ public class EntityAerwhaleKing extends EntityFlying implements IAetherBoss
 			this.isTargetted = false;
 			this.setTargetLockPos(0, 0, 0);
 			this.world.setEntityState(this, (byte) 4);
-			System.out.println("stunning from crash");
+			// System.out.println("stunning from crash");
 
 			return;
 		}
@@ -374,7 +382,7 @@ public class EntityAerwhaleKing extends EntityFlying implements IAetherBoss
 
 				if (!playerItem.isEmpty() && (playerItem.getItem() instanceof ItemShield || playerItem.getItem() instanceof ItemAetherShield))
 				{
-					System.out.println("stunning from shield");
+					// System.out.println("stunning from shield");
 					playerentity.disableShield(true);
 					playerentity.getCooldownTracker().setCooldown(playerItem.getItem(), 300);
 					this.world.setEntityState(playerentity, (byte) 30);
