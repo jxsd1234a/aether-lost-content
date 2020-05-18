@@ -26,7 +26,8 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.entity.projectile.EntityTippedArrow;
 import net.minecraft.item.ItemShield;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -74,6 +75,7 @@ public class EntityAerwhaleKing extends EntityFlying implements IAetherBoss
 		this.setSize(4F, 4F);
 		this.isImmuneToFire = true;
 		this.experienceValue = 30;
+		this.ignoreFrustumCheck = true;
 	}
 
 	@Override
@@ -147,7 +149,7 @@ public class EntityAerwhaleKing extends EntityFlying implements IAetherBoss
 		List<EntityPlayer> playerList = this.world.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class, radiusCheck);
 
 		// Give all players in the area the boss bar. Mainly for multiplayer.
-		for (EntityPlayer nearbyPlayers : playerList)
+		for (EntityPlayer nearbyPlayers : this.getPlayerList())
 		{
 			AetherAPI.getInstance().get(nearbyPlayers).setFocusedBoss(this);
 		}
@@ -190,7 +192,7 @@ public class EntityAerwhaleKing extends EntityFlying implements IAetherBoss
 
 				if (!this.world.isRemote)
 				{
-					for (int w = 0; w < 7; ++w)
+					for (int w = 0; w < 4; ++w)
 					{
 						BlockPos blockpos = (new BlockPos(this.dungeonX + -6 + this.rand.nextInt(12), this.dungeonY, this.dungeonZ + -6 + this.rand.nextInt(12)));
 						EntityWhirlwind whirly = new EntityWhirlwind(this.world);
@@ -199,6 +201,26 @@ public class EntityAerwhaleKing extends EntityFlying implements IAetherBoss
 						whirly.capturedDrops.clear();
 						whirly.onInitialSpawn(this.world.getDifficultyForLocation(blockpos), (IEntityLivingData) null);
 						this.world.spawnEntity(whirly);
+					}
+
+					for (EntityPlayer players : this.getPlayerList())
+					{
+						for (int w = 0; w < 6; ++w)
+						{
+							BlockPos blockpos = (new BlockPos(players.posX + -7 + this.rand.nextInt(14), players.posY + 10 + this.rand.nextInt(5), players.posZ + -7 + this.rand.nextInt(14)));
+							EntityFallingRock projectile = new EntityFallingRock(this.world, this);
+							projectile.moveToBlockPosAndAngles(blockpos, 0.0F, 0.0F);
+							// projectile.shoot(this, pitch, yaw, p_184547_4_, w, inaccuracy);
+
+							this.world.spawnEntity(projectile);
+						}
+						
+						BlockPos blockpos = (new BlockPos(players.posX, players.posY + 10 + this.rand.nextInt(5), players.posZ));
+						EntityFallingRock projectile = new EntityFallingRock(this.world, this);
+						projectile.moveToBlockPosAndAngles(blockpos, 0.0F, 0.0F);
+						// projectile.shoot(this, pitch, yaw, p_184547_4_, w, inaccuracy);
+
+						this.world.spawnEntity(projectile);
 					}
 
 				}
@@ -585,9 +607,25 @@ public class EntityAerwhaleKing extends EntityFlying implements IAetherBoss
 		}
 		else
 		{
+
+			if (!this.getPlayerList().isEmpty())
+			{
+				EntityPlayer randomPlayer = this.getPlayerList().get(rand.nextInt(this.getPlayerList().size()));
+				if (randomPlayer != null)
+					this.setAttackTarget(randomPlayer);
+			}
+
 			this.stunTime = 60;
 			this.courseFlipped = rand.nextBoolean();
 		}
+	}
+
+	public List<EntityPlayer> getPlayerList()
+	{
+		AxisAlignedBB radiusCheck = this.world.isRemote ? this.getEntityBoundingBox().grow(20.0D, 12.0D, 20.0D) : new AxisAlignedBB(new BlockPos(this.dungeonX, this.posY, this.dungeonZ)).grow(15, 12, 15);
+		List<EntityPlayer> playerList = this.world.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class, radiusCheck);
+
+		return playerList;
 	}
 
 	@SideOnly(Side.CLIENT)

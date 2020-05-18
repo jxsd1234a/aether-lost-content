@@ -12,6 +12,7 @@ public class LostAetherEntities
 	public static void initialization()
 	{
 		register("king_aerwhale", EntityAerwhaleKing.class);
+		register("falling_rock", EntityFallingRock.class);
 	}
 
 	@SuppressWarnings("unused")
