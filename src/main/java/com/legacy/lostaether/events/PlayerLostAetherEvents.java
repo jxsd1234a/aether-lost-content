@@ -15,7 +15,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -95,6 +94,7 @@ public class PlayerLostAetherEvents
 
 			if (playerAether != null)
 			{
+				boolean isShielding = (living.getActiveItemStack().getItem() instanceof ItemAetherShield) && this.canBlockDamageSource((EntityPlayer) event.getEntityLiving(), source);
 				if (playerAether.getAccessoryInventory().wearingAccessory(new ItemStack(ItemsLostAether.sentry_shield)))
 				{
 					if (source.isExplosion())
@@ -102,11 +102,17 @@ public class PlayerLostAetherEvents
 						playerAether.getAccessoryInventory().damageWornStack(1, new ItemStack(ItemsLostAether.sentry_shield));
 						event.setCanceled(true);
 					}
-					else if (living.world.rand.nextBoolean() && !(living.getActiveItemStack().getItem() instanceof ItemAetherShield) && !this.canBlockDamageSource((EntityPlayer) event.getEntityLiving(), source))
+					else if (living.world.rand.nextBoolean() && !isShielding)
 					{
 						playerAether.getAccessoryInventory().damageWornStack(1, new ItemStack(ItemsLostAether.sentry_shield));
 						living.world.createExplosion(living, living.posX, living.posY, living.posZ, 1, false);
 					}
+				}
+				
+				if (playerAether.getAccessoryInventory().wearingAccessory(new ItemStack(ItemsLostAether.phoenix_cape)) && source.getImmediateSource() instanceof EntityLivingBase && !isShielding)
+				{
+					source.getImmediateSource().setFire(3);
+					playerAether.getAccessoryInventory().damageWornStack(1, new ItemStack(ItemsLostAether.phoenix_cape));
 				}
 			}
 
@@ -118,8 +124,8 @@ public class PlayerLostAetherEvents
 
 				if (living.getActiveItemStack().getItem() == ItemsLostAether.gravitite_shield && source.getImmediateSource() instanceof EntityLivingBase)
 				{
-					((EntityLivingBase) source.getImmediateSource()).knockBack(living, 1.3F, living.posX - source.getImmediateSource().posX, living.posZ - source.getImmediateSource().posZ);
-					((EntityLivingBase) source.getImmediateSource()).motionY = 0.7D;
+					((EntityLivingBase) source.getImmediateSource()).knockBack(living, 1.5F, living.posX - source.getImmediateSource().posX, living.posZ - source.getImmediateSource().posZ);
+					source.getImmediateSource().setPosition(source.getImmediateSource().posX, source.getImmediateSource().posY + 1D, source.getImmediateSource().posZ);
 					source.getImmediateSource().isAirBorne = true;
 
 				}

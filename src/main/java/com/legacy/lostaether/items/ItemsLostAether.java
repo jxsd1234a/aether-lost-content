@@ -37,12 +37,12 @@ public class ItemsLostAether
 		phoenix_shovel = register("phoenix_shovel", new ItemPhoenixTool(EnumAetherToolType.SHOVEL));
 		phoenix_sword = register("phoenix_sword", new ItemPhoenixSword());
 
-		phoenix_cape = register("phoenix_cape", new ItemAccessory(AccessoryType.CAPE).setTexture("phoenix_cape").setDungeonLoot());
+		phoenix_cape = register("phoenix_cape", new ItemAccessory(AccessoryType.CAPE).setTexture("phoenix_cape").setDungeonLoot().setMaxDamage(50));
 		sentry_shield = register("sentry_shield", new ItemAccessory(AccessoryType.SHIELD).setTexture("sentry").setDungeonLoot().setMaxDamage(30));
 		invisibility_gem = register("invisibility_gem", new ItemAccessory(AccessoryType.MISC).setDungeonLoot());
 		power_gloves = register("power_gloves", new ItemAccessory(AccessoryType.GLOVE).setTexture("power_gloves").setDungeonLoot());
 
-		swetty_mask = register("swetty_mask", new ItemAetherArmor(EntityEquipmentSlot.HEAD, ArmorMaterial.IRON, "swetty", null));
+		swetty_mask = register("swetty_mask", new ItemAetherArmor(EntityEquipmentSlot.HEAD, ArmorMaterial.LEATHER, "swetty", null));
 		agility_boots = register("agility_boots", new ItemLostArmor(EntityEquipmentSlot.FEET, ArmorMaterial.IRON, "agility", null));
 
 		zanite_shield = register("zanite_shield", new ItemAetherShield()).setMaxDamage(672);
