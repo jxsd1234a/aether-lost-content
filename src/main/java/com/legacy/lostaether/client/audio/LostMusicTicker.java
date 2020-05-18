@@ -1,7 +1,5 @@
 package com.legacy.lostaether.client.audio;
 
-import java.util.Random;
-
 import com.legacy.aether.registry.sounds.SoundsAether;
 
 import net.minecraft.client.Minecraft;
@@ -16,10 +14,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class LostMusicTicker implements ITickable
 {
-	private final Random rand = new Random();
 	private final Minecraft mc;
 	private ISound menuMusic;
-    private int timeUntilNextMusic = 100;
 
 	public LostMusicTicker(Minecraft mcIn)
 	{
@@ -34,9 +30,6 @@ public class LostMusicTicker implements ITickable
 		{
 			if (!this.mc.getSoundHandler().isSoundPlaying(this.menuMusic))
 			{
-				/*this.menuMusic = new AetherUnpositionedSound(SoundsAether.aether_menu_2);
-				this.mc.getSoundHandler().playSound(this.menuMusic);*/
-				
 				this.playMusic(tracktype);
 			}
 		}
@@ -51,7 +44,6 @@ public class LostMusicTicker implements ITickable
 	{
 		this.menuMusic = PositionedSoundRecord.getMusicRecord(requestedMusicType.getMusicLocation());
 		this.mc.getSoundHandler().playSound(this.menuMusic);
-		this.timeUntilNextMusic = Integer.MAX_VALUE;
 	}
 
 	public void stopMusic()
@@ -60,7 +52,6 @@ public class LostMusicTicker implements ITickable
 		{
 			this.mc.getSoundHandler().stopSound(this.menuMusic);
 			this.menuMusic = null;
-			this.timeUntilNextMusic = 0;
 		}
 	}
 

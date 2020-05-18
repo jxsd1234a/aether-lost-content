@@ -4,6 +4,7 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 
 public class ModelZephyroo extends ModelBase
 {
@@ -234,7 +235,7 @@ public class ModelZephyroo extends ModelBase
 	{
 		super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
-		if (!(entity.motionX == 0 || entity.motionZ == 0) && !entity.onGround)
+		if (!entity.onGround || ((EntityLivingBase) entity).moveForward != 0)
 		{
 			this.RightLeg.rotateAngleX = (float) Math.cos(f2 * 0.50F);
 			this.LeftLeg.rotateAngleX = (float) Math.cos(f2 * 0.50F);

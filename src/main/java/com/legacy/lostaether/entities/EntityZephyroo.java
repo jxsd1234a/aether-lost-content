@@ -5,7 +5,6 @@ import com.legacy.aether.items.ItemsAether;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.MoverType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIFollowParent;
 import net.minecraft.entity.ai.EntityAILookIdle;
@@ -16,8 +15,11 @@ import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
@@ -42,17 +44,17 @@ public class EntityZephyroo extends EntityMountable
 	}
 
 	@Override
-    protected void initEntityAI()
-    {
+	protected void initEntityAI()
+	{
 		this.tasks.addTask(0, new EntityAISwimming(this));
 		this.tasks.addTask(1, new EntityAIPanic(this, 1.25D));
 		this.tasks.addTask(2, new EntityAIMate(this, 1.0D));
-        this.tasks.addTask(3, new EntityAITempt(this, 1.25D, ItemsAether.blue_berry, false));
+		this.tasks.addTask(3, new EntityAITempt(this, 1.25D, ItemsAether.blue_berry, false));
 		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(5, new EntityAILookIdle(this));
 		this.tasks.addTask(5, new EntityAIFollowParent(this, 1.1D));
 		this.tasks.addTask(6, new EntityAIWander(this, 1.0D));
-    }
+	}
 
 	@Override
 	protected void applyEntityAttributes()
@@ -69,11 +71,11 @@ public class EntityZephyroo extends EntityMountable
 	{
 		super.onUpdate();
 
-		if(this.moveForward != 0.0F && this.onGround)
-        {
-            this.jump();
-        }
-		
+		if (this.moveForward != 0.0F && this.onGround)
+		{
+			this.jump();
+		}
+
 		if (this.onGround)
 		{
 			this.jumpsRemaining = this.maxJumps;
@@ -81,8 +83,8 @@ public class EntityZephyroo extends EntityMountable
 		this.ticks++;
 
 		this.fallDistance = 0;
-		this.fall();	
-		
+		this.fall();
+
 	}
 
 	@Override
@@ -117,9 +119,9 @@ public class EntityZephyroo extends EntityMountable
 	{
 		return 1.0D;
 	}
-	
+
 	@Override
-    public void travel(float strafe, float vertical, float forward)
+	public void travel(float strafe, float vertical, float forward)
 	{
 		Entity entity = this.getPassengers().isEmpty() ? null : this.getPassengers().get(0);
 
@@ -131,7 +133,7 @@ public class EntityZephyroo extends EntityMountable
 			this.prevRotationPitch = this.rotationPitch = player.rotationPitch;
 			this.rotationYawHead = this.rotationYaw;
 			this.renderYawOffset = this.rotationYaw;
-			
+
 			strafe = player.moveStrafing;
 			vertical = player.moveVertical;
 			forward = player.moveForward;
@@ -140,30 +142,10 @@ public class EntityZephyroo extends EntityMountable
 			{
 				forward *= 0.25F;
 			}
-			
+
 			if (forward != 0.0F && this.onGround)
 			{
 				this.jump();
-			}
-
-			if (this.jumpPower > 0.0F && !this.isMountJumping() && (this.onGround || this.canJumpMidAir))
-			{
-				this.motionY = this.getMountJumpStrength() * (double) this.jumpPower;
-
-				if (this.isPotionActive(MobEffects.JUMP_BOOST))
-				{
-					this.motionY += (double) ((float) (this.getActivePotionEffect(MobEffects.JUMP_BOOST).getAmplifier() + 1) * 0.1F);
-				}
-
-				this.setMountJumping(true);
-				this.isAirBorne = true;
-
-				this.jumpPower = 0.0F;
-
-				if (!this.world.isRemote)
-				{
-					this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
-				}
 			}
 
 			this.motionX *= 0.35F;
@@ -203,23 +185,37 @@ public class EntityZephyroo extends EntityMountable
 			super.travel(strafe, vertical, forward);
 		}
 	}
-	
+
+	@Override
+	public boolean isBreedingItem(ItemStack stack)
+	{
+		Item item = stack.getItem();
+		return item == ItemsAether.blue_berry || item == ItemsAether.enchanted_blueberry;
+	}
+
+	@Override
+	public boolean processInteract(EntityPlayer player, EnumHand hand)
+	{
+		ItemStack itemstack = player.getHeldItem(hand);
+
+		if (!super.processInteract(player, hand) && itemstack.getItem() != Items.NAME_TAG && !this.isBreedingItem(itemstack) && !this.isChild())
+		{
+			return player.startRiding(this);
+		}
+
+		return super.processInteract(player, hand);
+	}
+
 	@Override
 	public void readEntityFromNBT(NBTTagCompound nbttagcompound)
 	{
 		super.readEntityFromNBT(nbttagcompound);
-
-		this.maxJumps = nbttagcompound.getShort("Jumps");
-		this.jumpsRemaining = nbttagcompound.getShort("Remaining");
 	}
 
 	@Override
 	public void writeEntityToNBT(NBTTagCompound nbttagcompound)
 	{
 		super.writeEntityToNBT(nbttagcompound);
-
-		nbttagcompound.setShort("Jumps", (short) this.maxJumps);
-		nbttagcompound.setShort("Remaining", (short) this.jumpsRemaining);
 	}
 
 	@Override
@@ -227,10 +223,4 @@ public class EntityZephyroo extends EntityMountable
 	{
 		return new EntityZephyroo(this.world);
 	}
-
-	public float getTimeTilJump() 
-	{
-		return 3;
-	}
-
 }

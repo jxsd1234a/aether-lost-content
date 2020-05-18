@@ -1,7 +1,6 @@
 package com.legacy.lostaether.client.audio;
 
 import com.legacy.aether.Aether;
-import com.legacy.lostaether.LostAetherContent;
 import com.legacy.lostaether.LostContentConfig;
 
 import net.minecraft.client.Minecraft;
@@ -14,9 +13,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class LostMusicHandler
 {
-
 	private Minecraft mc = Minecraft.getMinecraft();
-
 	private LostMusicTicker musicTicker = new LostMusicTicker(mc);
 
 	@SubscribeEvent
