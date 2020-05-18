@@ -38,7 +38,7 @@ public class ItemsLostAether
 		phoenix_sword = register("phoenix_sword", new ItemPhoenixSword());
 
 		phoenix_cape = register("phoenix_cape", new ItemAccessory(AccessoryType.CAPE).setTexture("phoenix_cape").setDungeonLoot());
-		sentry_shield = register("sentry_shield", new ItemAccessory(AccessoryType.SHIELD).setTexture("sentry").setDungeonLoot());
+		sentry_shield = register("sentry_shield", new ItemAccessory(AccessoryType.SHIELD).setTexture("sentry").setDungeonLoot().setMaxDamage(30));
 		invisibility_gem = register("invisibility_gem", new ItemAccessory(AccessoryType.MISC).setDungeonLoot());
 		power_gloves = register("power_gloves", new ItemAccessory(AccessoryType.GLOVE).setTexture("power_gloves").setDungeonLoot());
 

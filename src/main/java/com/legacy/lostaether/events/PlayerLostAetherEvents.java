@@ -8,6 +8,7 @@ import com.legacy.lostaether.items.ItemsLostAether;
 import com.legacy.lostaether.world.dungeon.PlatinumDungeonGenerator;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -52,16 +53,11 @@ public class PlayerLostAetherEvents
 
 				if (playerAether.getAccessoryInventory().wearingAccessory(new ItemStack(ItemsLostAether.invisibility_gem)))
 				{
-					this.invisibilityUpdate = true;
 					playerAether.getEntity().setInvisible(true);
 				}
 				else if (!playerAether.getAccessoryInventory().wearingAccessory(new ItemStack(ItemsLostAether.invisibility_gem)) && !playerAether.getEntity().isPotionActive(Potion.getPotionById(14)))
 				{
-					if (this.invisibilityUpdate)
-					{
-						playerAether.getEntity().setInvisible(false);
-						this.invisibilityUpdate = false;
-					}
+					playerAether.getEntity().setInvisible(false);
 				}
 
 				if (player.inventory.armorInventory.get(0).getItem() == ItemsLostAether.agility_boots)
@@ -88,11 +84,21 @@ public class PlayerLostAetherEvents
 		{
 			IPlayerAether playerAether = AetherAPI.getInstance().get((EntityPlayer) event.getEntityLiving());
 
+			EntityLivingBase living = event.getEntityLiving();
 			if (playerAether != null)
 			{
 				if (playerAether.getAccessoryInventory().wearingAccessory(new ItemStack(ItemsLostAether.sentry_shield)))
 				{
-					// TODO: Add ability similar to the Sentry Boots, but on the shield slot!
+					if (event.getSource().isExplosion())
+					{
+						playerAether.getAccessoryInventory().damageWornStack(1, new ItemStack(ItemsLostAether.sentry_shield));
+						event.setCanceled(true);
+					}
+					else if (living.world.rand.nextBoolean())
+					{
+						playerAether.getAccessoryInventory().damageWornStack(1, new ItemStack(ItemsLostAether.sentry_shield));
+						living.world.createExplosion(living, living.posX, living.posY, living.posZ, 1, false);
+					}
 				}
 			}
 		}
