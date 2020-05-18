@@ -30,10 +30,8 @@ public class PlatinumDungeonGenerator extends StructurePlacer
 
 		if (pos.getY() >= 110 && pos.getY() <= 120 && worldIn.getBlockState(pos).getBlock() == Blocks.AIR)
 		{
-			// System.out.println("Platinum Dungeon at: (" + pos.getX() + ", " + pos.getY()
-			// + ", " + pos.getZ() + ")");
-			// System.out.println("If you noticed cascading worldgen lag, IGNORE IT. We will
-			// fix this issue at a later date.");
+			/*System.out.println("Platinum Dungeon at: (" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + ")");
+			System.out.println("If you noticed cascading worldgen lag, IGNORE IT. We will fix this issue at a later date.");*/
 
 			placeStructure(worldIn, dungeon.ground_1, pos, Rotation.NONE);
 			placeStructure(worldIn, dungeon.ground_2, pos.add(0, 0, -32), Rotation.NONE);
@@ -67,11 +65,7 @@ public class PlatinumDungeonGenerator extends StructurePlacer
 		if (function.contains("boss"))
 		{
 			EntityAerwhaleKing entity = new EntityAerwhaleKing(worldIn);
-			entity.setPosition((double) pos.getX() - 16.0D, (double) pos.getY() + 12.0D, (double) pos.getZ()); // this.dungeonX
-																												// - 16,
-																												// this.dungeonY
-																												// + 12,
-																												// this.dungeonZ
+			entity.setPosition((double) pos.getX() - 16.0D, (double) pos.getY() + 12.0D, (double) pos.getZ());
 			entity.setDungeon(pos.getX(), pos.getY(), pos.getZ());
 			entity.setRotationYawHead(180);
 			worldIn.spawnEntity(entity);
@@ -90,9 +84,6 @@ public class PlatinumDungeonGenerator extends StructurePlacer
 				if (rand.nextInt(2) == 0)
 				{
 					int u;
-					// ((TileEntityChest)tileentity).setLootTable(LostLootTables.platinum_normal_loot,
-					// rand.nextLong());
-
 					for (u = 0; u < 3 + rand.nextInt(3); u++)
 					{
 						((TileEntityChest) tileentity).setInventorySlotContents(rand.nextInt(((TileEntityChest) tileentity).getSizeInventory()), this.getNormalLoot(rand));
