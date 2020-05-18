@@ -1,5 +1,6 @@
 package com.legacy.lostaether.events;
 
+import com.legacy.aether.Aether;
 import com.legacy.aether.api.AetherAPI;
 import com.legacy.aether.api.player.IPlayerAether;
 import com.legacy.aether.blocks.dungeon.BlockTreasureChest;
@@ -15,9 +16,11 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
@@ -33,17 +36,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class PlayerLostAetherEvents
 {
 
-	private boolean invisibilityUpdate, stepUpdate;
+	private boolean stepUpdate;
 
 	@SubscribeEvent
 	public void checkPlayerVisibility(Visibility event)
 	{
 		IPlayerAether playerAether = AetherAPI.getInstance().get(event.getEntityPlayer());
-
-		if (playerAether.getAccessoryInventory().wearingAccessory(new ItemStack(ItemsLostAether.invisibility_gem)))
-		{
-			event.modifyVisibility(0.5D);
-		}
 	}
 
 	@SubscribeEvent
@@ -57,15 +55,6 @@ public class PlayerLostAetherEvents
 
 			if (playerAether != null)
 			{
-				/*if (playerAether.getAccessoryInventory().wearingAccessory(new ItemStack(ItemsLostAether.invisibility_gem)))
-				{
-					playerAether.getEntity().setInvisible(true);
-				}
-				else if (!playerAether.getAccessoryInventory().wearingAccessory(new ItemStack(ItemsLostAether.invisibility_gem)) && !playerAether.getEntity().isPotionActive(Potion.getPotionById(14)))
-				{
-					playerAether.getEntity().setInvisible(false);
-				}*/
-
 				if (player.inventory.armorInventory.get(0).getItem() == ItemsLostAether.agility_boots)
 				{
 					this.stepUpdate = true;
@@ -108,11 +97,20 @@ public class PlayerLostAetherEvents
 						living.world.createExplosion(living, living.posX, living.posY, living.posZ, 1, false);
 					}
 				}
-				
+
 				if (playerAether.getAccessoryInventory().wearingAccessory(new ItemStack(ItemsLostAether.phoenix_cape)) && source.getImmediateSource() instanceof EntityLivingBase && !isShielding)
 				{
 					source.getImmediateSource().setFire(3);
 					playerAether.getAccessoryInventory().damageWornStack(1, new ItemStack(ItemsLostAether.phoenix_cape));
+				}
+
+				if (playerAether.getAccessoryInventory().wearingAccessory(new ItemStack(ItemsLostAether.invisibility_gem)))
+				{
+					if (!living.isPotionActive(MobEffects.INVISIBILITY) && !isShielding && living.world.rand.nextFloat() < 0.05F && !living.world.isRemote)
+					{
+						living.addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 160, 0, true, true));
+						Aether.proxy.spawnSmoke(living.world, living.getPosition());
+					}
 				}
 			}
 
@@ -151,6 +149,22 @@ public class PlayerLostAetherEvents
 							((EntityDartBase) projectile).shootingEntity = living;
 						}
 					}
+				}
+			}
+		}
+		else if (event.getSource().getImmediateSource() instanceof EntityPlayer)
+		{
+			DamageSource source = event.getSource();
+			IPlayerAether playerAether = AetherAPI.getInstance().get((EntityPlayer) source.getImmediateSource());
+			EntityPlayer player = (EntityPlayer) source.getImmediateSource();
+
+			if (playerAether != null)
+			{
+				if (playerAether.getAccessoryInventory().wearingAccessory(new ItemStack(ItemsLostAether.power_gloves)) && player.getHeldItemMainhand().isEmpty())
+				{
+					player.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, 1.0F, 1.0F);
+					player.playSound(SoundEvents.ENTITY_FIREWORK_LAUNCH, 0.4F, 1.0F);
+					event.getEntityLiving().knockBack(source.getImmediateSource(), 1.5F, source.getImmediateSource().posX - event.getEntityLiving().posX, source.getImmediateSource().posZ - event.getEntityLiving().posZ);
 				}
 			}
 		}

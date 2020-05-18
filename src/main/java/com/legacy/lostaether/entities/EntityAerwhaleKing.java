@@ -26,8 +26,6 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.entity.projectile.EntityTippedArrow;
 import net.minecraft.item.ItemShield;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -53,19 +51,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityAerwhaleKing extends EntityFlying implements IAetherBoss
 {
-
 	public static final DataParameter<String> WHALE_NAME = EntityDataManager.<String>createKey(EntityAerwhaleKing.class, DataSerializers.STRING);
-
 	public static final DataParameter<Boolean> WHALE_CHARGING = EntityDataManager.<Boolean>createKey(EntityAerwhaleKing.class, DataSerializers.BOOLEAN);
 
 	private int dungeonX, dungeonY, dungeonZ;
-
 	private int targetX, targetY, targetZ;
-
 	public int chatTime, attackDelay, stunTime, randomAttackChance;
-
 	public float velocity;
-
 	public boolean isTargetted, courseFlipped;
 
 	public EntityAerwhaleKing(World world)
@@ -406,7 +398,7 @@ public class EntityAerwhaleKing extends EntityFlying implements IAetherBoss
 				{
 					// System.out.println("stunning from shield");
 					playerentity.disableShield(true);
-					playerentity.getCooldownTracker().setCooldown(playerItem.getItem(), 300);
+					playerentity.getCooldownTracker().setCooldown(playerItem.getItem(), 600);
 					this.world.setEntityState(playerentity, (byte) 30);
 
 					this.stop();
@@ -421,7 +413,7 @@ public class EntityAerwhaleKing extends EntityFlying implements IAetherBoss
 				}
 				else
 				{
-					entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 10.0F);
+					entityIn.attackEntityFrom(DamageSource.causeMobDamage(this).setDifficultyScaled(), 15.0F);
 					EntityLivingBase collidedEntity = (EntityLivingBase) entityIn;
 					collidedEntity.addVelocity(collidedEntity.motionY * 2, 0.35D, collidedEntity.motionZ * 2);
 					this.world.playSound(null, posX, posY, posZ, SoundsAether.zephyr_shoot, SoundCategory.HOSTILE, 2.5F, 1.0F / (this.rand.nextFloat() * 0.2F + 0.9F));
@@ -430,7 +422,7 @@ public class EntityAerwhaleKing extends EntityFlying implements IAetherBoss
 			}
 			else
 			{
-				entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 10.0F);
+				entityIn.attackEntityFrom(DamageSource.causeMobDamage(this).setDifficultyScaled(), 15.0F);
 				EntityLivingBase collidedEntity = (EntityLivingBase) entityIn;
 				collidedEntity.addVelocity(collidedEntity.motionY * 2, 0.35D, collidedEntity.motionZ * 2);
 				this.world.playSound(null, posX, posY, posZ, SoundsAether.zephyr_shoot, SoundCategory.HOSTILE, 2.5F, 1.0F / (this.rand.nextFloat() * 0.2F + 0.9F));
