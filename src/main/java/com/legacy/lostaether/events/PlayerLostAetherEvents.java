@@ -29,20 +29,12 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent.Visibility;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class PlayerLostAetherEvents
 {
-
 	private boolean stepUpdate;
-
-	@SubscribeEvent
-	public void checkPlayerVisibility(Visibility event)
-	{
-		IPlayerAether playerAether = AetherAPI.getInstance().get(event.getEntityPlayer());
-	}
 
 	@SubscribeEvent
 	public void onPlayerUpdate(LivingUpdateEvent event)
@@ -203,9 +195,6 @@ public class PlayerLostAetherEvents
 	{
 		if (damage >= 3.0F && player.getActiveItemStack().getItem() instanceof ItemAetherShield)
 		{
-			// living.playSound(SoundEvents.ENTITY_ZOMBIE_ATTACK_IRON_DOOR, 0.8F, 0.8F +
-			// living.world.rand.nextFloat() * 0.4F);
-
 			ItemStack copyBeforeUse = player.getActiveItemStack().copy();
 			int i = 1 + MathHelper.floor(damage);
 			player.getActiveItemStack().damageItem(i, player);
