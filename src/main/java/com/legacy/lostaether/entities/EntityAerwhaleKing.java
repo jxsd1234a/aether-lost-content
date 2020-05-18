@@ -549,6 +549,9 @@ public class EntityAerwhaleKing extends EntityFlying implements IAetherBoss
 
 	public void reset()
 	{
+		if (this.world.isRemote)
+			return;
+
 		this.stop();
 		this.setAttackTarget(null);
 		this.setHealth(this.getMaxHealth());
