@@ -40,7 +40,7 @@ public class ItemsLostAether
 		phoenix_cape = register("phoenix_cape", new ItemAccessory(AccessoryType.CAPE).setTexture("phoenix_cape").setDungeonLoot().setMaxDamage(50));
 		sentry_shield = register("sentry_shield", new ItemAccessory(AccessoryType.SHIELD).setTexture("sentry").setDungeonLoot().setMaxDamage(30));
 		invisibility_gem = register("invisibility_gem", new ItemAccessory(AccessoryType.MISC).setDungeonLoot());
-		power_gloves = register("power_gloves", new ItemAccessory(AccessoryType.GLOVE).setTexture("power_gloves").setDungeonLoot());
+		power_gloves = register("power_gloves", new ItemAccessory(AccessoryType.GLOVE).setTexture("power_gloves").setDungeonLoot().setMaxDamage(300));
 
 		swetty_mask = register("swetty_mask", new ItemAetherArmor(EntityEquipmentSlot.HEAD, ArmorMaterial.LEATHER, "swetty", null));
 		agility_boots = register("agility_boots", new ItemLostArmor(EntityEquipmentSlot.FEET, ArmorMaterial.IRON, "agility", null));
@@ -50,7 +50,6 @@ public class ItemsLostAether
 		jeb_shield = register("jeb_shield", new ItemAetherShield()).setMaxDamage(1344);
 
 		platinum_key = register("platinum_key", new Item().setCreativeTab(AetherCreativeTabs.misc).setMaxStackSize(1));
-
 	}
 
 	public static Item register(String name, Item item)

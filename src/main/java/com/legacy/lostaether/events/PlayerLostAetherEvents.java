@@ -152,11 +152,12 @@ public class PlayerLostAetherEvents
 
 			if (playerAether != null)
 			{
-				if (playerAether.getAccessoryInventory().wearingAccessory(new ItemStack(ItemsLostAether.power_gloves)) && player.getHeldItemMainhand().isEmpty())
+				if (playerAether.getAccessoryInventory().wearingAccessory(new ItemStack(ItemsLostAether.power_gloves)) && player.getHeldItemMainhand().isEmpty() && event.getEntityLiving().hurtTime <= 0)
 				{
 					player.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_KNOCKBACK, 1.0F, 1.0F);
 					player.playSound(SoundEvents.ENTITY_FIREWORK_LAUNCH, 0.4F, 1.0F);
 					event.getEntityLiving().knockBack(source.getImmediateSource(), 1.5F, source.getImmediateSource().posX - event.getEntityLiving().posX, source.getImmediateSource().posZ - event.getEntityLiving().posZ);
+					playerAether.getAccessoryInventory().damageWornStack(1, new ItemStack(ItemsLostAether.power_gloves));
 				}
 			}
 		}

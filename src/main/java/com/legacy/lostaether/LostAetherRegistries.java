@@ -2,6 +2,7 @@ package com.legacy.lostaether;
 
 import com.legacy.aether.api.accessories.AccessoryType;
 import com.legacy.aether.api.accessories.AetherAccessory;
+import com.legacy.aether.api.enchantments.AetherEnchantment;
 import com.legacy.lostaether.items.ItemsLostAether;
 
 import net.minecraftforge.registries.IForgeRegistry;
@@ -14,5 +15,11 @@ public class LostAetherRegistries
 		registry.register(new AetherAccessory(ItemsLostAether.sentry_shield, AccessoryType.SHIELD));
 		registry.register(new AetherAccessory(ItemsLostAether.invisibility_gem, AccessoryType.MISC));
 		registry.register(new AetherAccessory(ItemsLostAether.power_gloves, AccessoryType.GLOVE));
+	}
+	
+	public static void initializeEnchantments(IForgeRegistry<AetherEnchantment> registry)
+	{
+		registry.register(new AetherEnchantment(ItemsLostAether.zanite_shield, 2250));
+		registry.register(new AetherEnchantment(ItemsLostAether.gravitite_shield, 5500));
 	}
 }

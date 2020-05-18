@@ -30,6 +30,8 @@ tile.gale_wall.name=Gale Wall
 
 # Entities
 entity.king_aerwhale.name=Aerwhale King
+entity.falling_rock.name=Falling Rock
+entity.zephyroo.name=Zephyroo
 
 # GUI
 title.lost_aether.king_aerwhale.name=the Aerwhale King

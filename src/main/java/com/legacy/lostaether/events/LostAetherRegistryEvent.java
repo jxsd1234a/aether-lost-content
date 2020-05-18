@@ -1,6 +1,7 @@
 package com.legacy.lostaether.events;
 
 import com.legacy.aether.api.accessories.AetherAccessory;
+import com.legacy.aether.api.enchantments.AetherEnchantment;
 import com.legacy.aether.api.moa.AetherMoaType;
 import com.legacy.lostaether.LostAetherRegistries;
 import com.legacy.lostaether.LostMoaTypes;
@@ -16,7 +17,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class LostAetherRegistryEvent
 {
-
 	@SubscribeEvent
 	public void onRegisterSounds(RegistryEvent.Register<SoundEvent> event)
 	{
@@ -34,7 +34,6 @@ public class LostAetherRegistryEvent
 	public void onRegisterItemEvent(RegistryEvent.Register<Item> event)
 	{
 		BlocksLostAether.setItemRegistry(event.getRegistry());
-
 		ItemsLostAether.itemRegistry = event.getRegistry();
 
 		BlocksLostAether.initialization();
@@ -48,10 +47,15 @@ public class LostAetherRegistryEvent
 	}
 
 	@SubscribeEvent
+	public void onRegisterEnchantmentEvent(RegistryEvent.Register<AetherEnchantment> event)
+	{
+		LostAetherRegistries.initializeEnchantments(event.getRegistry());
+	}
+
+	@SubscribeEvent
 	public void onRegisterMoaTypeEvent(RegistryEvent.Register<AetherMoaType> event)
 	{
 		LostMoaTypes.moaRegistry = event.getRegistry();
-
 		LostMoaTypes.initialization();
 	}
 }
