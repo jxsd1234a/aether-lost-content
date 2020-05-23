@@ -1,6 +1,7 @@
 package com.legacy.lostaether.client.audio;
 
 import com.legacy.aether.registry.sounds.SoundsAether;
+import com.legacy.lostaether.LostContentConfig;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
@@ -28,7 +29,7 @@ public class LostMusicTicker implements ITickable
 
 		if (this.mc.player == null && Minecraft.getMinecraft().getAmbientMusicType() == MusicType.MENU)
 		{
-			if (!this.mc.getSoundHandler().isSoundPlaying(this.menuMusic))
+			if (LostContentConfig.visual.aether_menu && !this.mc.getSoundHandler().isSoundPlaying(this.menuMusic))
 			{
 				this.playMusic(tracktype);
 			}
