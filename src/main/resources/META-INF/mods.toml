@@ -1,0 +1,29 @@
+modLoader="javafml"
+loaderVersion="[28,)"
+issueTrackerURL="https://gitlab.com/groups/modding-legacy/-/issues"
+[[mods]]
+    modId="lost_aether_content"
+    version="${file.jarVersion}"
+    displayName="Aether: Lost Content"
+    displayURL="https://moddinglegacy.com/"
+    logoFile="banner.png"
+    authors="KingPhygieBoo, Jorge_SunSpirit, Lachney, Jesterguy"
+    description='''A mod that brings back a lot of scrapped, unused, and even concepted content, from Aether I, and Aether Legacy.'''
+[[dependencies.lost_aether_content]]
+    modId="forge"
+    mandatory=true
+    versionRange="[28.2.0,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.lost_aether_content]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.14.4]"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.lost_aether_content]]
+    modId="aether"
+    mandatory=true
+    versionRange="[0.0.0,]"
+    ordering="NONE"
+    side="BOTH"
