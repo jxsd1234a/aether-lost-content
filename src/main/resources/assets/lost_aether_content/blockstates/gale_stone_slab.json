@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "lost_aether_content:block/gale_stone_slab" },
+        "type=top": { "model": "lost_aether_content:block/gale_stone_slab_top" },
+        "type=double": { "model": "lost_aether_content:block/gale_stone" }
+    }
+}

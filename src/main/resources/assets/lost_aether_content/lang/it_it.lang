@@ -1,0 +1,32 @@
+# Items
+item.phoenix_sword.name=Spada della Fenice
+item.phoenix_pickaxe.name=Piccone della Fenice 
+item.phoenix_axe.name=Ascia della Fenice 
+item.phoenix_shovel.name=Pala della Fenice
+item.phoenix_cape.name=Mantello della Fenice 
+item.sentry_shield.name=Scudo della Sentinella
+item.invisibility_gem.name=Gemma dell'invisibilità 
+item.swetty_mask.name=Maschera gelatinosa
+item.agility_boots.name=Stivali dell'Agilità 
+item.power_gloves.name=Guanti del Potere
+item.zanite_shield.name=Scudo di Zanite
+item.gravitite_shield.name=Scudo di Graviitite
+item.jeb_shield.name=Scudo di Jeb
+item.jeb_hammer.name=Martello di Jeb
+item.brown_moa_egg.name=Uovo di Moa Marrone 
+item.platinum_key.name=Chiave di Platino
+# Blocks
+tile.crystal_sapling.name=Arboscello di Cristallo
+tile.gale_stone.name=Pietra di Gale
+tile.light_gale_stone.name=Pietra leggera di Gale
+tile.locked_gale_stone.name=Pietra di Gale bloccata
+tile.locked_light_gale_stone.name=Pietra leggera di Gale bloccata
+tile.songstone.name=Pietra del Canto
+tile.gale_wall.name=Muro di Gale
+tile.gale_stairs.name=Scalini di Burrasca
+entity.king_aerwhale.name=Re Aerwhale
+# GUI
+title.lost_aether.king_aerwhale.name=Il Re Aerwhale
+# Advancements
+advancement.lost_aether.platinum_dungeon=Asceso
+advancement.lost_aether.platinum_dungeon.desc=Sconfiggi il boss del dungeon di platino 

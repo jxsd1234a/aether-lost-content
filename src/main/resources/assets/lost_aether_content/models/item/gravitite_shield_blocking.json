@@ -1,0 +1,6 @@
+{
+    "parent": "lost_aether_content:item/aether_shield_blocking",
+	"textures": {
+		"layer0": "aether:item/tools/gravitite_shield"
+	}
+}

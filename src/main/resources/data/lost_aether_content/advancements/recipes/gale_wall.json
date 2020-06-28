@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "lost_aether:gale_wall"
+    ]
+  },
+  "criteria": {
+    "has_angelic": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "lost_aether:gale_stone"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "lost_aether:gale_wall"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_angelic",
+      "has_the_recipe"
+    ]
+  ]
+}

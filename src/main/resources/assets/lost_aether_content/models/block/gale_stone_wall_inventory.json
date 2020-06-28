@@ -1,0 +1,6 @@
+{
+    "parent": "block/wall_inventory",
+    "textures": {
+        "wall": "lost_aether_content:block/gale_stone"
+    }
+}

@@ -1,0 +1,8 @@
+{
+    "parent": "block/stairs",
+    "textures": {
+        "bottom": "lost_aether_content:block/gale_stone",
+        "top": "lost_aether_content:block/gale_stone",
+        "side": "lost_aether_content:block/gale_stone"
+    }
+}

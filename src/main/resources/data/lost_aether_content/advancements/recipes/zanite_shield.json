@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "lost_aether:zanite_shield"
+    ]
+  },
+  "criteria": {
+    "has_zanite_gemstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "aether_legacy:zanite_gemstone"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "lost_aether:zanite_shield"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_zanite_gemstone",
+      "has_the_recipe"
+    ]
+  ]
+}

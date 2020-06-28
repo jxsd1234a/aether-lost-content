@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "lost_aether:gravitite_shield"
+    ]
+  },
+  "criteria": {
+    "has_grav": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "aether_legacy:enchanted_gravitite"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "lost_aether:gravitite_shield"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_grav",
+      "has_the_recipe"
+    ]
+  ]
+}
