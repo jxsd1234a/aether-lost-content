@@ -15,7 +15,6 @@ item.jeb_shield.name=Jeb's Schild
 item.jeb_hammer.name=Jeb's Hammer
 item.brown_moa_egg.name=Braunes Moa Ei
 item.platinum_key.name=Platinum Schlüssel
-
 # Blocks
 tile.crystal_sapling.name=Kristallsetzling
 tile.gale_stone.name=Sturmstein
@@ -24,21 +23,16 @@ tile.locked_gale_stone.name=Verschlossener Sturmstein
 tile.locked_light_gale_stone.name=Verschlossener Leuchtender Sturmstein
 tile.songstone.name=Liederstein
 tile.protection_block.name=Schutzblock
-
 tile.gale_stairs.name=Sturmtreppe
 tile.gale_wall.name=Sturmwand
-
 # Entities
 entity.king_aerwhale.name=Aerwalkönig
-
 # GUI
 title.lost_aether.king_aerwhale.name=der Aerwalkönig
 gui.lost_aether.projectile_miss=Oh oh! Es scheint, dass Projektile keine Wirkung haben!
-
 subtitles.entity.aerwhale_king.idle=Aerwalkönig singt
 subtitles.entity.aerwhale_king.hurt=Aerwalkönig erleidet Schaden
 subtitles.entity.aerwhale_king.death=Aerwalkönig schreit
-
 # Advancements
 advancement.lost_aether.platinum_dungeon=Aufgestiegen
 advancement.lost_aether.platinum_dungeon.desc=Besiege den Platin-Dungeon-Boss

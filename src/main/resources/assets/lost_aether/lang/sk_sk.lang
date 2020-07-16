@@ -22,11 +22,19 @@ tile.light_gale_stone.name=Lahky Gale Kameň
 tile.locked_gale_stone.name=Zamknutý Gale Kameň
 tile.locked_light_gale_stone.name=Zamknutý Lahky Gale Kameň
 tile.songstone.name=Songkameň
-tile.gale_wall.name=Galeová Stena
+tile.protection_block.name=Block ochrany
 tile.gale_stairs.name=Galeové Schody
+tile.gale_wall.name=Galeová Stena
+# Entities
 entity.king_aerwhale.name=Kráľ Vzdušných Veľrýb
+entity.falling_rock.name=Padajúci kameň
+entity.zephyroo.name=Zephyroo
 # GUI
 title.lost_aether.king_aerwhale.name=Kráľ Vzdušných Veľrýb
+gui.lost_aether.projectile_miss=Oh ou! Vyzerá to, že projekcie nič nerobia!
+subtitles.entity.aerwhale_king.idle=Kráľ vzdušných veľrýb píska
+subtitles.entity.aerwhale_king.hurt=Kráľ vzdušných veľrýb udiera
+subtitles.entity.aerwhale_king.death=Kráľ vzdušných veľrýb zomiera
 # Advancements
 advancement.lost_aether.platinum_dungeon=Vystúpenie
 advancement.lost_aether.platinum_dungeon.desc=Poraz platinového dungeonového bossa
