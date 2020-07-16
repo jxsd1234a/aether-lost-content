@@ -1,0 +1,33 @@
+# Items
+item.phoenix_sword.name=Főnix Kard
+item.phoenix_pickaxe.name=Főnix Csákány
+item.phoenix_axe.name=Főnix Balta
+item.phoenix_shovel.name=Főnix Ásó
+item.phoenix_cape.name=Főnix Köpeny
+item.sentry_shield.name=Őrző Pajzs
+item.invisibility_gem.name=Láthatatlanság Drágakő
+item.swetty_mask.name=Swetty Álarc
+item.agility_boots.name=Gyorsaság Csizma
+item.power_gloves.name=Erő Kesztyűk
+item.zanite_shield.name=Zánit Pajzs
+item.gravitite_shield.name=Gravitite Pajzs
+item.jeb_shield.name=Jeb Pajzsa
+item.jeb_hammer.name=Jeb Kalapácsa
+item.brown_moa_egg.name=Barna Moa Tojás
+item.platinum_key.name=Platinum Kulcs
+# Blocks
+tile.crystal_sapling.name=Kristály Facsemete
+tile.gale_stone.name=Orkán Kő
+tile.light_gale_stone.name=Könnyű Orkán Kő
+tile.locked_gale_stone.name=Zárt Orkán Kő
+tile.locked_light_gale_stone.name=Zárt Könnyű Orkán Kő
+tile.songstone.name=Zenekő
+tile.gale_stairs.name=Orkán Lépcső
+tile.gale_wall.name=Orkán Fal
+# Entities
+entity.king_aerwhale.name=Aerwhale Király
+# GUI
+title.lost_aether.king_aerwhale.name=az Aerwhale Király
+# Advancements
+advancement.lost_aether.platinum_dungeon=Felemelkedett
+advancement.lost_aether.platinum_dungeon.desc=Győzd le a platinum dungeon főellenségét

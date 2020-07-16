@@ -1,0 +1,40 @@
+# Items
+item.phoenix_sword.name=feniks zwaard
+item.phoenix_pickaxe.name=feniks houweel
+item.phoenix_axe.name=feniks bijl
+item.phoenix_shovel.name=feniks schep
+item.phoenix_cape.name=feniks cape
+item.sentry_shield.name=schildwacht schild
+item.invisibility_gem.name=edelsteen der onzichtbaarheid
+item.swetty_mask.name=swetty masker
+item.agility_boots.name=behendigheids laarzen
+item.power_gloves.name=Kracht Handschoenen
+item.zanite_shield.name=zanite schild
+item.gravitite_shield.name=zwaartekriaan zwaard
+item.jeb_shield.name=jeb's schild
+item.jeb_hammer.name=jeb's hammer
+item.brown_moa_egg.name=bruine moa ei
+item.platinum_key.name=platina sleutel
+# Blocks
+tile.crystal_sapling.name=kristallen kiemplant
+tile.gale_stone.name=stormsteen
+tile.light_gale_stone.name=licht stormsteen
+tile.locked_gale_stone.name=gesloten stormsteen
+tile.locked_light_gale_stone.name=gesloten licht stormsteen
+tile.songstone.name=liederensteen
+tile.protection_block.name=steen der bescherming
+tile.gale_stairs.name=stormsteen trap
+tile.gale_wall.name=stormsteen muur
+# Entities
+entity.king_aerwhale.name=luchtwalvis koning
+entity.falling_rock.name=vallende steen
+entity.zephyroo.name=zepharoo
+# GUI
+title.lost_aether.king_aerwhale.name=de koning van de luchtwalvissen
+gui.lost_aether.projectile_miss=o nee! het lijkt er op alsof projectielen niet werken!
+subtitles.entity.aerwhale_king.idle=luchtwalvis koning fluit
+subtitles.entity.aerwhale_king.hurt=luchtwalvis koning doet pijn
+subtitles.entity.aerwhale_king.death=luchtwalvis koning gaat dood
+# Advancements
+advancement.lost_aether.platinum_dungeon=geascendeerd
+advancement.lost_aether.platinum_dungeon.desc=vernietig de platina kerker baas

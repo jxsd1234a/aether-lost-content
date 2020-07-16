@@ -1,0 +1,21 @@
+# Items
+item.phoenix_sword.name=Espada da Fênix
+item.phoenix_pickaxe.name=Picareta da Fênix
+item.phoenix_axe.name=Machado da Fênix
+item.phoenix_shovel.name=Pá da Fênix
+item.phoenix_cape.name=Capa da Fênix
+item.sentry_shield.name=Escudo do Sentinela
+item.invisibility_gem.name=Gema da Invisibilidade
+item.swetty_mask.name=Máscara de Swet
+item.agility_boots.name=Botas de Agilidade
+item.power_gloves.name=Luvas de Poder
+item.zanite_shield.name=Escudo de Zanite
+item.gravitite_shield.name=Escudo de Gravitite
+item.jeb_shield.name=Escudo do Jeb
+item.jeb_hammer.name=Martelo do Jeb
+item.brown_moa_egg.name=Ovo de Moa Marrom
+item.platinum_key.name=Chave de Platina
+# Blocks
+tile.crystal_sapling.name=Muda de Cristal
+tile.songstone.name=Musipedra
+advancement.lost_aether.platinum_dungeon.desc=Derrote o chefe da dungeon de platina

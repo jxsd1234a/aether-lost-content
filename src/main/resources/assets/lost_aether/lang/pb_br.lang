@@ -1,0 +1,40 @@
+# Items
+item.phoenix_sword.name=Espada da Fênix
+item.phoenix_pickaxe.name=Picareta da Fênix
+item.phoenix_axe.name=Machado da Fênix
+item.phoenix_shovel.name=Pá da Fênix
+item.phoenix_cape.name=Capa da Fênix
+item.sentry_shield.name=Escudo do sentinela
+item.invisibility_gem.name=Gema da invisibilidade
+item.swetty_mask.name=Máscara de docinho
+item.agility_boots.name=Botas da agilidade
+item.power_gloves.name=Luvas do poder
+item.zanite_shield.name=Escudo de zanito
+item.gravitite_shield.name=Escudo de Gravitita
+item.jeb_shield.name=Escudo do Jeb
+item.jeb_hammer.name=Martelo do Jeb
+item.brown_moa_egg.name=Ovo de Moa Marrom
+item.platinum_key.name=Chave de platina
+# Blocks
+tile.crystal_sapling.name=Muda de cristal
+tile.gale_stone.name=Pedra dos ventos
+tile.light_gale_stone.name=Pedra dos ventos acesa
+tile.locked_gale_stone.name=Pedra dos ventos trancada
+tile.locked_light_gale_stone.name=Pedra dos ventos acesa trancada
+tile.songstone.name=Pedra da melodia
+tile.protection_block.name=Bloco de Proteção
+tile.gale_stairs.name=Escadas de pedra dos ventos
+tile.gale_wall.name=Muro de pedra dos ventos
+# Entities
+entity.king_aerwhale.name=Rei das Aerobaleias
+entity.falling_rock.name=Pedra Caindo
+entity.zephyroo.name=Zefiro
+# GUI
+title.lost_aether.king_aerwhale.name=O Rei das Aerobaleias
+gui.lost_aether.projectile_miss=Oh não! Parece que projéteis não fazem nada!
+subtitles.entity.aerwhale_king.idle=Rei das Aerobaleias grita
+subtitles.entity.aerwhale_king.hurt=Rei das Aerobaleias se machuca
+subtitles.entity.aerwhale_king.death=Rei das Aerobaleias morre
+# Advancements
+advancement.lost_aether.platinum_dungeon=Ascendido
+advancement.lost_aether.platinum_dungeon.desc=Derrote o chefe da masmorra de platina

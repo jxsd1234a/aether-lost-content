@@ -1,0 +1,33 @@
+# Items
+item.phoenix_sword.name=フェニックスの剣
+item.phoenix_pickaxe.name=フェニックスのツルハシ
+item.phoenix_axe.name=フェニックスの斧
+item.phoenix_shovel.name=フェニックスのシャベル
+item.phoenix_cape.name=フェニックスのマント
+item.sentry_shield.name=衛兵の盾
+item.invisibility_gem.name=不可視のジェム
+item.swetty_mask.name=汗のマスク
+item.agility_boots.name=敏速のブーツ
+item.power_gloves.name=パワーグローブ
+item.zanite_shield.name=ザナイトの盾
+item.gravitite_shield.name=グラビタイトの盾
+item.jeb_shield.name=Jebの盾
+item.jeb_hammer.name=Jebのハンマー
+item.brown_moa_egg.name=ブラウンモアの卵
+item.platinum_key.name=プラチナの鍵
+# Blocks
+tile.crystal_sapling.name=クリスタルの苗木
+tile.gale_stone.name=ゲイルストーン
+tile.light_gale_stone.name=ライトゲイルストーン
+tile.locked_gale_stone.name=ロックされたゲイルストーン
+tile.locked_light_gale_stone.name=ロックされたライトゲイルストーン
+tile.songstone.name=ソングストーン
+tile.gale_stairs.name=ゲイルの階段
+tile.gale_wall.name=ゲイルの壁
+# Entities
+entity.king_aerwhale.name=エアホエールキング
+# GUI
+title.lost_aether.king_aerwhale.name=ザ・エアホエールキング
+# Advancements
+advancement.lost_aether.platinum_dungeon=上昇
+advancement.lost_aether.platinum_dungeon.desc=プラチナダンジョンのボスを倒す

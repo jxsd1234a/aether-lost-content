@@ -1,0 +1,33 @@
+# Items
+item.phoenix_sword.name=Espada de Fénix
+item.phoenix_pickaxe.name=Pico de Fénix
+item.phoenix_axe.name=Hacha de Fénix
+item.phoenix_shovel.name=Hacha de Fénix
+item.phoenix_cape.name=Capa de Fénix
+item.sentry_shield.name=Escudo Centinela
+item.invisibility_gem.name=Gema de Invisibilidad
+item.swetty_mask.name=Máscara Sudorosa
+item.agility_boots.name=Botas de Agilidad
+item.power_gloves.name=Guantes de Poder
+item.zanite_shield.name=Escudo de Zanita
+item.gravitite_shield.name=Escudo de Gravitita
+item.jeb_shield.name=Escudo de Jeb
+item.jeb_hammer.name=Martillo de Jeb
+item.brown_moa_egg.name=Huevo de Moa Marrón
+item.platinum_key.name=Llave de Platino
+# Blocks
+tile.crystal_sapling.name=Esqueje de Cristal
+tile.gale_stone.name=Piedra Vendaval
+tile.light_gale_stone.name=Piedra Vendaval ligera
+tile.locked_gale_stone.name=Piedra Vendaval Cerrada
+tile.locked_light_gale_stone.name=Piedra Vendaval ligera Bloqueada
+tile.songstone.name=Piedra de la Canción
+tile.gale_stairs.name=Escaleras de Vendaval
+tile.gale_wall.name=Muro Vendaval
+# Entities
+entity.king_aerwhale.name=Rey Aerwhale
+# GUI
+title.lost_aether.king_aerwhale.name=El Rey Aerwhale
+# Advancements
+advancement.lost_aether.platinum_dungeon=Ascendido
+advancement.lost_aether.platinum_dungeon.desc=Derrota el Jefe de la Mazmorra Platino

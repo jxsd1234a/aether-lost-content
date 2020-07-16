@@ -1,0 +1,33 @@
+# Items
+item.phoenix_sword.name=Меч фенікса
+item.phoenix_pickaxe.name=Кирка фенікса
+item.phoenix_axe.name=Сокира Фенікса
+item.phoenix_shovel.name=Лопата Фенікса
+item.phoenix_cape.name=Плащ Фенікса
+item.sentry_shield.name=Щит стража
+item.invisibility_gem.name=Камінь невидимості
+item.swetty_mask.name=Слизньо-маска
+item.agility_boots.name=Черевики спритності
+item.power_gloves.name=Рукавички сили
+item.zanite_shield.name=Занітовий щит
+item.gravitite_shield.name=Гравітитовий щит
+item.jeb_shield.name=Щит Джеба
+item.jeb_hammer.name=Молот джеба
+item.brown_moa_egg.name=Яйце коричневого Моа
+item.platinum_key.name=Платиновий ключ
+# Blocks
+tile.crystal_sapling.name=Кристалічний саджанець
+tile.gale_stone.name=Штормовий камінь
+tile.light_gale_stone.name=Світлий штормовий камінь
+tile.locked_gale_stone.name=Закритий штормовий камінь
+tile.locked_light_gale_stone.name=Закритий світлий штормовий камінь
+tile.songstone.name=Камінь пісні
+tile.gale_stairs.name=Штормові сходи
+tile.gale_wall.name=Штормова огорожа
+# Entities
+entity.king_aerwhale.name=Король Повітряних китів
+# GUI
+title.lost_aether.king_aerwhale.name=Король Повітряних китів
+# Advancements
+advancement.lost_aether.platinum_dungeon=Піднесений
+advancement.lost_aether.platinum_dungeon.desc=Переможіть боса Платинового підземелля
