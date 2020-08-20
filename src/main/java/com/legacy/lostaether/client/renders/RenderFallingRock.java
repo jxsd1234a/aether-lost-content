@@ -1,6 +1,6 @@
 package com.legacy.lostaether.client.renders;
 
-import com.legacy.aether.client.models.entities.CrystalModel;
+import com.gildedgames.the_aether.client.models.entities.CrystalModel;
 import com.legacy.lostaether.LostAetherContent;
 import com.legacy.lostaether.entities.EntityFallingRock;
 

@@ -2,7 +2,7 @@ package com.legacy.lostaether.items.tools;
 
 import javax.annotation.Nullable;
 
-import com.legacy.aether.registry.creative_tabs.AetherCreativeTabs;
+import com.gildedgames.the_aether.registry.creative_tabs.AetherCreativeTabs;
 
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.entity.EntityLivingBase;

@@ -2,8 +2,8 @@ package com.legacy.lostaether.entities;
 
 import java.util.List;
 
+import com.gildedgames.the_aether.blocks.BlocksAether;
 import com.google.common.collect.Lists;
-import com.legacy.aether.blocks.BlocksAether;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;

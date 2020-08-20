@@ -14,8 +14,11 @@ public class LostContentConfig
 
 	public static class VisualChanges
 	{
-		@Config.Comment("Enables the Aether Menu.")
+		@Config.Comment("Replaces the normal Aether menu. This one has the original panorama, and proper button placement. It also changes the menu backgrounds to Aether Dirt.")
 		public boolean aether_menu = false;
+		
+		@Config.Comment("Enable the a button on the Aether menu to join the Modding Legacy server. This only works if lost content menu is enabled.")
+		public boolean server_button = false;
 	}
 
 	@Mod.EventBusSubscriber(modid = LostAetherContent.MODID)

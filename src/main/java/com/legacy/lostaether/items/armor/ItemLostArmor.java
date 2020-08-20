@@ -1,15 +1,13 @@
 package com.legacy.lostaether.items.armor;
 
+import com.gildedgames.the_aether.Aether;
+import com.gildedgames.the_aether.items.ItemsAether;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.legacy.aether.Aether;
-import com.legacy.aether.items.ItemsAether;
-import com.legacy.aether.registry.creative_tabs.AetherCreativeTabs;
 import com.legacy.lostaether.client.models.ModelAgilityBoots;
 import com.legacy.lostaether.items.ItemsLostAether;
 
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -19,13 +17,11 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemLostArmor extends ItemArmor
 {
-
 	private String[] defualt_location = new String[] { "textures/models/armor/iron_layer_1.png", "textures/models/armor/iron_layer_2.png" };
 
 	private boolean shouldDefualt = false;
@@ -42,14 +38,14 @@ public class ItemLostArmor extends ItemArmor
 		this.armorName = name;
 	}
 
-	@Override
+	/*@Override
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
 	{
 		if (tab == AetherCreativeTabs.armor || tab == CreativeTabs.SEARCH)
 		{
 			items.add(new ItemStack(this));
 		}
-	}
+	}*/
 
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type)

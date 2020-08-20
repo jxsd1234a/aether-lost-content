@@ -1,6 +1,6 @@
 package com.legacy.lostaether.blocks;
 
-import com.legacy.aether.registry.creative_tabs.AetherCreativeTabs;
+import com.gildedgames.the_aether.registry.creative_tabs.AetherCreativeTabs;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -15,9 +15,7 @@ import net.minecraft.world.World;
 
 public class BlockLostDungeonBase extends Block
 {
-
-
-	public BlockLostDungeonBase(boolean isLocked) 
+	public BlockLostDungeonBase(boolean isLocked)
 	{
 		super(Material.ROCK);
 
@@ -33,24 +31,24 @@ public class BlockLostDungeonBase extends Block
 	}
 
 	@Override
-    public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos)
-    {
-        if (state.getBlock() != this)
-        {
-            return state.getLightValue(world, pos);
-        }
+	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos)
+	{
+		if (state.getBlock() != this)
+		{
+			return state.getLightValue(world, pos);
+		}
 
-        if (this == BlocksLostAether.light_gale_stone || this == BlocksLostAether.locked_light_gale_stone)
-        {
-        	return (int)(15.0F * 0.75f);
-        }
+		if (this == BlocksLostAether.light_gale_stone || this == BlocksLostAether.locked_light_gale_stone)
+		{
+			return (int) (15.0F * 0.75f);
+		}
 
-        return 0;
-    }
+		return 0;
+	}
 
 	@Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player)
-    {
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player)
+	{
 		return super.getPickBlock(state, target, world, pos, player);
-    }
+	}
 }

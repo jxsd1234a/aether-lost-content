@@ -2,7 +2,7 @@ package com.legacy.lostaether.world;
 
 import java.util.Random;
 
-import com.legacy.aether.AetherConfig;
+import com.gildedgames.the_aether.AetherConfig;
 import com.legacy.lostaether.world.dungeon.PlatinumDungeonGenerator;
 
 import net.minecraft.block.Block;

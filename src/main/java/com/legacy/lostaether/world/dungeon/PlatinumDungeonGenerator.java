@@ -2,13 +2,13 @@ package com.legacy.lostaether.world.dungeon;
 
 import java.util.Random;
 
-import com.legacy.aether.blocks.BlocksAether;
-import com.legacy.aether.items.ItemMoaEgg;
-import com.legacy.aether.items.ItemsAether;
-import com.legacy.lostaether.LostMoaTypes;
+import com.gildedgames.the_aether.blocks.BlocksAether;
+import com.gildedgames.the_aether.items.ItemMoaEgg;
+import com.gildedgames.the_aether.items.ItemsAether;
 import com.legacy.lostaether.blocks.BlocksLostAether;
 import com.legacy.lostaether.entities.EntityAerwhaleKing;
 import com.legacy.lostaether.items.ItemsLostAether;
+import com.legacy.lostaether.registry.LostMoaTypes;
 import com.legacy.lostaether.world.dungeon.util.StructurePlacer;
 
 import net.minecraft.init.Blocks;

@@ -1,11 +1,11 @@
 package com.legacy.lostaether.events;
 
-import com.legacy.aether.Aether;
-import com.legacy.aether.api.AetherAPI;
-import com.legacy.aether.api.player.IPlayerAether;
-import com.legacy.aether.blocks.dungeon.BlockTreasureChest;
-import com.legacy.aether.entities.projectile.darts.EntityDartBase;
-import com.legacy.aether.tile_entities.TileEntityTreasureChest;
+import com.gildedgames.the_aether.Aether;
+import com.gildedgames.the_aether.api.AetherAPI;
+import com.gildedgames.the_aether.api.player.IPlayerAether;
+import com.gildedgames.the_aether.blocks.dungeon.BlockTreasureChest;
+import com.gildedgames.the_aether.entities.projectile.darts.EntityDartBase;
+import com.gildedgames.the_aether.tile_entities.TileEntityTreasureChest;
 import com.legacy.lostaether.items.ItemsLostAether;
 import com.legacy.lostaether.items.tools.ItemAetherShield;
 import com.legacy.lostaether.world.dungeon.PlatinumDungeonGenerator;
