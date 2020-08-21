@@ -27,6 +27,7 @@ tile.protection_block.name=Protection Block
 
 tile.gale_stairs.name=Gale Stairs
 tile.gale_wall.name=Gale Wall
+tile.gale_slab.name=Gale Slab
 
 # Entities
 entity.king_aerwhale.name=Aerwhale King
