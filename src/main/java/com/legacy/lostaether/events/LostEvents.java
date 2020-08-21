@@ -2,10 +2,10 @@ package com.legacy.lostaether.events;
 
 import java.util.Random;
 
-import com.legacy.aether.blocks.BlocksAether;
-import com.legacy.aether.entities.passive.mountable.EntityMoa;
-import com.legacy.lostaether.LostMoaTypes;
+import com.gildedgames.the_aether.blocks.BlocksAether;
+import com.gildedgames.the_aether.entities.passive.mountable.EntityMoa;
 import com.legacy.lostaether.blocks.BlocksLostAether;
+import com.legacy.lostaether.registry.LostMoaTypes;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingEvent;

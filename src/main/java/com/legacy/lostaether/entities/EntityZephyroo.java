@@ -1,7 +1,7 @@
 package com.legacy.lostaether.entities;
 
-import com.legacy.aether.entities.util.EntityMountable;
-import com.legacy.aether.items.ItemsAether;
+import com.gildedgames.the_aether.entities.util.EntityMountable;
+import com.gildedgames.the_aether.items.ItemsAether;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;

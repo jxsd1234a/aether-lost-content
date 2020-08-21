@@ -1,5 +1,5 @@
 @echo off
 title Setting up Decomp Workspace..
 cd ..
-call gradlew.bat setupDecompWorkspace
+call gradlew.bat setupDecompWorkspace eclipse
 pause

@@ -4,12 +4,12 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import com.legacy.aether.Aether;
-import com.legacy.aether.api.AetherAPI;
-import com.legacy.aether.api.player.util.IAetherBoss;
-import com.legacy.aether.entities.hostile.EntityWhirlwind;
-import com.legacy.aether.items.ItemsAether;
-import com.legacy.aether.registry.sounds.SoundsAether;
+import com.gildedgames.the_aether.Aether;
+import com.gildedgames.the_aether.api.AetherAPI;
+import com.gildedgames.the_aether.api.player.util.IAetherBoss;
+import com.gildedgames.the_aether.entities.hostile.EntityWhirlwind;
+import com.gildedgames.the_aether.items.ItemsAether;
+import com.gildedgames.the_aether.registry.sounds.SoundsAether;
 import com.legacy.lostaether.LostLootTables;
 import com.legacy.lostaether.blocks.BlocksLostAether;
 import com.legacy.lostaether.client.sounds.LostSounds;

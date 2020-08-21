@@ -1,10 +1,10 @@
 package com.legacy.lostaether.items;
 
-import com.legacy.aether.api.accessories.AccessoryType;
-import com.legacy.aether.items.accessories.ItemAccessory;
-import com.legacy.aether.items.armor.ItemAetherArmor;
-import com.legacy.aether.items.util.EnumAetherToolType;
-import com.legacy.aether.registry.creative_tabs.AetherCreativeTabs;
+import com.gildedgames.the_aether.api.accessories.AccessoryType;
+import com.gildedgames.the_aether.items.accessories.ItemAccessory;
+import com.gildedgames.the_aether.items.armor.ItemAetherArmor;
+import com.gildedgames.the_aether.items.util.EnumAetherToolType;
+import com.gildedgames.the_aether.registry.creative_tabs.AetherCreativeTabs;
 import com.legacy.lostaether.LostAetherContent;
 import com.legacy.lostaether.items.armor.ItemLostArmor;
 import com.legacy.lostaether.items.tools.ItemAetherShield;
@@ -37,8 +37,8 @@ public class ItemsLostAether
 		phoenix_shovel = register("phoenix_shovel", new ItemPhoenixTool(EnumAetherToolType.SHOVEL));
 		phoenix_sword = register("phoenix_sword", new ItemPhoenixSword());
 
-		phoenix_cape = register("phoenix_cape", new ItemAccessory(AccessoryType.CAPE).setTexture("phoenix_cape").setDungeonLoot().setMaxDamage(50));
-		sentry_shield = register("sentry_shield", new ItemAccessory(AccessoryType.SHIELD).setTexture("sentry").setDungeonLoot().setMaxDamage(30));
+		phoenix_cape = register("phoenix_cape", new ItemAccessory(AccessoryType.CAPE).setTexture("phoenix_cape").setElytraTexture("phoenix_cape_elytra").setDungeonLoot().setMaxDamage(50));
+		sentry_shield = register("sentry_shield", new ItemAccessory(AccessoryType.SHIELD).setTexture("sentry").setInactiveTexture("sentry").setDungeonLoot().setMaxDamage(30));
 		invisibility_gem = register("invisibility_gem", new ItemAccessory(AccessoryType.MISC).setDungeonLoot());
 		power_gloves = register("power_gloves", new ItemAccessory(AccessoryType.GLOVE).setTexture("power_gloves").setDungeonLoot().setMaxDamage(300));
 

@@ -1,13 +1,13 @@
 package com.legacy.lostaether.events;
 
-import com.legacy.aether.api.accessories.AetherAccessory;
-import com.legacy.aether.api.enchantments.AetherEnchantment;
-import com.legacy.aether.api.moa.AetherMoaType;
-import com.legacy.lostaether.LostAetherRegistries;
-import com.legacy.lostaether.LostMoaTypes;
+import com.gildedgames.the_aether.api.accessories.AetherAccessory;
+import com.gildedgames.the_aether.api.enchantments.AetherEnchantment;
+import com.gildedgames.the_aether.api.moa.AetherMoaType;
 import com.legacy.lostaether.blocks.BlocksLostAether;
 import com.legacy.lostaether.client.sounds.LostSounds;
 import com.legacy.lostaether.items.ItemsLostAether;
+import com.legacy.lostaether.registry.LostAetherRegistries;
+import com.legacy.lostaether.registry.LostMoaTypes;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -36,7 +36,7 @@ public class LostAetherRegistryEvent
 		BlocksLostAether.setItemRegistry(event.getRegistry());
 		ItemsLostAether.itemRegistry = event.getRegistry();
 
-		BlocksLostAether.initialization();
+		BlocksLostAether.init();
 		ItemsLostAether.initialization();
 	}
 

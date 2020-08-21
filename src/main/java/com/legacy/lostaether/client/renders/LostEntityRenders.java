@@ -20,13 +20,13 @@ public class LostEntityRenders
 		register(EntityFallingRock.class, RenderFallingRock.class);
 	}
 
-	public static <ENTITY extends Entity> void register(Class<ENTITY> classes, final Class<? extends Render<ENTITY>> render)
+	public static <T extends Entity> void register(Class<T> classes, final Class<? extends Render<T>> render)
 	{
-		RenderingRegistry.registerEntityRenderingHandler(classes, new IRenderFactory<ENTITY>()
+		RenderingRegistry.registerEntityRenderingHandler(classes, new IRenderFactory<T>()
 		{
 
 			@Override
-			public Render<ENTITY> createRenderFor(RenderManager manager)
+			public Render<T> createRenderFor(RenderManager manager)
 			{
 				try
 				{

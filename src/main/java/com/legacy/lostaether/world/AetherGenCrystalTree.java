@@ -2,9 +2,9 @@ package com.legacy.lostaether.world;
 
 import java.util.Random;
 
-import com.legacy.aether.blocks.BlocksAether;
-import com.legacy.aether.blocks.natural.BlockCrystalLeaves;
-import com.legacy.aether.blocks.util.EnumCrystalType;
+import com.gildedgames.the_aether.blocks.BlocksAether;
+import com.gildedgames.the_aether.blocks.natural.BlockCrystalLeaves;
+import com.gildedgames.the_aether.blocks.util.EnumCrystalType;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;

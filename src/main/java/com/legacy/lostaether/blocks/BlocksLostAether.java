@@ -1,10 +1,10 @@
 package com.legacy.lostaether.blocks;
 
-import com.legacy.aether.blocks.BlockAetherSapling;
-import com.legacy.aether.blocks.decorative.BlockAetherStairs;
-import com.legacy.aether.blocks.decorative.BlockAetherWall;
-import com.legacy.aether.items.block.ItemAetherSlab;
-import com.legacy.aether.registry.creative_tabs.AetherCreativeTabs;
+import com.gildedgames.the_aether.blocks.BlockAetherSapling;
+import com.gildedgames.the_aether.blocks.decorative.BlockAetherStairs;
+import com.gildedgames.the_aether.blocks.decorative.BlockAetherWall;
+import com.gildedgames.the_aether.items.block.ItemAetherSlab;
+import com.gildedgames.the_aether.registry.creative_tabs.AetherCreativeTabs;
 import com.legacy.lostaether.LostAetherContent;
 import com.legacy.lostaether.world.AetherGenCrystalTree;
 
@@ -17,7 +17,6 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 public class BlocksLostAether
 {
-
 	public static Block crystal_sapling;
 
 	public static Block songstone;
@@ -34,12 +33,10 @@ public class BlocksLostAether
 
 	private static IForgeRegistry<Item> iItemRegistry;
 
-	public static void initialization()
+	public static void init()
 	{
 		if (iBlockRegistry == null || iItemRegistry == null)
-		{
 			return;
-		}
 
 		crystal_sapling = register("crystal_sapling", new BlockAetherSapling(new AetherGenCrystalTree()));
 
@@ -90,6 +87,8 @@ public class BlocksLostAether
 
 	public static Block registerSlab(String name, Block singleSlab, Block doubleSlab)
 	{
+		singleSlab.setTranslationKey(name);
+
 		singleSlab.setCreativeTab(AetherCreativeTabs.blocks);
 		doubleSlab.setCreativeTab(null);
 

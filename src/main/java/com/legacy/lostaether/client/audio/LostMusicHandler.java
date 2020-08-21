@@ -1,6 +1,7 @@
 package com.legacy.lostaether.client.audio;
 
-import com.legacy.aether.Aether;
+import com.gildedgames.the_aether.Aether;
+import com.gildedgames.the_aether.AetherConfig;
 import com.legacy.lostaether.LostContentConfig;
 
 import net.minecraft.client.Minecraft;
@@ -48,7 +49,7 @@ public class LostMusicHandler
 
 		if (category == SoundCategory.MUSIC)
 		{
-			if (LostContentConfig.visual.aether_menu && !sound.getSoundLocation().toString().contains(Aether.modid))
+			if (AetherConfig.visual_options.menu_enabled && LostContentConfig.visual.aether_menu && !sound.getSoundLocation().toString().contains(Aether.modid))
 			{
 				if ((Minecraft.getMinecraft().getAmbientMusicType() == MusicType.MENU))
 				{

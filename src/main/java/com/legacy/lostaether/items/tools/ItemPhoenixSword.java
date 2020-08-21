@@ -1,7 +1,7 @@
 package com.legacy.lostaether.items.tools;
 
-import com.legacy.aether.items.ItemsAether;
-import com.legacy.aether.registry.creative_tabs.AetherCreativeTabs;
+import com.gildedgames.the_aether.items.ItemsAether;
+import com.gildedgames.the_aether.registry.creative_tabs.AetherCreativeTabs;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -19,13 +19,13 @@ public class ItemPhoenixSword extends ItemSword
     }
 
 	@Override
-    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
-    {
-    	if (tab == AetherCreativeTabs.weapons || tab == CreativeTabs.SEARCH)
-    	{
-            items.add(new ItemStack(this));
-    	}
-    }
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
+	{
+		if (tab == AetherCreativeTabs.weapons || tab == CreativeTabs.SEARCH)
+		{
+	        items.add(new ItemStack(this));
+		}
+	}
 
     @Override
     public boolean getIsRepairable(ItemStack repairingItem, ItemStack material)

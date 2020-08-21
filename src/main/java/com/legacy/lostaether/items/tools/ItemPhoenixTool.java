@@ -1,13 +1,14 @@
 package com.legacy.lostaether.items.tools;
 
-import com.legacy.aether.items.ItemsAether;
-import com.legacy.aether.items.tools.ItemAetherTool;
-import com.legacy.aether.items.util.EnumAetherToolType;
+import com.gildedgames.the_aether.items.ItemsAether;
+import com.gildedgames.the_aether.items.tools.ItemAetherTool;
+import com.gildedgames.the_aether.items.util.EnumAetherToolType;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.math.BlockPos;

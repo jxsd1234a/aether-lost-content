@@ -1,6 +1,7 @@
 package com.legacy.lostaether.client;
 
 import com.legacy.lostaether.CommonProxy;
+import com.legacy.lostaether.LostSplashes;
 import com.legacy.lostaether.client.audio.LostMusicHandler;
 import com.legacy.lostaether.client.renders.LostAetherRendering;
 import com.legacy.lostaether.client.renders.LostEntityRenders;
@@ -14,6 +15,8 @@ public class ClientProxy extends CommonProxy
 	@Override
 	public void preInitialization()
 	{
+		new LostSplashes.GetSplashesThread().start();
+
 		// registerEvent(new LostAetherBlockRendering());
 		registerEvent(new LostAetherRendering());
 		registerEvent(new LostClientEvents());
