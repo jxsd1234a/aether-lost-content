@@ -87,6 +87,8 @@ public class BlocksLostAether
 
 	public static Block registerSlab(String name, Block singleSlab, Block doubleSlab)
 	{
+		singleSlab.setTranslationKey(name);
+
 		singleSlab.setCreativeTab(AetherCreativeTabs.blocks);
 		doubleSlab.setCreativeTab(null);
 
