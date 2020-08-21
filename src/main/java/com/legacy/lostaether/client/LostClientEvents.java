@@ -65,15 +65,4 @@ public class LostClientEvents
 		if ((!AetherConfig.visual_options.menu_enabled || !LostContentConfig.visual.aether_menu) && event.getGui().getClass() == GuiLostAetherMenu.class)
 			Minecraft.getMinecraft().displayGuiScreen(new GuiMainMenu());
 	}
-
-	static void setFinalStatic(Field field, Object newValue) throws Exception
-	{
-		field.setAccessible(true);
-
-		Field modifiersField = Field.class.getDeclaredField("modifiers");
-		modifiersField.setAccessible(true);
-		modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-
-		field.set(null, newValue);
-	}
 }
