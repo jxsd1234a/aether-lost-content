@@ -27,8 +27,8 @@ public class PlatinumDungeonStructure extends Structure<PlatinumDungeonConfig>
 
 	protected ChunkPos getStartPositionForPosition(ChunkGenerator<?> chunkGenerator, Random random, int posX, int posZ, int spacingOffsetsX, int spacingOffsetsZ)
 	{
-		int distance = 20;
-		int separation = 11;
+		int distance = 80;
+		int separation = 20;
 		int x = posX + distance * spacingOffsetsX;
 		int z = posZ + distance * spacingOffsetsZ;
 		int x1 = x < 0 ? x - distance + 1 : x;

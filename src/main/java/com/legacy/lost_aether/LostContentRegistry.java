@@ -4,6 +4,7 @@ import com.aether.item.AetherItemGroups;
 import com.legacy.lost_aether.registry.LostContentBlocks;
 import com.legacy.lost_aether.registry.LostContentEntityTypes;
 import com.legacy.lost_aether.registry.LostContentFeatures;
+import com.legacy.lost_aether.registry.LostContentSounds;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
@@ -25,7 +26,7 @@ public class LostContentRegistry
 	@SubscribeEvent
 	public static void onRegisterSounds(RegistryEvent.Register<SoundEvent> event)
 	{
-		/*LostContentSounds.init(event.getRegistry());*/
+		LostContentSounds.init(event);
 	}
 
 	@SubscribeEvent

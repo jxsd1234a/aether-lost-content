@@ -9,8 +9,10 @@ import com.aether.player.IAetherBoss;
 import com.aether.util.AetherSoundEvents;
 import com.legacy.lost_aether.entity.util.LostNameGen;
 import com.legacy.lost_aether.registry.LostContentBlocks;
+import com.legacy.lost_aether.registry.LostContentSounds;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.StairsBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
@@ -30,6 +32,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -41,6 +44,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -69,6 +73,8 @@ public class AerwhaleKingEntity extends FlyingEntity implements IAetherBoss
 	protected void registerAttributes()
 	{
 		super.registerAttributes();
+
+		this.getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
 		this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(500.0D);
 		this.setHealth(500.0F);
 	}
@@ -101,19 +107,19 @@ public class AerwhaleKingEntity extends FlyingEntity implements IAetherBoss
 	public void writeAdditional(CompoundNBT nbttagcompound)
 	{
 		super.writeAdditional(nbttagcompound);
-		nbttagcompound.putInt("dungeonX", this.dungeonX);
-		nbttagcompound.putInt("dungeonY", this.dungeonY);
-		nbttagcompound.putInt("dungeonZ", this.dungeonZ);
-		nbttagcompound.putString("bossName", this.getBossName());
+		nbttagcompound.putInt("DungeonX", this.dungeonX);
+		nbttagcompound.putInt("DungeonY", this.dungeonY);
+		nbttagcompound.putInt("DungeonZ", this.dungeonZ);
+		nbttagcompound.putString("BossName", this.getBossName());
 	}
 
 	public void readAdditional(CompoundNBT nbttagcompound)
 	{
 		super.readAdditional(nbttagcompound);
-		this.dungeonX = nbttagcompound.getInt("dungeonX");
-		this.dungeonY = nbttagcompound.getInt("dungeonY");
-		this.dungeonZ = nbttagcompound.getInt("dungeonZ");
-		this.setBossName(nbttagcompound.getString("bossName"));
+		this.dungeonX = nbttagcompound.getInt("DungeonX");
+		this.dungeonY = nbttagcompound.getInt("DungeonY");
+		this.dungeonZ = nbttagcompound.getInt("DungeonZ");
+		this.setBossName(nbttagcompound.getString("BossName"));
 	}
 
 	@Nullable
@@ -127,13 +133,17 @@ public class AerwhaleKingEntity extends FlyingEntity implements IAetherBoss
 	{
 		super.tick();
 
+		if (this.world.isRemote)
+			this.setMotion(this.getMotion());
+
 		if (this.isAIDisabled())
 			return;
 
 		AxisAlignedBB radiusCheck = this.world.isRemote ? this.getBoundingBox().grow(20.0D, 12.0D, 20.0D) : new AxisAlignedBB(new BlockPos(this.dungeonX, this.getPosY(), this.dungeonZ)).grow(15, 12, 15);
 		List<PlayerEntity> playerList = this.world.<PlayerEntity>getEntitiesWithinAABB(PlayerEntity.class, radiusCheck);
 
-		// Give all players in the area the boss bar. Mainly for multiplayer. TODO
+		// TODO: re-add when boss api is done
+		// Give all players in the area the boss bar. Mainly for multiplayer.
 		/*for (PlayerEntity nearbyPlayers : this.getPlayerList())
 		{
 			AetherAPI.getInstance().get(nearbyPlayers).setFocusedBoss(this);
@@ -175,7 +185,7 @@ public class AerwhaleKingEntity extends FlyingEntity implements IAetherBoss
 				this.spawnExplosionParticle();
 				this.world.createExplosion(this, this.getPosX(), this.getPosY(), this.getPosZ(), 2, Explosion.Mode.NONE);
 
-				// TODO
+				// TODO: re-add when whirlys are in
 				if (!this.world.isRemote)
 				{
 					/*for (int w = 0; w < 4; ++w)
@@ -380,10 +390,10 @@ public class AerwhaleKingEntity extends FlyingEntity implements IAetherBoss
 	@Override
 	public boolean attackEntityAsMob(Entity entityIn)
 	{
+		boolean flag = super.attackEntityAsMob(entityIn);
+
 		if (entityIn != null)
 		{
-			boolean flag = super.attackEntityAsMob(entityIn);
-
 			if (this.attackDelay > 10 && entityIn instanceof LivingEntity && !entityIn.isInvulnerable())
 			{
 				if (entityIn instanceof PlayerEntity)
@@ -605,8 +615,15 @@ public class AerwhaleKingEntity extends FlyingEntity implements IAetherBoss
 			if (!this.getPlayerList().isEmpty())
 			{
 				PlayerEntity randomPlayer = this.getPlayerList().get(rand.nextInt(this.getPlayerList().size()));
+
 				if (randomPlayer != null)
 					this.setAttackTarget(randomPlayer);
+
+				if (this.getAttackTarget() != null)
+				{
+					int height = this.world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (int) this.getPosX(), (int) this.getPosZ());
+					this.setPositionAndUpdate(this.getPosX(), height, this.getPosZ());
+				}
 			}
 
 			this.stunTime = 60;
@@ -662,32 +679,33 @@ public class AerwhaleKingEntity extends FlyingEntity implements IAetherBoss
 	@Override
 	public SoundEvent getAmbientSound()
 	{
-		// TODO
-		return null; // LostSounds.ENTITY_AERWHALE_KING_IDLE;
+		this.playSound(LostContentSounds.ENTITY_AERWHALE_KING_IDLE, this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 0.8F);
+		//this.world.playMovingSound(null, this, LostContentSounds.ENTITY_AERWHALE_KING_IDLE, SoundCategory.HOSTILE, this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 0.8F);
+		return null; //LostContentSounds.ENTITY_AERWHALE_KING_IDLE;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source)
 	{
-		return AetherSoundEvents.ENTITY_AERWHALE_DEATH;
+		return LostContentSounds.ENTITY_AERWHALE_KING_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound()
 	{
-		return AetherSoundEvents.ENTITY_AERWHALE_DEATH;
+		return LostContentSounds.ENTITY_AERWHALE_KING_DEATH;
 	}
 
 	@Override
 	protected float getSoundVolume()
 	{
-		return 3F;
+		return 3.0F;
 	}
 
 	@Override
 	protected float getSoundPitch()
 	{
-		return (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 0.8F;
+		return (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F;
 	}
 
 	@Override
@@ -736,9 +754,8 @@ public class AerwhaleKingEntity extends FlyingEntity implements IAetherBoss
 				for (z = this.dungeonZ + 5; z < this.dungeonZ + 6; ++z)
 				{
 					BlockPos newPos = new BlockPos(x, y, z);
-					this.world.setBlockState(newPos, LostContentBlocks.gale_stone_stairs.getDefaultState());
-					/*.with(StairsBlock.FACING, Direction.NORTH)); //CLOCKWISE_180
-					*/ }
+					this.world.setBlockState(newPos, LostContentBlocks.gale_stone_stairs.getDefaultState().with(StairsBlock.FACING, Direction.SOUTH));
+				}
 			}
 		}
 

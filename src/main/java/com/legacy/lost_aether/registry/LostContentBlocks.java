@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import com.aether.item.AetherItemGroups;
 import com.google.common.collect.Lists;
 import com.legacy.lost_aether.LostContentRegistry;
+import com.legacy.lost_aether.block.SongstoneBlock;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.SoundType;
@@ -15,8 +15,6 @@ import net.minecraft.block.StairsBlock;
 import net.minecraft.block.WallBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.registries.IForgeRegistry;
 
@@ -38,7 +36,7 @@ public class LostContentBlocks
 		if (iBlockRegistry == null)
 			return;
 
-		songstone = register("songstone", new Block(Block.Properties.from(Blocks.BEDROCK)));
+		songstone = register("songstone", new SongstoneBlock(Block.Properties.from(Blocks.BEDROCK)));
 		gale_stone = register("gale_stone", new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(0.5f).sound(SoundType.STONE)));
 		light_gale_stone = register("light_gale_stone", new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(0.5f).sound(SoundType.STONE).lightValue(11)));
 

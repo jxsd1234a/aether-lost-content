@@ -3,9 +3,25 @@
       "category": "hostile",
     "subtitle": "subtitles.entity.aerwhale_king.idle",
     "sounds": [
-        "lost_aether:entity/aerwhale_king/idle1",
-        "lost_aether:entity/aerwhale_king/idle2",
-        "lost_aether:entity/aerwhale_king/idle3"
+        "lost_aether_content:entity/aerwhale_king/idle1",
+        "lost_aether_content:entity/aerwhale_king/idle2",
+        "lost_aether_content:entity/aerwhale_king/idle3"
     ]
+  },
+  "entity.aerwhale_king.hurt": {
+      "category": "hostile",
+    "subtitle": "subtitles.entity.aerwhale_king.hurt",
+    "sounds": [
+        "lost_aether_content:entity/aerwhale_king/hurt1",
+        "lost_aether_content:entity/aerwhale_king/hurt2",
+        "lost_aether_content:entity/aerwhale_king/hurt3"
+    ]
+  },
+  "entity.aerwhale_king.death": {
+  	"category": "neutral",
+	"subtitle": "subtitles.entity.aerwhale_king.death",
+	"sounds": [
+	    "aether:entity/aerwhale/death"
+	]
   }
 }
