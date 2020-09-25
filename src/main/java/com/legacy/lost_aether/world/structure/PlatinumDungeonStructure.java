@@ -12,6 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeManager;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.StructureStart;
@@ -43,13 +44,13 @@ public class PlatinumDungeonStructure extends Structure<PlatinumDungeonConfig>
 	}
 
 	@Override
-	public boolean hasStartAt(ChunkGenerator<?> chunkGen, Random rand, int chunkPosX, int chunkPosZ)
+	public boolean canBeGenerated(BiomeManager biomeManagerIn, ChunkGenerator<?> generatorIn, Random randIn, int chunkX, int chunkZ, Biome biomeIn)
 	{
-		ChunkPos chunkPos = this.getStartPositionForPosition(chunkGen, rand, chunkPosX, chunkPosZ, 0, 0);
+		ChunkPos chunkPos = this.getStartPositionForPosition(generatorIn, randIn, chunkX, chunkZ, 0, 0);
 
-		if (chunkPosX == chunkPos.x && chunkPosZ == chunkPos.z)
+		if (chunkX == chunkPos.x && chunkZ == chunkPos.z)
 		{
-			int y = getYValue(chunkGen, chunkPos.x, chunkPos.z);
+			int y = getYValue(generatorIn, chunkPos.x, chunkPos.z);
 			return y >= 50;
 		}
 		else
@@ -84,9 +85,9 @@ public class PlatinumDungeonStructure extends Structure<PlatinumDungeonConfig>
 
 	public static class Start extends StructureStart
 	{
-		public Start(Structure<?> structure, int chunkX, int chunkZ, Biome biome, MutableBoundingBox boundingBox, int referenceIn, long seed)
+		public Start(Structure<?> structure, int chunkX, int chunkZ, MutableBoundingBox boundingBox, int referenceIn, long seed)
 		{
-			super(structure, chunkX, chunkZ, biome, boundingBox, referenceIn, seed);
+			super(structure, chunkX, chunkZ, boundingBox, referenceIn, seed);
 		}
 
 		public void init(ChunkGenerator<?> chunkGen, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn)
@@ -95,9 +96,6 @@ public class PlatinumDungeonStructure extends Structure<PlatinumDungeonConfig>
 			int i = PlatinumDungeonStructure.getYValue(chunkGen, chunkX, chunkZ);
 
 			BlockPos blockpos = new BlockPos(chunkX * 16 + 8, i, chunkZ * 16 + 8);
-			// System.out.printf("small_pigman_village: (%d %d %d)\n/tp @s %d %d %d\n",
-			// blockpos.getX(), blockpos.getY(), blockpos.getZ(), blockpos.getX(),
-			// blockpos.getY(), blockpos.getZ());
 			PlatinumDungeonPieces.init(templateManagerIn, blockpos, rotation, this.components, this.rand);
 			this.recalculateStructureSize();
 		}

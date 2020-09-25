@@ -1,0 +1,7 @@
+{
+	"parent": "aether:item/cube_all_with_overlay",
+	"textures": {
+		"overlay": "aether:block/lock",
+		"face": "lost_aether_content:block/gale_stone"
+	}
+}

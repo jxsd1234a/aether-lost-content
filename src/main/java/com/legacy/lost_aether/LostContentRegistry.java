@@ -2,6 +2,7 @@ package com.legacy.lost_aether;
 
 import com.aether.item.AetherItemGroups;
 import com.legacy.lost_aether.registry.LostContentBlocks;
+import com.legacy.lost_aether.registry.LostContentEntityTypes;
 import com.legacy.lost_aether.registry.LostContentFeatures;
 
 import net.minecraft.block.Block;
@@ -47,8 +48,7 @@ public class LostContentRegistry
 	@SubscribeEvent
 	public static void onRegisterEntityTypes(Register<EntityType<?>> event)
 	{
-		/*LostContentEntityTypes.init(event);
-		LostContentEntityTypes.registerSpawnPlacements();*/
+		LostContentEntityTypes.init(event);
 	}
 
 	@SubscribeEvent
