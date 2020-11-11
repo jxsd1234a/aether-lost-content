@@ -1,2 +1,40 @@
 # Items
-item.phoenix_sword.name=தேசம்
+item.phoenix_sword.name=피닉스의 검
+item.phoenix_pickaxe.name=피닉스의 곡괭이
+item.phoenix_axe.name=피닉스의 도끼
+item.phoenix_shovel.name=피닉스의 삽
+item.phoenix_cape.name=피닉스의 망토
+item.sentry_shield.name=보초자의 방패
+item.invisibility_gem.name=투명화의 보석
+item.swetty_mask.name=스웨티의 가면
+item.agility_boots.name=민첩의 부츠
+item.power_gloves.name=힘의 장갑
+item.zanite_shield.name=자나이트 방패
+item.gravitite_shield.name=그래비타이트 방패
+item.jeb_shield.name=제브의 방패
+item.jeb_hammer.name=제브의 망치
+item.brown_moa_egg.name=갈색 모아 알
+item.platinum_key.name=백금 열쇠
+# Blocks
+tile.crystal_sapling.name=크리스탈나무 묘목
+tile.gale_stone.name=개일스톤
+tile.light_gale_stone.name=밝은 개일스톤
+tile.locked_gale_stone.name=잠긴 개일스톤
+tile.locked_light_gale_stone.name=잠긴 밝은 개일스톤
+tile.songstone.name=송스톤
+tile.protection_block.name=보호의 블럭
+tile.gale_stairs.name=개일스톤 계단
+tile.gale_wall.name=개일스톤 벽
+# Entities
+entity.king_aerwhale.name=하늘고래의 왕
+entity.falling_rock.name=떨어지는 돌
+entity.zephyroo.name=제퍼루
+# GUI
+title.lost_aether.king_aerwhale.name=하늘고래의 왕
+gui.lost_aether.projectile_miss=이런! 발사체는 아무런 효과가 없네요!
+subtitles.entity.aerwhale_king.idle=하늘고래의 왕이 휘파람을 부른다
+subtitles.entity.aerwhale_king.hurt=하늘고래의 왕이 아프다
+subtitles.entity.aerwhale_king.death=하늘고래의 왕이 죽는다
+# Advancements
+advancement.lost_aether.platinum_dungeon=상승
+advancement.lost_aether.platinum_dungeon.desc=백금던전의 보스를 처치하세요.

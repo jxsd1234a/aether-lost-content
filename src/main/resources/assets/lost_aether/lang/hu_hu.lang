@@ -28,6 +28,8 @@ tile.gale_wall.name=Orkán Fal
 entity.king_aerwhale.name=Aerwhale Király
 # GUI
 title.lost_aether.king_aerwhale.name=az Aerwhale Király
+gui.lost_aether.projectile_miss=Uh oh! Úgy tűnik a lövedékek nem használnak!
+subtitles.entity.aerwhale_king.idle=Aerwhale Király fütyül
 # Advancements
 advancement.lost_aether.platinum_dungeon=Felemelkedett
 advancement.lost_aether.platinum_dungeon.desc=Győzd le a platinum dungeon főellenségét

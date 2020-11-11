@@ -1,13 +1,13 @@
 # Items
-item.phoenix_sword.name=Меч Феникса
-item.phoenix_pickaxe.name=Кирка Феникса
-item.phoenix_axe.name=Топор Феникса
-item.phoenix_shovel.name=Лопата Феникса
-item.phoenix_cape.name=Плащ Феникса
+item.phoenix_sword.name=Меч феникса
+item.phoenix_pickaxe.name=Кирка феникса
+item.phoenix_axe.name=Топор феникса
+item.phoenix_shovel.name=Лопата феникса
+item.phoenix_cape.name=Плащ феникса
 item.sentry_shield.name=Щит стража
 item.invisibility_gem.name=Камень невидимости
 item.swetty_mask.name=Слизне-маска
-item.agility_boots.name=Ловкие ботинки
+item.agility_boots.name=Ботинки ловкости
 item.power_gloves.name=Перчатки силы
 item.zanite_shield.name=Занитовый щит
 item.gravitite_shield.name=Гравититовый щит
@@ -19,15 +19,22 @@ item.platinum_key.name=Платиновый ключ
 tile.crystal_sapling.name=Кристальный саженец
 tile.gale_stone.name=Штормовой камень
 tile.light_gale_stone.name=Светлый штормовой камень
-tile.locked_gale_stone.name=Закрытый штормовой камень
-tile.locked_light_gale_stone.name=Закрытый светлый штормовой камень
+tile.locked_gale_stone.name=Запертый штормовой камень
+tile.locked_light_gale_stone.name=Запертый светлый штормовой камень
 tile.songstone.name=Камень песни
-tile.gale_stairs.name=Штормовые ступени
+tile.protection_block.name=Блок защиты
+tile.gale_stairs.name=Штормовые ступеньки
 tile.gale_wall.name=Штормовая ограда
 # Entities
-entity.king_aerwhale.name=Король Воздушных китов
+entity.king_aerwhale.name=Король воздушных китов
+entity.falling_rock.name=Падающий камень
+entity.zephyroo.name=Зеферу
 # GUI
-title.lost_aether.king_aerwhale.name=Король Воздушных китов
+title.lost_aether.king_aerwhale.name=Король воздушных китов
+gui.lost_aether.projectile_miss=Ой-ой! Похоже, снаряды ничего не делают!
+subtitles.entity.aerwhale_king.idle=Король воздушных китов свистит
+subtitles.entity.aerwhale_king.hurt=Король воздушных китов ранен
+subtitles.entity.aerwhale_king.death=Король воздушных китов погибает
 # Advancements
 advancement.lost_aether.platinum_dungeon=Вознесённый
 advancement.lost_aether.platinum_dungeon.desc=Победите босса Платинового подземелья
