@@ -1,0 +1,40 @@
+# Items
+item.phoenix_sword.name=不死鳥之劍
+item.phoenix_pickaxe.name=不死鳥之鎬
+item.phoenix_axe.name=不死鳥之斧
+item.phoenix_shovel.name=不死鳥之鏟
+item.phoenix_cape.name=不死鳥之披風
+item.sentry_shield.name=哨兵護身符
+item.invisibility_gem.name=隱形寶石
+item.swetty_mask.name=天堂史萊姆面具
+item.agility_boots.name=敏捷靴子
+item.power_gloves.name=力量手套
+item.zanite_shield.name=澤奈特盾
+item.gravitite_shield.name=反重力盾
+item.jeb_shield.name=Jeb盾
+item.jeb_hammer.name=Jeb錘
+item.brown_moa_egg.name=棕色恐鳥蛋
+item.platinum_key.name=白金鑰匙
+# Blocks
+tile.crystal_sapling.name=水晶樹樹苗
+tile.gale_stone.name=颶風石
+tile.light_gale_stone.name=微風石
+tile.locked_gale_stone.name=上鎖的颶風石
+tile.locked_light_gale_stone.name=上鎖的微風石
+tile.songstone.name=頌歌石
+tile.protection_block.name=受保護方塊
+tile.gale_stairs.name=颶風石樓梯
+tile.gale_wall.name=颶風石壁
+# Entities
+entity.king_aerwhale.name=空鯨王
+entity.falling_rock.name=落石
+entity.zephyroo.name=北風怪
+# GUI
+title.lost_aether.king_aerwhale.name=空鯨王
+gui.lost_aether.projectile_miss=哦！拋射物似乎什麼也沒做！
+subtitles.entity.aerwhale_king.idle=空鯨王呼嘯
+subtitles.entity.aerwhale_king.hurt=空鯨王受到傷害
+subtitles.entity.aerwhale_king.death=空鯨王已死亡
+# Advancements
+advancement.lost_aether.platinum_dungeon=飛向天空
+advancement.lost_aether.platinum_dungeon.desc=擊敗鉑金地牢的BOSS──空鯨王
