@@ -1,5 +1,6 @@
 modLoader="javafml"
-loaderVersion="[31,)"
+loaderVersion="[35,)"
+license="https://moddinglegacy.com/ML-License/"
 issueTrackerURL="https://gitlab.com/groups/modding-legacy/-/issues"
 [[mods]]
     modId="lost_aether_content"
@@ -13,18 +14,24 @@ issueTrackerURL="https://gitlab.com/groups/modding-legacy/-/issues"
 [[dependencies.lost_aether_content]]
     modId="forge"
     mandatory=true
-    versionRange="[31.2.31,)"
+    versionRange="[35.1.10,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.lost_aether_content]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.15.2]"
+    versionRange="[1.16.4]"
     ordering="NONE"
     side="BOTH"
 [[dependencies.lost_aether_content]]
     modId="aether"
     mandatory=true
-    versionRange="[0.0.0,]"
+    versionRange="[1.5.0,]"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.lost_aether_content]]
+    modId="structure_gel"
+    mandatory=true
+    versionRange="[1.7.2,]"
     ordering="NONE"
     side="BOTH"

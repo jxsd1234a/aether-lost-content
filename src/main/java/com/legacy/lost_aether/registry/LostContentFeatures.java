@@ -1,36 +1,41 @@
 package com.legacy.lost_aether.registry;
 
-import java.util.Locale;
+import com.aether.Aether;
+import com.aether.block.AetherBlocks;
+import com.google.common.collect.ImmutableList;
+import com.legacy.structure_gel.access_helpers.BiomeAccessHelper;
+import com.legacy.structure_gel.events.RegisterDimensionEvent;
+import com.legacy.structure_gel.util.GelCollectors;
 
-import com.legacy.lost_aether.LostContentMod;
-import com.legacy.lost_aether.LostContentRegistry;
-import com.legacy.lost_aether.world.structure.PlatinumDungeonConfig;
-import com.legacy.lost_aether.world.structure.PlatinumDungeonStructure;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.world.biome.MobSpawnInfo;
 
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraftforge.event.RegistryEvent.Register;
-import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.ObjectHolder;
-
-@ObjectHolder(LostContentMod.MODID)
 public class LostContentFeatures
 {
-	public static final Structure<PlatinumDungeonConfig> PLATINUM_DUNGEON = new PlatinumDungeonStructure(PlatinumDungeonConfig::deserialize);
-
-	public static void init(Register<Feature<?>> event)
-	{
-		LostContentStructurePieceTypes.init();
-
-		registerStructure(event.getRegistry(), "platinum_dungeon", PLATINUM_DUNGEON);
-	}
-
+	/**
+	 * Using the dimension register event to add things to the Aether biome. This
+	 * allows us to access the JSON based world files.
+	 * 
+	 * @param event
+	 */
 	@SuppressWarnings("deprecation")
-	private static void registerStructure(IForgeRegistry<Feature<?>> registry, String key, Structure<?> structure)
+	public static void onDimensionRegistry(final RegisterDimensionEvent event)
 	{
-		LostContentRegistry.register(registry, key, structure);
-		Registry.register(Registry.STRUCTURE_FEATURE, LostContentMod.locate(key.toLowerCase()), structure);
-		Feature.STRUCTURES.put(LostContentMod.find(key.toLowerCase(Locale.ROOT)), structure);
+		event.getDimensionRegistry().forEach((dim) ->
+		{
+			// why
+			if (dim.getDimensionType().getEffects().getNamespace().equals(Aether.MODID))
+				dim.getChunkGenerator().func_235957_b_().field_236193_d_ = GelCollectors.addToMap(dim.getChunkGenerator().func_235957_b_().field_236193_d_, LostContentStructures.PLATINUM_DUNGEON.getStructure(), LostContentStructures.PLATINUM_DUNGEON.getStructure().getSeparationSettings());
+		});
+
+		event.getBiomeRegistry().forEach((biome) ->
+		{
+			// WHY
+			if (biome.getGenerationSettings().getSurfaceBuilder().get().getConfig().getTop().getBlock() == AetherBlocks.AETHER_GRASS_BLOCK)
+			{
+				BiomeAccessHelper.addSpawn(biome, EntityClassification.CREATURE, new MobSpawnInfo.Spawners(LostContentEntityTypes.ZEPHYROO, 10, 2, 2));
+				BiomeAccessHelper.addStructure(biome, LostContentStructures.PLATINUM_DUNGEON.getStructureFeature(), LostContentStructures.PLATINUM_DUNGEON.getStructure().getSeparationSettings(), ImmutableList.of());
+			}
+		});
 	}
 }

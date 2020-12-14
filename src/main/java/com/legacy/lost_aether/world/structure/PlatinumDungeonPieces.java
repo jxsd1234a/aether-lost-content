@@ -8,24 +8,22 @@ import com.legacy.lost_aether.LostContentMod;
 import com.legacy.lost_aether.entity.AerwhaleKingEntity;
 import com.legacy.lost_aether.registry.LostContentBlocks;
 import com.legacy.lost_aether.registry.LostContentEntityTypes;
-import com.legacy.lost_aether.registry.LostContentStructurePieceTypes;
+import com.legacy.lost_aether.registry.LostContentStructures;
+import com.legacy.structure_gel.worldgen.structure.GelTemplateStructurePiece;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Mirror;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.gen.feature.structure.StructurePiece;
-import net.minecraft.world.gen.feature.structure.TemplateStructurePiece;
 import net.minecraft.world.gen.feature.template.AlwaysTrueRuleTest;
-import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.RandomBlockMatchRuleTest;
 import net.minecraft.world.gen.feature.template.RuleEntry;
 import net.minecraft.world.gen.feature.template.RuleStructureProcessor;
-import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 
 public class PlatinumDungeonPieces
@@ -58,14 +56,14 @@ public class PlatinumDungeonPieces
 		return LostContentMod.locate("platinum_dungeon/platinum_" + location);
 	}
 
-	public static class Piece extends TemplateStructurePiece
+	public static class Piece extends GelTemplateStructurePiece
 	{
 		private final ResourceLocation location;
 		private final Rotation rotation;
 
 		public Piece(TemplateManager templateManager, ResourceLocation location, BlockPos pos, Rotation rotation)
 		{
-			super(LostContentStructurePieceTypes.PLATINUM_DUNGEON, 0);
+			super(LostContentStructures.PLATINUM_DUNGEON.getPieceType(), location, 0);
 			this.location = location;
 			this.templatePosition = pos;
 			this.rotation = rotation;
@@ -74,23 +72,35 @@ public class PlatinumDungeonPieces
 
 		public Piece(TemplateManager templateManager, CompoundNBT nbtCompound)
 		{
-			super(LostContentStructurePieceTypes.PLATINUM_DUNGEON, nbtCompound);
+			super(LostContentStructures.PLATINUM_DUNGEON.getPieceType(), nbtCompound);
 			this.location = new ResourceLocation(nbtCompound.getString("Template"));
 			this.rotation = Rotation.valueOf(nbtCompound.getString("Rot"));
 			this.setupTemplate(templateManager);
 		}
 
-		private void setupTemplate(TemplateManager templateManager)
+		// private void setupTemplate(TemplateManager templateManager)
+		/*@Override
+		public void addProcessors(TemplateManager templateManager, PlacementSettings placementSettingsIn)
 		{
+			super.addProcessors(templateManager, placementSettingsIn);
 			Template template = templateManager.getTemplateDefaulted(this.location);
 			BlockPos sizePos = templateManager.getTemplate(this.location).getSize();
 			BlockPos centerPos = new BlockPos(sizePos.getX() / 2, 0, sizePos.getZ() / 2);
-			PlacementSettings placementSettings = (new PlacementSettings()).setRotation(this.rotation).setMirror(Mirror.NONE).setCenterOffset(centerPos).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
-			placementSettings.addProcessor(new RuleStructureProcessor(ImmutableList.of(new RuleEntry(new RandomBlockMatchRuleTest(LostContentBlocks.locked_gale_stone, 0.05F), AlwaysTrueRuleTest.INSTANCE, LostContentBlocks.locked_light_gale_stone.getDefaultState()))));
+			placementSettingsIn.addProcessor(new RuleStructureProcessor(ImmutableList.of(new RuleEntry(new RandomBlockMatchRuleTest(LostContentBlocks.locked_gale_stone, 0.05F), AlwaysTrueRuleTest.INSTANCE, LostContentBlocks.locked_light_gale_stone.getDefaultState()))));
+		
+			this.setup(template, this.templatePosition, placementSettingsIn);
+		}*/
+		
+		@Override
+		public BlockState modifyState(IServerWorld world, Random rand, BlockPos pos, BlockState originalState)
+		{
+			if (originalState.getBlock() == LostContentBlocks.locked_gale_stone && rand.nextFloat() < 0.05F)
+				return LostContentBlocks.locked_light_gale_stone.getDefaultState();
 
-			this.setup(template, this.templatePosition, placementSettings);
+			return super.modifyState(world, rand, pos, originalState);
 		}
 
+		@Override
 		protected void readAdditional(CompoundNBT tagCompound)
 		{
 			super.readAdditional(tagCompound);
@@ -99,7 +109,7 @@ public class PlatinumDungeonPieces
 		}
 
 		@Override
-		protected void handleDataMarker(String function, BlockPos pos, IWorld worldIn, Random rand, MutableBoundingBox sbb)
+		protected void handleDataMarker(String function, BlockPos pos, IServerWorld worldIn, Random rand, MutableBoundingBox sbb)
 		{
 			if (function.contains("boss"))
 			{

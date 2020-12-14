@@ -1,0 +1,14 @@
+{
+	"required": true,
+	"package": "com.legacy.lost_aether.mixin",
+	"compatibilityLevel": "JAVA_8",
+	"refmap": "lost_aether_content.refmap.json",
+	"mixins": [
+	],
+	"client": [
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"minVersion": "0.8"
+}

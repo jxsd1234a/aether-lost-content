@@ -4,9 +4,9 @@ import com.legacy.lost_aether.entity.FallingRockEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 
-import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.util.math.vector.Vector3f;
 
 public class CrystalModel<T extends FallingRockEntity> extends EntityModel<T>
 {

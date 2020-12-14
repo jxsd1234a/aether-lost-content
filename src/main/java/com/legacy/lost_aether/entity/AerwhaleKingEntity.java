@@ -20,9 +20,11 @@ import net.minecraft.entity.FlyingEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.Pose;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -38,8 +40,8 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.Explosion;
@@ -69,14 +71,9 @@ public class AerwhaleKingEntity extends FlyingEntity implements IAetherBoss
 		this.ignoreFrustumCheck = true;
 	}
 
-	@Override
-	protected void registerAttributes()
+	public static AttributeModifierMap.MutableAttribute registerAttributes()
 	{
-		super.registerAttributes();
-
-		this.getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
-		this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(500.0D);
-		this.setHealth(500.0F);
+		return MonsterEntity.func_234295_eP_().createMutableAttribute(Attributes.MAX_HEALTH, 500.0D).createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.0D).createMutableAttribute(Attributes.KNOCKBACK_RESISTANCE, 100.0F).createMutableAttribute(Attributes.ATTACK_DAMAGE, 5.0F);
 	}
 
 	@Override
@@ -95,12 +92,9 @@ public class AerwhaleKingEntity extends FlyingEntity implements IAetherBoss
 	}
 
 	@Override
-	public void move(MoverType type, Vec3d vec)
+	public void move(MoverType type, Vector3d vec)
 	{
-		if (this.getStunned())
-			super.move(type, Vec3d.ZERO);
-		else
-			super.move(type, vec);
+		super.move(type, this.getStunned() ? Vector3d.ZERO : vec);
 	}
 
 	@Override
@@ -533,10 +527,11 @@ public class AerwhaleKingEntity extends FlyingEntity implements IAetherBoss
 		return this.isAlive();
 	}
 
-	@Override
+	// TODO
+	/*@Override
 	public void knockBack(Entity par1Entity, float par2, double par3, double par5)
 	{
-	}
+	}*/
 
 	@Override
 	public void addVelocity(double d, double d1, double d2)
@@ -621,6 +616,7 @@ public class AerwhaleKingEntity extends FlyingEntity implements IAetherBoss
 
 				if (this.getAttackTarget() != null)
 				{
+					this.world.setEntityState(this, (byte) 5);
 					int height = this.world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (int) this.getPosX(), (int) this.getPosZ());
 					this.setPositionAndUpdate(this.getPosX(), height, this.getPosZ());
 				}
@@ -642,12 +638,13 @@ public class AerwhaleKingEntity extends FlyingEntity implements IAetherBoss
 	@OnlyIn(Dist.CLIENT)
 	public void handleStatusUpdate(byte id)
 	{
-		if (id == 4)
+		switch (id)
 		{
+		case 4:
 			this.setStunned(true);
-		}
-		else
-		{
+		case 5:
+			this.setPositionAndUpdate(this.getPosX(), this.world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, (int) this.getPosX(), (int) this.getPosZ()), this.getPosZ());
+		default:
 			super.handleStatusUpdate(id);
 		}
 	}
@@ -655,7 +652,7 @@ public class AerwhaleKingEntity extends FlyingEntity implements IAetherBoss
 	@Override
 	public String getBossTitle()
 	{
-		return this.getBossName() + ", " + new TranslationTextComponent("title.lost_aether.king_aerwhale.name", new Object[0]).getFormattedText();
+		return this.getBossName() + ", " + new TranslationTextComponent("title.lost_aether.king_aerwhale.name", new Object[0]).getString();
 	}
 
 	@Override
@@ -680,8 +677,11 @@ public class AerwhaleKingEntity extends FlyingEntity implements IAetherBoss
 	public SoundEvent getAmbientSound()
 	{
 		this.playSound(LostContentSounds.ENTITY_AERWHALE_KING_IDLE, this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 0.8F);
-		//this.world.playMovingSound(null, this, LostContentSounds.ENTITY_AERWHALE_KING_IDLE, SoundCategory.HOSTILE, this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 0.8F);
-		return null; //LostContentSounds.ENTITY_AERWHALE_KING_IDLE;
+		// this.world.playMovingSound(null, this,
+		// LostContentSounds.ENTITY_AERWHALE_KING_IDLE, SoundCategory.HOSTILE,
+		// this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F
+		// + 0.8F);
+		return null; // LostContentSounds.ENTITY_AERWHALE_KING_IDLE;
 	}
 
 	@Override
@@ -846,7 +846,7 @@ public class AerwhaleKingEntity extends FlyingEntity implements IAetherBoss
 		}
 	}
 
-	public static float getDistanceToPos(Vec3i startingPos, Vec3i farPos)
+	public static float getDistanceToPos(Vector3i startingPos, Vector3i farPos)
 	{
 		float f = (float) (startingPos.getX() - farPos.getX());
 		float f1 = (float) (startingPos.getY() - farPos.getY());

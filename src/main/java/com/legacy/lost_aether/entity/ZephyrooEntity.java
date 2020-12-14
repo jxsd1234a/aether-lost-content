@@ -7,7 +7,9 @@ import com.legacy.lost_aether.registry.LostContentEntityTypes;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.FollowParentGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
@@ -20,10 +22,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 public class ZephyrooEntity extends MountableEntity
 {
@@ -58,12 +62,9 @@ public class ZephyrooEntity extends MountableEntity
 		this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
 	}
 
-	@Override
-	protected void registerAttributes()
+	public static AttributeModifierMap.MutableAttribute registerAttributes()
 	{
-		super.registerAttributes();
-		this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40.0D);
-		this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
+		return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 40.0D).createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.4D);
 	}
 
 	@Override
@@ -116,7 +117,7 @@ public class ZephyrooEntity extends MountableEntity
 	}
 
 	@Override
-	public void travel(Vec3d vec/*float strafe, float vertical, float forward*/)
+	public void travel(Vector3d vec)
 	{
 		Entity entity = this.getPassengers().isEmpty() ? null : this.getPassengers().get(0);
 
@@ -150,7 +151,7 @@ public class ZephyrooEntity extends MountableEntity
 			if (!this.world.isRemote)
 			{
 				this.jumpMovementFactor = this.getAIMoveSpeed() * 0.6F;
-				super.travel(new Vec3d(strafe, vertical, forward));
+				super.travel(new Vector3d(strafe, vertical, forward));
 			}
 
 			if (this.onGround)
@@ -188,22 +189,23 @@ public class ZephyrooEntity extends MountableEntity
 	}
 
 	@Override
-	public boolean processInteract(PlayerEntity player, Hand hand)
+	public ActionResultType func_230254_b_(PlayerEntity player, Hand hand)
 	{
 		ItemStack itemstack = player.getHeldItem(hand);
 
-		if (!super.processInteract(player, hand) && itemstack.getItem() != Items.NAME_TAG && !this.isBreedingItem(itemstack) && !this.isChild())
+		if (!super.func_230254_b_(player, hand).isSuccessOrConsume() && itemstack.getItem() != Items.NAME_TAG && !this.isBreedingItem(itemstack) && !this.isChild())
 		{
-			return player.startRiding(this);
+			player.startRiding(this);
+			return ActionResultType.SUCCESS;
 		}
 
-		return super.processInteract(player, hand);
+		return super.func_230254_b_(player, hand);
 	}
 
 	@Override
-	public AgeableEntity createChild(AgeableEntity entityageable)
+	public AgeableEntity func_241840_a(ServerWorld world, AgeableEntity entityageable)
 	{
-		return new ZephyrooEntity(LostContentEntityTypes.ZEPHYROO, this.world);
+		return LostContentEntityTypes.ZEPHYROO.create(world);
 	}
 
 	@Override

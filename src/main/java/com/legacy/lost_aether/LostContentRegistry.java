@@ -3,7 +3,7 @@ package com.legacy.lost_aether;
 import com.aether.item.AetherItemGroups;
 import com.legacy.lost_aether.registry.LostContentBlocks;
 import com.legacy.lost_aether.registry.LostContentEntityTypes;
-import com.legacy.lost_aether.registry.LostContentFeatures;
+import com.legacy.lost_aether.registry.LostContentStructures;
 import com.legacy.lost_aether.registry.LostContentSounds;
 
 import net.minecraft.block.Block;
@@ -11,7 +11,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -53,9 +53,9 @@ public class LostContentRegistry
 	}
 
 	@SubscribeEvent
-	public static void registerFeatures(Register<Feature<?>> event)
+	public static void registerStructures(Register<Structure<?>> event)
 	{
-		LostContentFeatures.init(event);
+		LostContentStructures.init(event);
 	}
 
 	public static <T extends IForgeRegistryEntry<T>> void register(IForgeRegistry<T> registry, String name, T object)

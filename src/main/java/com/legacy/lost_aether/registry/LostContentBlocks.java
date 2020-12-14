@@ -38,10 +38,10 @@ public class LostContentBlocks
 
 		songstone = register("songstone", new SongstoneBlock(Block.Properties.from(Blocks.BEDROCK)));
 		gale_stone = register("gale_stone", new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(0.5f).sound(SoundType.STONE)));
-		light_gale_stone = register("light_gale_stone", new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(0.5f).sound(SoundType.STONE).lightValue(11)));
+		light_gale_stone = register("light_gale_stone", new Block(Block.Properties.create(Material.ROCK).hardnessAndResistance(0.5f).sound(SoundType.STONE).setLightLevel((light) -> 11)));
 
 		locked_gale_stone = register("locked_gale_stone", new Block(Block.Properties.from(Blocks.BEDROCK)));
-		locked_light_gale_stone = register("locked_light_gale_stone", new Block(Block.Properties.from(Blocks.BEDROCK).lightValue(11)));
+		locked_light_gale_stone = register("locked_light_gale_stone", new Block(Block.Properties.from(Blocks.BEDROCK).setLightLevel((light) -> 11)));
 
 		gale_stone_slab = register("gale_stone_slab", new SlabBlock(Block.Properties.from(gale_stone)));
 		gale_stone_stairs = register("gale_stone_stairs", new StairsBlock(() -> gale_stone.getDefaultState(), Block.Properties.from(gale_stone)));

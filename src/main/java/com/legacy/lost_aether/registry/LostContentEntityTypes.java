@@ -15,6 +15,7 @@ import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
@@ -34,6 +35,9 @@ public class LostContentEntityTypes
 		LostContentRegistry.register(event.getRegistry(), "falling_rock", FALLING_ROCK);
 
 		registerSpawnConditions();
+		
+		GlobalEntityTypeAttributes.put(AERWHALE_KING, AerwhaleKingEntity.registerAttributes().create());
+		GlobalEntityTypeAttributes.put(ZEPHYROO, ZephyrooEntity.registerAttributes().create());
 	}
 
 	private static <T extends Entity> EntityType<T> buildEntity(String key, EntityType.Builder<T> builder)

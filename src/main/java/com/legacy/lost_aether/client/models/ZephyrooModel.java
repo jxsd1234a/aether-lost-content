@@ -179,7 +179,7 @@ public class ZephyrooModel<T extends LivingEntity> extends SegmentedModel<T>
 	@Override
 	public void setRotationAngles(T entity, float f, float f1, float f2, float f3, float f4)
 	{
-		if (!entity.onGround || entity.moveForward != 0)
+		if (!entity.isOnGround() || entity.moveForward != 0)
 		{
 			this.RightLeg.rotateAngleX = (float) Math.cos(f2 * 0.50F);
 			this.LeftLeg.rotateAngleX = (float) Math.cos(f2 * 0.50F);

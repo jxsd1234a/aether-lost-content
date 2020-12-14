@@ -1,31 +1,33 @@
 package com.legacy.lost_aether.world.structure;
 
 import java.util.Random;
-import java.util.function.Function;
 
-import com.legacy.lost_aether.LostContentMod;
-import com.mojang.datafixers.Dynamic;
+import com.legacy.structure_gel.util.ConfigTemplates.StructureConfig;
+import com.legacy.structure_gel.worldgen.structure.GelConfigStructure;
+import com.legacy.structure_gel.worldgen.structure.GelStructureStart;
+import com.mojang.serialization.Codec;
 
 import net.minecraft.util.Rotation;
 import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
+import net.minecraft.util.registry.DynamicRegistries;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeManager;
+import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraft.world.gen.feature.structure.StructureStart;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 
-public class PlatinumDungeonStructure extends Structure<PlatinumDungeonConfig>
+public class PlatinumDungeonStructure extends GelConfigStructure<NoFeatureConfig>
 {
-	public PlatinumDungeonStructure(Function<Dynamic<?>, ? extends PlatinumDungeonConfig> config)
+	public PlatinumDungeonStructure(Codec<NoFeatureConfig> codec, StructureConfig config)
 	{
-		super(config);
+		super(codec, config);
 	}
 
-	protected ChunkPos getStartPositionForPosition(ChunkGenerator<?> chunkGenerator, Random random, int posX, int posZ, int spacingOffsetsX, int spacingOffsetsZ)
+	/*protected ChunkPos getStartPositionForPosition(ChunkGenerator chunkGenerator, Random random, int posX, int posZ, int spacingOffsetsX, int spacingOffsetsZ)
 	{
 		int distance = 80;
 		int separation = 20;
@@ -41,56 +43,45 @@ public class PlatinumDungeonStructure extends Structure<PlatinumDungeonConfig>
 		x2 = x2 + (random.nextInt(distance - separation) + random.nextInt(distance - separation)) / 2;
 		z2 = z2 + (random.nextInt(distance - separation) + random.nextInt(distance - separation)) / 2;
 		return new ChunkPos(x2, z2);
-	}
+	}*/
 
 	@Override
-	public boolean canBeGenerated(BiomeManager biomeManagerIn, ChunkGenerator<?> generatorIn, Random randIn, int chunkX, int chunkZ, Biome biomeIn)
+	protected boolean func_230363_a_(ChunkGenerator chunkGen, BiomeProvider biomeProvider, long seed, SharedSeedRandom sharedSeedRand, int chunkPosX, int chunkPosZ, Biome biomeIn, ChunkPos chunkPosIn, NoFeatureConfig config)
 	{
-		ChunkPos chunkPos = this.getStartPositionForPosition(generatorIn, randIn, chunkX, chunkZ, 0, 0);
-
-		if (chunkX == chunkPos.x && chunkZ == chunkPos.z)
+		return super.func_230363_a_(chunkGen, biomeProvider, seed, sharedSeedRand, chunkPosX, chunkPosZ, biomeIn, chunkPosIn, config);
+		/*ChunkPos chunkPos = getChunkPosForStructure(this.getSeparationSettings(), seed, sharedSeedRand, chunkPosX, chunkPosZ);
+		
+		if (chunkPos.x == chunkPosX && chunkPos.z == chunkPosZ)
 		{
-			int y = getYValue(generatorIn, chunkPos.x, chunkPos.z);
-			return y >= 50;
+			sharedSeedRand.setLargeFeatureSeedWithSalt(seed, chunkPosX, chunkPosZ, this.getSeed());
+			int height = getYValue(chunkGen, chunkPos.x * 16, chunkPos.z * 16);
+			return sharedSeedRand.nextDouble() < getProbability() && height <= 80 && height >= 60;
 		}
 		else
-		{
-			return false;
-		}
+			return false;*/
 	}
 
 	@Override
-	public IStartFactory getStartFactory()
+	public IStartFactory<NoFeatureConfig> getStartFactory()
 	{
 		return PlatinumDungeonStructure.Start::new;
 	}
 
-	@Override
-	public String getStructureName()
-	{
-		return LostContentMod.locate("platinum_dungeon").toString();
-	}
-
-	@Override
-	public int getSize()
-	{
-		return 3;
-	}
-
-	public static int getYValue(ChunkGenerator<?> chunkGen, int chunkX, int chunkZ)
+	public static int getYValue(ChunkGenerator chunkGen, int chunkX, int chunkZ)
 	{
 		Random random = new Random();
 		return 100 + random.nextInt(50);
 	}
 
-	public static class Start extends StructureStart
+	public static class Start extends GelStructureStart<NoFeatureConfig>
 	{
-		public Start(Structure<?> structure, int chunkX, int chunkZ, MutableBoundingBox boundingBox, int referenceIn, long seed)
+		public Start(Structure<NoFeatureConfig> structure, int chunkX, int chunkZ, MutableBoundingBox boundingBox, int referenceIn, long seed)
 		{
 			super(structure, chunkX, chunkZ, boundingBox, referenceIn, seed);
 		}
 
-		public void init(ChunkGenerator<?> chunkGen, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn)
+		@Override
+		public void func_230364_a_(DynamicRegistries registry, ChunkGenerator chunkGen, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn, NoFeatureConfig configIn)
 		{
 			Rotation rotation = Rotation.NONE;
 			int i = PlatinumDungeonStructure.getYValue(chunkGen, chunkX, chunkZ);
