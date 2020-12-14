@@ -1,11 +1,13 @@
 package com.legacy.lost_aether.registry;
 
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.function.Supplier;
 
 import com.aether.item.AetherItemGroups;
-import com.google.common.collect.Lists;
 import com.legacy.lost_aether.LostContentRegistry;
 import com.legacy.lost_aether.block.SongstoneBlock;
+import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -14,6 +16,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.block.WallBlock;
 import net.minecraft.block.material.Material;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -27,7 +30,9 @@ public class LostContentBlocks
 	public static Block crystal_sapling, potted_crystal_sapling, holiday_sapling, potted_holiday_sapling;
 
 	private static IForgeRegistry<Block> iBlockRegistry;
-	public static ArrayList<Block> blockList = Lists.newArrayList();
+
+	public static Map<Block, Pair<ItemGroup, Supplier<Item>>> blockItemMap = new LinkedHashMap<>();
+	public static Map<Block, Item.Properties> blockItemPropertiesMap = new LinkedHashMap<>();
 
 	public static void init(Register<Block> event)
 	{
@@ -55,18 +60,32 @@ public class LostContentBlocks
 
 	public static Block register(String name, Block block)
 	{
-		return register(name, block, AetherItemGroups.AETHER_BLOCKS);
+		register(name, block, AetherItemGroups.AETHER_BLOCKS, null);
+		return block;
+	}
+
+	public static Block register(String name, Block block, Supplier<Item> entryPoint)
+	{
+		register(name, block, AetherItemGroups.AETHER_BLOCKS, entryPoint);
+		return block;
 	}
 
 	public static <T extends ItemGroup> Block register(String key, Block block, T itemGroup)
 	{
-		blockList.add(block);
+		return register(key, block, itemGroup, null);
+	}
+
+	public static <T extends ItemGroup> Block register(String key, Block block, T itemGroup, Supplier<Item> entryPoint)
+	{
+		blockItemMap.put(block, Pair.of(itemGroup, entryPoint));
 		return registerBlock(key, block);
 	}
 
-	public static Block registerBlock(String key, Block block)
+	public static Block registerBlock(String name, Block block)
 	{
-		LostContentRegistry.register(iBlockRegistry, key, block);
+		if (iBlockRegistry != null)
+			LostContentRegistry.register(iBlockRegistry, name, block);
+
 		return block;
 	}
 }

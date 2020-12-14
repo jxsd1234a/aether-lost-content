@@ -27,7 +27,6 @@ public class LostContentMod
 	public LostContentMod()
 	{
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, LostContentConfig.COMMON_SPEC);
-		/*MinecraftForge.EVENT_BUS.register(new LostContentEvents());*/
 
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(LostContentMod::commonInit);
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(LostContentMod::clientInit));
@@ -43,6 +42,7 @@ public class LostContentMod
 
 	public static void commonInit(FMLCommonSetupEvent event)
 	{
+		// MinecraftForge.EVENT_BUS.register(new LostContentEvents());
 	}
 
 	public static ResourceLocation locate(String name)

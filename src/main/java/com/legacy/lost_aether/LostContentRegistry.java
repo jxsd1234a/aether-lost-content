@@ -1,19 +1,19 @@
 package com.legacy.lost_aether;
 
-import com.aether.item.AetherItemGroups;
 import com.legacy.lost_aether.registry.LostContentBlocks;
 import com.legacy.lost_aether.registry.LostContentEntityTypes;
-import com.legacy.lost_aether.registry.LostContentStructures;
+import com.legacy.lost_aether.registry.LostContentItems;
 import com.legacy.lost_aether.registry.LostContentSounds;
+import com.legacy.lost_aether.registry.LostContentStructures;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.RegistryEvent.Register;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -35,15 +35,12 @@ public class LostContentRegistry
 		LostContentBlocks.init(event);
 	}
 
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public static void onRegisterItems(RegistryEvent.Register<Item> event)
 	{
 		/*LostContentItems.init(event);*/
-		
-		for (int i3 = 0; i3 < LostContentBlocks.blockList.size(); ++i3)
-		{
-			LostContentRegistry.register(event.getRegistry(), LostContentBlocks.blockList.get(i3).getRegistryName().toString().replace(LostContentMod.MODID + ":", ""), new BlockItem(LostContentBlocks.blockList.get(i3), (new Item.Properties().group(AetherItemGroups.AETHER_BLOCKS))));
-		}
+
+		LostContentItems.registerBlockItems(event.getRegistry());
 	}
 
 	@SubscribeEvent

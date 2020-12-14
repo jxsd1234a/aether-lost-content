@@ -3,7 +3,6 @@ package com.legacy.lost_aether.world.structure;
 import java.util.List;
 import java.util.Random;
 
-import com.google.common.collect.ImmutableList;
 import com.legacy.lost_aether.LostContentMod;
 import com.legacy.lost_aether.entity.AerwhaleKingEntity;
 import com.legacy.lost_aether.registry.LostContentBlocks;
@@ -19,11 +18,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.gen.feature.structure.StructurePiece;
-import net.minecraft.world.gen.feature.template.AlwaysTrueRuleTest;
-import net.minecraft.world.gen.feature.template.PlacementSettings;
-import net.minecraft.world.gen.feature.template.RandomBlockMatchRuleTest;
-import net.minecraft.world.gen.feature.template.RuleEntry;
-import net.minecraft.world.gen.feature.template.RuleStructureProcessor;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 
 public class PlatinumDungeonPieces
@@ -78,22 +72,10 @@ public class PlatinumDungeonPieces
 			this.setupTemplate(templateManager);
 		}
 
-		// private void setupTemplate(TemplateManager templateManager)
-		/*@Override
-		public void addProcessors(TemplateManager templateManager, PlacementSettings placementSettingsIn)
-		{
-			super.addProcessors(templateManager, placementSettingsIn);
-			Template template = templateManager.getTemplateDefaulted(this.location);
-			BlockPos sizePos = templateManager.getTemplate(this.location).getSize();
-			BlockPos centerPos = new BlockPos(sizePos.getX() / 2, 0, sizePos.getZ() / 2);
-			placementSettingsIn.addProcessor(new RuleStructureProcessor(ImmutableList.of(new RuleEntry(new RandomBlockMatchRuleTest(LostContentBlocks.locked_gale_stone, 0.05F), AlwaysTrueRuleTest.INSTANCE, LostContentBlocks.locked_light_gale_stone.getDefaultState()))));
-		
-			this.setup(template, this.templatePosition, placementSettingsIn);
-		}*/
-		
 		@Override
 		public BlockState modifyState(IServerWorld world, Random rand, BlockPos pos, BlockState originalState)
 		{
+			// Replace Gale Stone randomly with the light variant.
 			if (originalState.getBlock() == LostContentBlocks.locked_gale_stone && rand.nextFloat() < 0.05F)
 				return LostContentBlocks.locked_light_gale_stone.getDefaultState();
 
@@ -120,6 +102,7 @@ public class PlatinumDungeonPieces
 				worldIn.addEntity(entity);
 				worldIn.setBlockState(pos.add(0, 0, -7), LostContentBlocks.songstone.getDefaultState(), 17);
 			}
+			// TODO: re-add once all the aether content is added.
 			/*else if (function.contains("platinum_chest"))
 			{
 				worldIn.setBlockToAir(pos);
