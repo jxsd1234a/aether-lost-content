@@ -3,6 +3,7 @@ package com.legacy.lost_aether.world.structure;
 import java.util.List;
 import java.util.Random;
 
+import com.aether.block.AetherBlocks;
 import com.legacy.lost_aether.LostContentMod;
 import com.legacy.lost_aether.entity.AerwhaleKingEntity;
 import com.legacy.lost_aether.registry.LostContentBlocks;
@@ -11,6 +12,8 @@ import com.legacy.lost_aether.registry.LostContentStructures;
 import com.legacy.structure_gel.worldgen.structure.GelTemplateStructurePiece;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.ChestBlock;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
@@ -103,11 +106,14 @@ public class PlatinumDungeonPieces
 				worldIn.setBlockState(pos.add(0, 0, -7), LostContentBlocks.songstone.getDefaultState(), 17);
 			}
 			// TODO: re-add once all the aether content is added.
-			/*else if (function.contains("platinum_chest"))
+			else if (function.contains("platinum_chest"))
 			{
-				worldIn.setBlockToAir(pos);
+				worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
+
+				if (worldIn.getBlockState(pos.down()).hasProperty(ChestBlock.FACING))
+					worldIn.setBlockState(pos.down(), AetherBlocks.TREASURE_CHEST.getDefaultState().with(ChestBlock.FACING, worldIn.getBlockState(pos.down()).get(ChestBlock.FACING)), 3);
 			}
-			else if (function.contains("loot_chest"))
+			/*else if (function.contains("loot_chest"))
 			{
 				BlockPos blockpos = pos.down();
 				TileEntity tileentity = worldIn.getTileEntity(blockpos);
@@ -127,16 +133,16 @@ public class PlatinumDungeonPieces
 						{
 							if (worldIn.getBlockState(blockpos.down()) == BlocksLostAether.locked_light_gale_stone.getDefaultState())
 							{
-								worldIn.setBlockState(blockpos, BlocksAether.chest_mimic.getDefaultState().withRotation(Rotation.CLOCKWISE_90));
+								worldIn.setBlockState(blockpos, AetherBlocks.chest_mimic.getDefaultState().withRotation(Rotation.CLOCKWISE_90));
 							}
 							else
 							{
-								worldIn.setBlockState(blockpos, BlocksAether.chest_mimic.getDefaultState().withRotation(Rotation.COUNTERCLOCKWISE_90));
+								worldIn.setBlockState(blockpos, AetherBlocks.chest_mimic.getDefaultState().withRotation(Rotation.COUNTERCLOCKWISE_90));
 							}
 						}
 						else
 						{
-							worldIn.setBlockState(blockpos, BlocksAether.chest_mimic.getDefaultState());
+							worldIn.setBlockState(blockpos, AetherBlocks.chest_mimic.getDefaultState());
 						}
 					}
 				}
@@ -152,15 +158,15 @@ public class PlatinumDungeonPieces
 			switch (item)
 			{
 			case 0:
-				return new ItemStack(ItemsAether.zanite_pickaxe);
+				return new ItemStack(AetherItems.ZANITE_PICKAXE);
 			case 1:
-				return new ItemStack(ItemsAether.skyroot_bucket, 1, 3);
+				return new ItemStack(AetherItems.SKYROOT_REMEDY_BUCKET, 3);
 			case 2:
-				return new ItemStack(ItemsAether.dart_shooter, 1, 2);
+				return new ItemStack(AetherItems.ENCHANTED_DART_SHOOTER, 2);
 			case 3:
 				return ItemMoaEgg.getStackFromType(LostMoaTypes.brown);
 			case 4:
-				return new ItemStack(ItemsAether.white_cape);
+				return new ItemStack(AetherItems.WHITE_CAPE);
 			case 5:
 			{
 				if (random.nextInt(2) == 0)
@@ -170,21 +176,21 @@ public class PlatinumDungeonPieces
 			case 6:
 			{
 				if (random.nextInt(20) == 0)
-					return new ItemStack(ItemsAether.ice_pendant);
+					return new ItemStack(AetherItems.ICE_PENDANT);
 			}
 			case 7:
 			{
 				if (random.nextInt(20) == 0)
-					return new ItemStack(ItemsAether.ice_ring);
+					return new ItemStack(AetherItems.ICE_RING);
 			}
 			case 8:
 			{
 				if (random.nextInt(15) == 0)
-					return new ItemStack(ItemsAether.zanite_ring);
+					return new ItemStack(AetherItems.ZANITE_RING);
 			}
 			}
 		
-			return new ItemStack(BlocksAether.aercloud, random.nextInt(4) + 1);
+			return new ItemStack(AetherBlocks.COLD_AERCLOUD, random.nextInt(4) + 1);
 		}
 		
 		public static ItemStack getPlatinumLoot(Random random)
@@ -194,9 +200,9 @@ public class PlatinumDungeonPieces
 			{
 			case 0:
 				if (random.nextBoolean())
-					return new ItemStack(ItemsAether.welcoming_skies);
+					return new ItemStack(AetherItems.MUSIC_DISC_WELCOMING_SKIES);
 				else
-					return new ItemStack(ItemsAether.legacy);
+					return new ItemStack(AetherItems.MUSIC_DISC_LEGACY);
 			case 1:
 				if (random.nextBoolean())
 					return new ItemStack(LostContentItems.agility_boots);
@@ -206,17 +212,17 @@ public class PlatinumDungeonPieces
 				if (random.nextInt(4) == 0)
 					return new ItemStack(LostContentItems.jeb_shield);
 			case 4:
-				return new ItemStack(BlocksAether.enchanted_gravitite, random.nextInt(2) + 1);
+				return new ItemStack(AetherBlocks.ENCHANTED_GRAVITITE, random.nextInt(2) + 1);
 			case 5:
 				return new ItemStack(LostContentItems.sentry_shield);
 			case 6:
 				if (random.nextBoolean())
 					return new ItemStack(LostContentItems.invisibility_gem);
 			case 7:
-				return new ItemStack(ItemsAether.life_shard);
+				return new ItemStack(AetherItems.LIFE_SHARD);
 			case 8:
 				if (random.nextInt(6) == 0)
-					return new ItemStack(ItemsAether.repulsion_shield);
+					return new ItemStack(AetherItems.repulsion_shield);
 			case 9:
 				if (random.nextInt(4) == 0)
 					return new ItemStack(LostContentItems.phoenix_axe);
@@ -228,7 +234,7 @@ public class PlatinumDungeonPieces
 					return new ItemStack(LostContentItems.phoenix_sword);
 			}
 		
-			return new ItemStack(ItemsAether.cloud_staff);
+			return new ItemStack(AetherItems.CLOUD_STAFF);
 		}*/
 	}
 }
