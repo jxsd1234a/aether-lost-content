@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.aether.block.AetherBlocks;
+import com.aether.item.AetherItems;
 import com.legacy.lost_aether.LostContentMod;
 import com.legacy.lost_aether.entity.AerwhaleKingEntity;
 import com.legacy.lost_aether.registry.LostContentBlocks;
@@ -14,7 +15,10 @@ import com.legacy.structure_gel.worldgen.structure.GelTemplateStructurePiece;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ChestBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.ChestTileEntity;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
@@ -81,6 +85,9 @@ public class PlatinumDungeonPieces
 			// Replace Gale Stone randomly with the light variant.
 			if (originalState.getBlock() == LostContentBlocks.locked_gale_stone && rand.nextFloat() < 0.05F)
 				return LostContentBlocks.locked_light_gale_stone.getDefaultState();
+			
+			if (originalState.getBlock() == AetherBlocks.CRYSTAL_LEAVES && rand.nextFloat() < 0.30F)
+				return AetherBlocks.CRYSTAL_FRUIT_LEAVES.getDefaultState();
 
 			return super.modifyState(world, rand, pos, originalState);
 		}
@@ -110,26 +117,29 @@ public class PlatinumDungeonPieces
 			{
 				worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
 
-				if (worldIn.getBlockState(pos.down()).hasProperty(ChestBlock.FACING))
-					worldIn.setBlockState(pos.down(), AetherBlocks.TREASURE_CHEST.getDefaultState().with(ChestBlock.FACING, worldIn.getBlockState(pos.down()).get(ChestBlock.FACING)), 3);
+				/*if (worldIn.getBlockState(pos.down()).hasProperty(ChestBlock.FACING))
+					worldIn.setBlockState(pos.down(), AetherBlocks.TREASURE_CHEST.getDefaultState().with(ChestBlock.FACING, worldIn.getBlockState(pos.down()).get(ChestBlock.FACING)), 3);*/
 			}
-			/*else if (function.contains("loot_chest"))
+			else if (function.contains("loot_chest"))
 			{
 				BlockPos blockpos = pos.down();
 				TileEntity tileentity = worldIn.getTileEntity(blockpos);
-				if (tileentity instanceof TileEntityChest)
+				if (tileentity instanceof ChestTileEntity)
 				{
-					if (rand.nextInt(2) == 0)
+					if (rand.nextBoolean())
 					{
 						int u;
 						for (u = 0; u < 3 + rand.nextInt(3); u++)
 						{
-							((TileEntityChest) tileentity).setInventorySlotContents(rand.nextInt(((TileEntityChest) tileentity).getSizeInventory()), this.getNormalLoot(rand));
+							((ChestTileEntity) tileentity).setInventorySlotContents(rand.nextInt(((ChestTileEntity) tileentity).getSizeInventory()), this.getNormalLoot(rand));
 						}
 					}
 					else
 					{
-						if (blockpos.getY() > 145)
+						if (worldIn.getBlockState(blockpos).hasProperty(ChestBlock.FACING))
+							worldIn.setBlockState(blockpos, AetherBlocks.CHEST_MIMIC.getDefaultState().with(ChestBlock.FACING, worldIn.getBlockState(blockpos).get(ChestBlock.FACING)), 3);
+
+						/*if (blockpos.getY() > 145)
 						{
 							if (worldIn.getBlockState(blockpos.down()) == BlocksLostAether.locked_light_gale_stone.getDefaultState())
 							{
@@ -143,18 +153,20 @@ public class PlatinumDungeonPieces
 						else
 						{
 							worldIn.setBlockState(blockpos, AetherBlocks.chest_mimic.getDefaultState());
-						}
+						}*/
 					}
 				}
 			
-				worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
-			}*/
+				worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
+			}
 
 		}
 
-		/*private ItemStack getNormalLoot(Random random)
+		private ItemStack getNormalLoot(Random random)
 		{
-			int item = random.nextInt(10);
+			return new ItemStack(AetherItems.ZANITE_PICKAXE);
+
+			/*int item = random.nextInt(10);
 			switch (item)
 			{
 			case 0:
@@ -189,11 +201,11 @@ public class PlatinumDungeonPieces
 					return new ItemStack(AetherItems.ZANITE_RING);
 			}
 			}
-		
-			return new ItemStack(AetherBlocks.COLD_AERCLOUD, random.nextInt(4) + 1);
+			
+			return new ItemStack(AetherBlocks.COLD_AERCLOUD, random.nextInt(4) + 1);*/
 		}
 		
-		public static ItemStack getPlatinumLoot(Random random)
+		/*public static ItemStack getPlatinumLoot(Random random)
 		{
 			int item = random.nextInt(11);
 			switch (item)
