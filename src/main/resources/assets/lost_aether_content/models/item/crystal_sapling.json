@@ -1,6 +1,6 @@
 {
 	"parent": "item/generated",
 	"textures": {
-		"layer0": "aether:block/crystal_sapling"
+		"layer0": "lost_aether_content:block/crystal_sapling"
 	}
 }

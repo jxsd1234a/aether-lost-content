@@ -1,7 +1,7 @@
 {
 	"parent": "lost_aether_content:item/aether_shield",
 	"textures": {
-		"layer0": "aether:item/tools/jeb_shield"
+		"layer0": "lost_aether_content:item/jeb_shield"
 	},
     "overrides": [
         {

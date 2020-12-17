@@ -1,6 +1,6 @@
 {
 	"parent": "item/generated",
 	"textures": {
-		"layer0": "aether:item/accessories/power_gloves"
+		"layer0": "lost_aether_content:item/power_gloves"
 	}
 }

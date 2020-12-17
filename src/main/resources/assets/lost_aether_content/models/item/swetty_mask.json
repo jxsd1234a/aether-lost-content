@@ -1,6 +1,6 @@
 {
 	"parent": "item/generated",
 	"textures": {
-		"layer0": "aether:item/armor/swetty_mask"
+		"layer0": "lost_aether_content:item/swetty_mask"
 	}
 }

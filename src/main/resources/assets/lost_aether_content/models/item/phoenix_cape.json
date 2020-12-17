@@ -1,6 +1,6 @@
 {
 	"parent": "item/generated",
 	"textures": {
-		"layer0": "aether:item/accessories/phoenix_cape"
+		"layer0": "lost_aether_content:item/phoenix_cape"
 	}
 }

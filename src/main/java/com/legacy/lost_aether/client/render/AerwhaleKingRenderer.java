@@ -5,7 +5,6 @@ import com.legacy.lost_aether.client.models.AerwhaleKingModel;
 import com.legacy.lost_aether.client.render.layer.AerwhaleKingGlowLayer;
 import com.legacy.lost_aether.entity.AerwhaleKingEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -17,7 +16,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class AerwhaleKingRenderer<T extends AerwhaleKingEntity> extends MobRenderer<T, AerwhaleKingModel<T>>
 {
-	private static final ResourceLocation TEXTURE = LostContentMod.locate("textures/entity/king_aerwhale.png");
+	private static final ResourceLocation TEXTURE = LostContentMod.locate("textures/entity/aerwhale_king.png");
 
 	public AerwhaleKingRenderer(EntityRendererManager renderManagerIn)
 	{
@@ -35,8 +34,8 @@ public class AerwhaleKingRenderer<T extends AerwhaleKingEntity> extends MobRende
 	@Override
 	public void render(T entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn)
 	{
-		if (entityIn.getStunned())
-			RenderSystem.color3f(1.0F, 1.0F, 0.5F);
+		/*if (entityIn.getStunned())
+			RenderSystem.color3f(1.0F, 1.0F, 0.5F);*/
 
 		super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
 	}

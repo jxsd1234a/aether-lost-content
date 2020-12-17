@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import com.aether.api.AetherAPI;
 import com.aether.player.IAetherBoss;
 import com.aether.util.AetherSoundEvents;
 import com.legacy.lost_aether.entity.util.LostNameGen;
@@ -127,21 +128,17 @@ public class AerwhaleKingEntity extends FlyingEntity implements IAetherBoss
 	{
 		super.tick();
 
-		if (this.world.isRemote)
-			this.setMotion(this.getMotion());
+		/*if (this.world.isRemote)
+			this.setMotion(this.getMotion());*/
 
 		if (this.isAIDisabled())
 			return;
 
-		AxisAlignedBB radiusCheck = this.world.isRemote ? this.getBoundingBox().grow(20.0D, 12.0D, 20.0D) : new AxisAlignedBB(new BlockPos(this.dungeonX, this.getPosY(), this.dungeonZ)).grow(15, 12, 15);
-		List<PlayerEntity> playerList = this.world.<PlayerEntity>getEntitiesWithinAABB(PlayerEntity.class, radiusCheck);
+		List<PlayerEntity> playerList = this.getPlayerList();
 
-		// TODO: re-add when boss api is done
 		// Give all players in the area the boss bar. Mainly for multiplayer.
-		/*for (PlayerEntity nearbyPlayers : this.getPlayerList())
-		{
-			AetherAPI.getInstance().get(nearbyPlayers).setFocusedBoss(this);
-		}*/
+		if (!this.getPlayerList().isEmpty())
+			this.getPlayerList().forEach((nearbyPlayers) -> AetherAPI.get(nearbyPlayers).ifPresent(aetherPlayer -> aetherPlayer.setFocusedBoss(this)));
 
 		if (this.getAttackTarget() != null)
 		{
@@ -630,9 +627,7 @@ public class AerwhaleKingEntity extends FlyingEntity implements IAetherBoss
 	public List<PlayerEntity> getPlayerList()
 	{
 		AxisAlignedBB radiusCheck = this.world.isRemote ? this.getBoundingBox().grow(20.0D, 12.0D, 20.0D) : new AxisAlignedBB(new BlockPos(this.dungeonX, this.getPosY(), this.dungeonZ)).grow(15, 12, 15);
-		List<PlayerEntity> playerList = this.world.<PlayerEntity>getEntitiesWithinAABB(PlayerEntity.class, radiusCheck);
-
-		return playerList;
+		return this.world.<PlayerEntity>getEntitiesWithinAABB(PlayerEntity.class, radiusCheck);
 	}
 
 	@OnlyIn(Dist.CLIENT)

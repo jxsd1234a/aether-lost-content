@@ -38,9 +38,8 @@ public class LostContentRegistry
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public static void onRegisterItems(RegistryEvent.Register<Item> event)
 	{
-		/*LostContentItems.init(event);*/
-
 		LostContentItems.registerBlockItems(event.getRegistry());
+		LostContentItems.init(event);
 	}
 
 	@SubscribeEvent

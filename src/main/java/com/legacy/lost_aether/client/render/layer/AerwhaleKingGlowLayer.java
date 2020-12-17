@@ -14,7 +14,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class AerwhaleKingGlowLayer<T extends AerwhaleKingEntity, M extends AerwhaleKingModel<T>> extends AbstractEyesLayer<T, M>
 {
-	private static final ResourceLocation TEXTURE = LostContentMod.locate("textures/entity/king_aerwhale_glow.png");
+	private static final ResourceLocation TEXTURE = LostContentMod.locate("textures/entity/aerwhale_king_glow.png");
 	private static final RenderType RENDER_TYPE = RenderType.getEyes(TEXTURE);
 
 	public AerwhaleKingGlowLayer(IEntityRenderer<T, M> rendererIn)
