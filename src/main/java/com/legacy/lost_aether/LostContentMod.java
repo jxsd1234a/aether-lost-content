@@ -7,7 +7,6 @@ import com.legacy.lost_aether.client.LostContentItemModelPredicates;
 import com.legacy.lost_aether.data.LostContentTags;
 import com.legacy.lost_aether.event.LostContentEvents;
 import com.legacy.lost_aether.registry.LostContentFeatures;
-import com.legacy.structure_gel.events.RegisterDimensionEvent;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -34,7 +33,7 @@ public class LostContentMod
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(LostContentMod::commonInit);
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(LostContentMod::clientInit));
 
-		MinecraftForge.EVENT_BUS.addListener((RegisterDimensionEvent event) -> LostContentFeatures.onDimensionRegistry(event));
+		MinecraftForge.EVENT_BUS.addListener(LostContentFeatures::onDimensionRegistry);
 		MinecraftForge.EVENT_BUS.register(LostContentEvents.class);
 	}
 

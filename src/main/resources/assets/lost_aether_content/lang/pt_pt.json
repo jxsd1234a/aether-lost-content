@@ -1,0 +1,21 @@
+{
+	"item.lost_aether_content.phoenix_sword": "Espada da Fênix",
+	"item.lost_aether_content.phoenix_pickaxe": "Picareta da Fênix",
+	"item.lost_aether_content.phoenix_axe": "Machado da Fênix",
+	"item.lost_aether_content.phoenix_shovel": "Pá da Fênix",
+	"item.lost_aether_content.phoenix_cape": "Capa da Fênix",
+	"item.lost_aether_content.sentry_shield": "Escudo do Sentinela",
+	"item.lost_aether_content.invisibility_gem": "Gema da Invisibilidade",
+	"item.lost_aether_content.swetty_mask": "Máscara de Swet",
+	"item.lost_aether_content.agility_boots": "Botas de Agilidade",
+	"item.lost_aether_content.power_gloves": "Luvas de Poder",
+	"item.lost_aether_content.zanite_shield": "Escudo de Zanite",
+	"item.lost_aether_content.gravitite_shield": "Escudo de Gravitite",
+	"item.lost_aether_content.jeb_shield": "Escudo do Jeb",
+	"item.lost_aether_content.jeb_hammer": "Martelo do Jeb",
+	"item.lost_aether_content.brown_moa_egg": "Ovo de Moa Marrom",
+	"item.lost_aether_content.platinum_key": "Chave de Platina",
+	"block.lost_aether_content.crystal_sapling": "Muda de Cristal",
+	"block.lost_aether_content.songstone": "Musipedra",
+	"advancement.lost_aether_content.platinum_dungeon.desc": "Derrote o chefe da dungeon de platina"
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "lost_aether_content:block/crystal_sapling"
+  }
+}
