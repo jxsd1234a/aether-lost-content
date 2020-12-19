@@ -2,14 +2,14 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "lost_aether:gale_slab"
+      "lost_aether_content:gale_slab"
     ]
   },
   "criteria": {
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "lost_aether:gale_slab"
+        "recipe": "lost_aether_content:gale_slab"
       }
     },
     "has_angelic": {
@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "lost_aether:gale_stone"
+            "item": "lost_aether_content:gale_stone"
           }
         ]
       }

@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import com.legacy.lost_aether.client.LostContentEntityRendering;
 import com.legacy.lost_aether.client.LostContentItemModelPredicates;
+import com.legacy.lost_aether.data.LostContentTags;
 import com.legacy.lost_aether.event.LostContentEvents;
 import com.legacy.lost_aether.registry.LostContentFeatures;
 import com.legacy.structure_gel.events.RegisterDimensionEvent;
@@ -47,6 +48,8 @@ public class LostContentMod
 
 	public static void commonInit(FMLCommonSetupEvent event)
 	{
+		LostContentTags.Blocks.init();
+		LostContentTags.Items.init();
 	}
 
 	public static ResourceLocation locate(String name)

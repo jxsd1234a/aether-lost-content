@@ -6,11 +6,11 @@
   ],
   "key": {
     "#": {
-      "item": "lost_aether:gale_stone"
+      "item": "lost_aether_content:gale_stone"
     }
   },
   "result": {
-    "item": "lost_aether:gale_wall",
+    "item": "lost_aether_content:gale_wall",
     "count": 6
   }
 }

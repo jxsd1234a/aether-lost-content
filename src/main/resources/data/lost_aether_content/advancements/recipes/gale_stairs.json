@@ -2,14 +2,14 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "lost_aether:gale_stairs"
+      "lost_aether_content:gale_stairs"
     ]
   },
   "criteria": {
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "lost_aether:gale_stairs"
+        "recipe": "lost_aether_content:gale_stairs"
       }
     },
     "has_gale": {
@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "lost_aether:gale_stone"
+            "item": "lost_aether_content:gale_stone"
           }
         ]
       }

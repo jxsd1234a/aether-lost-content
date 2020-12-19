@@ -8,14 +8,14 @@
   "key": {
     "W": [
       {
-        "item": "aether_legacy:zanite_gemstone"
+        "item": "aether:zanite_gemstone"
       }
     ],
     "o": {
-      "item": "aether_legacy:skyroot_stick"
+      "item": "aether:skyroot_stick"
     }
   },
   "result": {
-    "item": "lost_aether:zanite_shield"
+    "item": "lost_aether_content:zanite_shield"
   }
 }

@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+  	"lost_aether_content:gale_stone",
+    "lost_aether_content:light_gale_stone",
+    "lost_aether_content:locked_gale_stone",
+    "lost_aether_content:locked_light_gale_stone"
+  ]
+}

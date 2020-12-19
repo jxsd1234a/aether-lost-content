@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "lost_aether:zanite_shield"
+      "lost_aether_content:zanite_shield"
     ]
   },
   "criteria": {
@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "item": "aether_legacy:zanite_gemstone"
+            "item": "aether:zanite_gemstone"
           }
         ]
       }
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "lost_aether:zanite_shield"
+        "recipe": "lost_aether_content:zanite_shield"
       }
     }
   },

@@ -8,14 +8,14 @@
   "key": {
     "W": [
       {
-        "item": "aether_legacy:enchanted_gravitite"
+        "item": "aether:enchanted_gravitite"
       }
     ],
     "o": {
-      "item": "aether_legacy:skyroot_stick"
+      "item": "aether:skyroot_stick"
     }
   },
   "result": {
-    "item": "lost_aether:gravitite_shield"
+    "item": "lost_aether_content:gravitite_shield"
   }
 }

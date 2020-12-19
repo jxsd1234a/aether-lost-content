@@ -1,22 +1,59 @@
 package com.legacy.lost_aether.event;
 
+import java.util.List;
+
 import com.aether.api.AetherAPI;
+import com.legacy.lost_aether.data.LostContentTags;
 import com.legacy.lost_aether.item.LostShieldItem;
 import com.legacy.lost_aether.registry.LostContentItems;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class LostContentEvents
 {
+	@SubscribeEvent
+	public static void destroyBlock(BlockEvent.BreakEvent event)
+	{
+		if (!(event.getWorld() instanceof ServerWorld))
+			return;
+
+		PlayerEntity player = event.getPlayer();
+		ServerWorld world = (ServerWorld) event.getWorld();
+		BlockState state = event.getState();
+		BlockPos pos = event.getPos();
+		Item item = player.getHeldItemMainhand().getItem();
+
+		if (!player.isCreative() && player.func_234569_d_(state) && LostContentTags.Items.PHOENIX_TOOLS.contains(item))
+		{
+			List<ItemStack> drops = Block.getDrops(state, (ServerWorld) world, pos, (TileEntity) world.getTileEntity(pos), player, player.getHeldItemMainhand());
+			drops.forEach(itemStack -> Block.spawnAsEntity(world.getWorld(), pos, getSmeltedResult(itemStack, world.getWorld())));
+			world.getWorld().setBlockState(pos, Blocks.AIR.getDefaultState());
+			return;
+		}
+	}
+
 	@SubscribeEvent
 	public static void onLivingAttack(LivingAttackEvent event)
 	{
@@ -139,27 +176,15 @@ public class LostContentEvents
 		return false;
 	}
 
-	public static void knockBack(Entity knocked, Entity attacker, float strength, double xRatio, double zRatio)
+	private static ItemStack getSmeltedResult(ItemStack stack, World world)
 	{
-		/*float f = MathHelper.sqrt(xRatio * xRatio + zRatio * zRatio);
-		knocked.motionX /= 2.0D;
-		knocked.motionZ /= 2.0D;
-		knocked.motionX -= xRatio / (double) f * (double) strength;
-		knocked.motionZ -= zRatio / (double) f * (double) strength;
-		
-		if (knocked.onGround && ((EntityLivingBase) attacker).getActiveItemStack().getItem() != ItemsLostAether.gravitite_shield)
+		ItemStack output = stack;
+		IInventory iInventory = new Inventory(stack);
+		output = world.getRecipeManager().getRecipe(IRecipeType.SMELTING, iInventory, world).map((furnaceRecipe) ->
 		{
-			knocked.motionY /= 2.0D;
-			knocked.motionY += (double) strength;
-		
-			if (knocked.motionY > 0.4000000059604645D)
-			{
-				knocked.motionY = 0.4000000059604645D;
-			}
-		}
-		else
-		{
-			knocked.motionY = 1.0D;
-		}*/
+			return furnaceRecipe.getCraftingResult(iInventory);
+		}).orElse(stack);
+		output.setCount(stack.getCount());
+		return output;
 	}
 }

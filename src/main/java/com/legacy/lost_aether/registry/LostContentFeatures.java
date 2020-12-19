@@ -7,11 +7,20 @@ import com.legacy.structure_gel.access_helpers.BiomeAccessHelper;
 import com.legacy.structure_gel.events.RegisterDimensionEvent;
 import com.legacy.structure_gel.util.GelCollectors;
 
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
+import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
+import net.minecraft.world.gen.feature.FeatureSpread;
+import net.minecraft.world.gen.feature.TwoLayerFeature;
+import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
+import net.minecraft.world.gen.trunkplacer.StraightTrunkPlacer;
 
 public class LostContentFeatures
 {
+	public static final BaseTreeFeatureConfig DUMMY_TREE_CONFIG = (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.OAK_LOG.getDefaultState()), new SimpleBlockStateProvider(Blocks.OAK_LEAVES.getDefaultState()), new BlobFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(0), 3), new StraightTrunkPlacer(4, 2, 0), new TwoLayerFeature(1, 0, 1))).setIgnoreVines().build(); // DefaultBiomeFeatures.OAK_TREE_CONFIG;
+
 	/**
 	 * Using the dimension register event to add things to the Aether biome. This
 	 * allows us to access the JSON based world files... although in a hacky way,

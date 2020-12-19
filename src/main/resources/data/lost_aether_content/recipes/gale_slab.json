@@ -5,11 +5,11 @@
   ],
   "key": {
     "#": {
-      "item": "lost_aether:gale_stone"
+      "item": "lost_aether_content:gale_stone"
     }
   },
   "result": {
-    "item": "lost_aether:gale_slab",
+    "item": "lost_aether_content:gale_slab",
     "data": 0,
     "count": 6
   }

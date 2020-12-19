@@ -1,7 +1,7 @@
 {
   	"display": {
 	  	"icon": {
-			"item": "lost_aether:platinum_key"
+			"item": "lost_aether_content:platinum_key"
 		},
 		"title": {
 			"translate": "advancement.lost_aether.platinum_dungeon"
@@ -11,13 +11,13 @@
 		},
 		"frame": "challenge"
 	},
-  	"parent": "aether_legacy:extinquished",
+  	"parent": "aether:extinquished",
 	"criteria": {
 		"enter_aether": {
 			"trigger": "minecraft:player_killed_entity",
 			"conditions": {
 				"entity": {
-					"type": "lost_aether:king_aerwhale"
+					"type": "lost_aether_content:king_aerwhale"
 				}
 			}
 		}

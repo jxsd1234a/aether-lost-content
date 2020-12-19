@@ -7,10 +7,12 @@ import java.util.function.Supplier;
 import com.aether.item.AetherItemGroups;
 import com.legacy.lost_aether.LostContentRegistry;
 import com.legacy.lost_aether.block.SongstoneBlock;
+import com.legacy.lost_aether.block.util.CrystalTree;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.SaplingBlock;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.StairsBlock;
@@ -52,8 +54,8 @@ public class LostContentBlocks
 		gale_stone_stairs = register("gale_stone_stairs", new StairsBlock(() -> gale_stone.getDefaultState(), Block.Properties.from(gale_stone)));
 		gale_stone_wall = register("gale_stone_wall", new WallBlock(Block.Properties.from(gale_stone)));
 
-		/*crystal_sapling = register("crystal_sapling", new SaplingBlock(new OakTree(), Block.Properties.from(Blocks.OAK_SAPLING)) {});
-		holiday_sapling = register("holiday_sapling", new SaplingBlock(new OakTree(), Block.Properties.from(Blocks.OAK_SAPLING)) {});*/
+		crystal_sapling = register("crystal_sapling", new SaplingBlock(new CrystalTree(), Block.Properties.from(Blocks.OAK_SAPLING)));
+		/*holiday_sapling = register("holiday_sapling", new SaplingBlock(new OakTree(), Block.Properties.from(Blocks.OAK_SAPLING)) {});*/
 		/*potted_crystal_sapling = registerBlock("potted_crystal_sapling", new AetherFlowerPotBlock(() -> crystal_sapling.delegate.get()));*/
 		/*potted_holiday_sapling = registerBlock("potted_holiday_sapling", new AetherFlowerPotBlock(() -> holiday_sapling.delegate.get()));*/
 	}

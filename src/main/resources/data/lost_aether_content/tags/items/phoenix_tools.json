@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "lost_aether_content:phoenix_pickaxe",
+    "lost_aether_content:phoenix_axe",
+    "lost_aether_content:phoenix_shovel",
+    "lost_aether_content:phoenix_sword"
+  ]
+}
